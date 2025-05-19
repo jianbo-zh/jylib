@@ -1,0 +1,92 @@
+package wxpaybiz
+
+/*
+* 示例数据
+
+	{
+		"amount": {
+			"currency": "CNY",
+			"payer_currency": "CNY",
+			"payer_total": 1,
+			"total": 1
+		},
+		"appid": "wxd9435ab849b93e1b",
+		"attach": "",
+		"bank_type": "OTHERS",
+		"mchid": "1667183830",
+		"out_trade_no": "O_20240531155539",
+		"payer": {
+			"openid": "o43Gz6zMKhKbCxCkiTAVvo_KIOgc"
+		},
+		"success_time": "2024-05-31T15:55:58+08:00",
+		"trade_state": "SUCCESS",
+		"trade_state_desc": "支付成功",
+		"trade_type": "JSAPI",
+		"transaction_id": "4200002214202405313352468252"
+	}
+*/
+type WxPayData struct {
+	Mchid          string `json:"mchid,omitempty"`
+	Appid          string `json:"appid,omitempty"`
+	TransactionID  string `json:"transaction_id,omitempty"`
+	OutTradeNo     string `json:"out_trade_no,omitempty"`
+	TradeType      string `json:"trade_type,omitempty"`
+	TradeState     string `json:"trade_state,omitempty"`
+	TradeStateDesc string `json:"trade_state_desc,omitempty"`
+	Payer          struct {
+		Openid string `json:"openid,omitempty"`
+	} `json:"payer,omitempty"`
+	BankType string `json:"bank_type,omitempty"`
+	Amount   struct {
+		Currency      string `json:"currency,omitempty"`
+		PayerCurrency string `json:"payer_currency,omitempty"`
+		PayerTotal    int64  `json:"payer_total,omitempty"`
+		Total         int64  `json:"total,omitempty"`
+	} `json:"amount,omitempty"`
+	Attach      string `json:"attach,omitempty"`
+	SuccessTime string `json:"success_time,omitempty"`
+}
+
+/*
+* 示例数据
+
+	{
+		"amount": {
+			"payer_refund": 1,
+			"payer_total": 1,
+			"refund": 1,
+			"total": 1
+		},
+		"mchid": "1667183830",
+		"out_refund_no": "R_20240531155539",
+		"out_trade_no": "O_20240531155539",
+		"refund_id": "50303209692024060184827203073",
+		"refund_status": "SUCCESS",
+		"success_time": "2024-06-01T10:11:29+08:00",
+		"transaction_id": "4200002214202405313352468252",
+		"user_received_account": "支付用户零钱"
+	}
+*/
+type WxRefundData struct {
+	Mchid         string `json:"mchid,omitempty"`
+	TransactionID string `json:"transaction_id,omitempty"`
+	OutRefundNo   string `json:"out_refund_no,omitempty"`
+	OutTradeNo    string `json:"out_trade_no,omitempty"`
+	RefundID      string `json:"refund_id,omitempty"`
+	RefundStatus  string `json:"refund_status,omitempty"`
+	Amount        struct {
+		PayerRefund int64 `json:"payer_refund,omitempty"`
+		PayerTotal  int64 `json:"payer_total,omitempty"`
+		Refund      int64 `json:"refund,omitempty"`
+		Total       int64 `json:"total,omitempty"`
+	} `json:"amount,omitempty"`
+	SuccessTime         string `json:"success_time,omitempty"`
+	UserReceivedAccount string `json:"user_received_account,omitempty"`
+}
+
+type ProfitReceiver struct {
+	Type         int     `json:"type,omitempty"` // 1-商户 2-个人
+	Account      string  `json:"account,omitempty"`
+	Name         string  `json:"name,omitempty"`
+	SharingRatio float64 `json:"ratio,omitempty"`
+}

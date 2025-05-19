@@ -10,6 +10,7 @@ require (
 	github.com/qichengzx/coordtransform v0.0.0-20220708113031-010878418826
 	github.com/quic-go/quic-go v0.51.0
 	github.com/spf13/cast v1.8.0
+	github.com/wechatpay-apiv3/wechatpay-go v0.2.20
 	github.com/wenzhenxi/gorsa v0.0.0-20230530123828-0320cce15d81
 	go.opentelemetry.io/otel v1.35.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.35.0
