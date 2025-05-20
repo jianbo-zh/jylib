@@ -32,6 +32,7 @@ type IClient interface {
 	CarDispatchClient(context.Context) (dispatchV1.DispatchClient, error)
 	CarOrderClient(context.Context) (orderV1.CarOrderClient, error)
 	CarProxyClient(context.Context) (proxyV1.CarProxyClient, error)
+	CarMeasureClient(context.Context) (proxyV1.CarMeasureClient, error)
 	FileStorageClient(context.Context) (filestorageV1.FileStorageClient, error)
 	MessageClient(context.Context) (messageV1.MessageClient, error)
 	ParkMapClient(context.Context) (parkmapV1.ParkMapClient, error)
@@ -184,6 +185,28 @@ func (c *Client) CarProxyClient(ctx context.Context) (proxyV1.CarProxyClient, er
 	}
 
 	return proxyV1.NewCarProxyClient(conn), nil
+}
+
+// CarProxyClient
+func (c *Client) CarMeasureClient(ctx context.Context) (proxyV1.CarMeasureClient, error) {
+	conn, err := grpc.Dial(ctx,
+		grpc.WithDiscovery(c.discovery),
+		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarProxy)),
+		grpc.WithTimeout(5*time.Second),
+		grpc.WithMiddleware(
+			recovery.Recovery(),
+			tracing.Client(),
+		),
+		grpc.WithLogger(c.logger),
+		grpc.WithTLSConfig(
+			tlsconf.NewClientTlsConfig("", "", ""),
+		),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("grpc.Dial error: %w", err)
+	}
+
+	return proxyV1.NewCarMeasureClient(conn), nil
 }
 
 // FileStorageClient
