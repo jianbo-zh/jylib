@@ -32,7 +32,7 @@ const (
 	Service_Parkdata10Quic string = "GR.parkdata10quic"
 	Service_Task           string = "GR.task"
 	Service_CarAuth        string = "GR.carauth"
-	Service_CarControl     string = "GR.carcontrol"
+	Service_CarProxy       string = "GR.carproxy"
 	Service_ParkMap        string = "GR.parkmap"
 	Service_FileStorage    string = "GR.filestorage"
 	Service_CarOrder       string = "GR.carorder"
