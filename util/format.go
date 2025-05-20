@@ -1,6 +1,9 @@
 package util
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func FormatFileSize(bytes int64) string {
 	units := []string{"B", "KB", "MB", "GB", "TB", "PB", "EB"}
@@ -20,5 +23,21 @@ func FormatFileSize(bytes int64) string {
 		return fmt.Sprintf("%d B", bytes)
 	} else {
 		return fmt.Sprintf("%.2f %s", value, units[unitIndex])
+	}
+}
+
+func FormatTime(ts time.Time, typeValue int) string {
+	if ts.IsZero() {
+		return ""
+	}
+	switch typeValue {
+	case 0:
+		return ts.Format("2006/01/02 15:04:05")
+	case 1:
+		return ts.Format("2006/01/02")
+	case 2:
+		return ts.Format("15:04:05")
+	default:
+		return ""
 	}
 }
