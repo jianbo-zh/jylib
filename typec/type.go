@@ -35,7 +35,7 @@ const (
 	Service_CarControl     string = "GR.carcontrol"
 	Service_ParkMap        string = "GR.parkmap"
 	Service_FileStorage    string = "GR.filestorage"
-	Service_Order          string = "GR.order"
+	Service_CarOrder       string = "GR.carorder"
 )
 
 type Role zzzV1.Operator_Role
