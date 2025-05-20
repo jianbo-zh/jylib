@@ -44,7 +44,7 @@ func ToGrpcServiceError(err error, isDebug ...bool) *errors.Error {
 	return errk
 }
 
-func ToHttpServiceError(err error, isDebug bool) *errors.Error {
+func ToHttpServiceError(err error, isDebug ...bool) *errors.Error {
 	var errk *errors.Error
 	if !errors.As(err, &errk) {
 		var errc *Error
@@ -55,7 +55,7 @@ func ToHttpServiceError(err error, isDebug bool) *errors.Error {
 				httpCode = 403
 			}
 
-			if isDebug {
+			if len(isDebug) > 0 && isDebug[0] {
 				errk = errors.New(httpCode, fmt.Sprintf("%s;%d", errc.Code().String(), errc.Code().Number()), errc.Error())
 			} else {
 				errk = errors.New(httpCode, fmt.Sprintf("%s;%d", errc.Code().String(), errc.Code().Number()), errc.Message())
