@@ -1,6 +1,8 @@
 package bootstrap
 
-import "os"
+import (
+	"os"
+)
 
 type ServiceInfo struct {
 	Name     string
