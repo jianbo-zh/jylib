@@ -33,6 +33,7 @@ type IClient interface {
 	CarDispatchGrpc() ICarDispatch
 	CarOrderGrpc() ICarOrder
 	CarProxyGrpc() ICarProxy
+	CarMeasureGrpc() ICarMeasure
 	FileStorageGrpc() IFileStorage
 	MessageGrpc() IMessage
 	ParkMapGrpc() IParkMap
@@ -101,6 +102,9 @@ func (c *Client) CarOrderGrpc() ICarOrder { return NewCarOrderGrpc(c) }
 
 // CarProxyGrpc
 func (c *Client) CarProxyGrpc() ICarProxy { return NewCarProxyGrpc(c) }
+
+// CarMeasureGrpc
+func (c *Client) CarMeasureGrpc() ICarMeasure { return NewCarMeasureGrpc(c) }
 
 // FileStorageGrpc
 func (c *Client) FileStorageGrpc() IFileStorage { return NewFileStorageGrpc(c) }
