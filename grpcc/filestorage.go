@@ -8,9 +8,9 @@ import (
 )
 
 type IFileStorage interface {
-	SaveFile(context.Context, *fsV1.SaveFileRequest) (*fsV1.SaveFileReply, error)
+	SaveFile(context.Context, *fsV1.SaveFileRequest) (*fsV1.File, error)
 	GetFiles(context.Context, *fsV1.GetFilesRequest) (*fsV1.GetFilesReply, error)
-	GetFile(context.Context, *fsV1.GetFileRequest) (*fsV1.GetFileReply, error)
+	GetFile(context.Context, *fsV1.GetFileRequest) (*fsV1.File, error)
 	GetFileData(context.Context, *fsV1.GetFileDataRequest) (*fsV1.GetFileDataReply, error)
 }
 
@@ -24,7 +24,7 @@ func NewFileStorageGrpc(cli IClient) IFileStorage {
 	}
 }
 
-func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileRequest) (*fsV1.SaveFileReply, error) {
+func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileRequest) (*fsV1.File, error) {
 	cli, err := c.client.FileStorageClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.client.FileStorageClient error: %w", err)
@@ -48,7 +48,7 @@ func (c *FileStorageGrpc) GetFiles(ctx context.Context, req *fsV1.GetFilesReques
 	return reply, nil
 }
 
-func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest) (*fsV1.GetFileReply, error) {
+func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest) (*fsV1.File, error) {
 	cli, err := c.client.FileStorageClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.client.FileStorageClient error: %w", err)

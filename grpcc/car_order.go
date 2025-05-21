@@ -8,10 +8,10 @@ import (
 )
 
 type ICarOrder interface {
-	GetOrder(context.Context, *orderV1.GetOrderRequest) (*orderV1.GetOrderReply, error)
+	GetOrder(context.Context, *orderV1.GetOrderRequest) (*orderV1.Order, error)
 	GetGoingOrder(context.Context, *orderV1.GetGoingOrderRequest) (*orderV1.GetGoingOrderReply, error)
 	GetOrderList(context.Context, *orderV1.GetOrderListRequest) (*orderV1.GetOrderListReply, error)
-	CreateOrder(context.Context, *orderV1.CreateOrderRequest) (*orderV1.CreateOrderReply, error)
+	CreateOrder(context.Context, *orderV1.CreateOrderRequest) (*orderV1.Order, error)
 	CancelOrder(context.Context, *orderV1.CancelOrderRequest) (*orderV1.CancelOrderReply, error)
 	StartOrder(context.Context, *orderV1.StartOrderRequest) (*orderV1.StartOrderReply, error)
 	FinishOrder(context.Context, *orderV1.FinishOrderRequest) (*orderV1.FinishOrderReply, error)
@@ -19,13 +19,13 @@ type ICarOrder interface {
 	CheckOrderTimeoutAbort(context.Context, *orderV1.CheckOrderTimeoutAbortRequest) (*orderV1.CheckOrderTimeoutAbortReply, error)
 	CheckOrderExpiredClose(context.Context, *orderV1.CheckOrderExpiredCloseRequest) (*orderV1.CheckOrderExpiredCloseReply, error)
 	CheckOrderTimeoutCancel(context.Context, *orderV1.CheckOrderTimeoutCancelRequest) (*orderV1.CheckOrderTimeoutCancelReply, error)
-	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest) (*orderV1.PrepayOrderReply, error)
+	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest) (*orderV1.PayParam, error)
 	CancelPayment(context.Context, *orderV1.CancelPaymentRequest) (*orderV1.CancelPaymentReply, error)
 	LaunchOrderRefund(context.Context, *orderV1.LaunchOrderRefundRequest) (*orderV1.LaunchOrderRefundReply, error)
 	GetOrderRefund(context.Context, *orderV1.GetOrderRefundRequest) (*orderV1.GetOrderRefundReply, error)
 	GetOrderRefunds(context.Context, *orderV1.GetOrderRefundsRequest) (*orderV1.GetOrderRefundsReply, error)
 	CalcOrderAmount(context.Context, *orderV1.CalcOrderAmountRequest) (*orderV1.CalcOrderAmountReply, error)
-	GetOrderBilling(context.Context, *orderV1.GetOrderBillingRequest) (*orderV1.GetOrderBillingReply, error)
+	GetOrderBilling(context.Context, *orderV1.GetOrderBillingRequest) (*orderV1.OrderBilling, error)
 	LaunchOrderSharing(context.Context, *orderV1.LaunchOrderSharingRequest) (*orderV1.LaunchOrderSharingReply, error)
 	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest) (*orderV1.CheckOrderSharingResultReply, error)
 	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest) (*orderV1.EmitSOSEventReply, error)
@@ -42,7 +42,7 @@ func NewCarOrderGrpc(cli IClient) ICarOrder {
 	}
 }
 
-func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderRequest) (*orderV1.GetOrderReply, error) {
+func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderRequest) (*orderV1.Order, error) {
 	cli, err := c.client.CarOrderClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
@@ -78,7 +78,7 @@ func (c *CarOrderGrpc) GetOrderList(ctx context.Context, req *orderV1.GetOrderLi
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrderRequest) (*orderV1.CreateOrderReply, error) {
+func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrderRequest) (*orderV1.Order, error) {
 	cli, err := c.client.CarOrderClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
@@ -174,7 +174,7 @@ func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrderRequest) (*orderV1.PrepayOrderReply, error) {
+func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrderRequest) (*orderV1.PayParam, error) {
 	cli, err := c.client.CarOrderClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
@@ -246,7 +246,7 @@ func (c *CarOrderGrpc) CalcOrderAmount(ctx context.Context, req *orderV1.CalcOrd
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrderBillingRequest) (*orderV1.GetOrderBillingReply, error) {
+func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrderBillingRequest) (*orderV1.OrderBilling, error) {
 	cli, err := c.client.CarOrderClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)

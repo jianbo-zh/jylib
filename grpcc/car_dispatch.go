@@ -10,10 +10,10 @@ import (
 type ICarDispatch interface {
 	CheckCarSchedulability(context.Context, *dispatchV1.CheckCarSchedulabilityRequest) (*dispatchV1.CheckCarSchedulabilityReply, error)
 	CheckCarReachability(context.Context, *dispatchV1.CheckCarReachabilityRequest) (*dispatchV1.CheckCarReachabilityReply, error)
-	StartScheTask(context.Context, *dispatchV1.StartScheTaskRequest) (*dispatchV1.StartScheTaskReply, error)
+	StartScheTask(context.Context, *dispatchV1.StartScheTaskRequest) (*dispatchV1.ScheTask, error)
 	PauseScheTask(context.Context, *dispatchV1.PauseScheTaskRequest) (*dispatchV1.PauseScheTaskReply, error)
 	RestartScheTask(context.Context, *dispatchV1.RestartScheTaskRequest) (*dispatchV1.RestartScheTaskReply, error)
-	GetScheTask(context.Context, *dispatchV1.GetScheTaskRequest) (*dispatchV1.GetScheTaskReply, error)
+	GetScheTask(context.Context, *dispatchV1.GetScheTaskRequest) (*dispatchV1.ScheTask, error)
 	GetScheTaskEvents(context.Context, *dispatchV1.GetScheTaskEventsRequest) (*dispatchV1.GetScheTaskEventsReply, error)
 	CancelScheTask(context.Context, *dispatchV1.CancelScheTaskRequest) (*dispatchV1.CancelScheTaskReply, error)
 	FinishScheTask(context.Context, *dispatchV1.FinishScheTaskRequest) (*dispatchV1.FinishScheTaskReply, error)
@@ -53,7 +53,7 @@ func (c *CarDispatchGrpc) CheckCarReachability(ctx context.Context, req *dispatc
 	return reply, nil
 }
 
-func (c *CarDispatchGrpc) StartScheTask(ctx context.Context, req *dispatchV1.StartScheTaskRequest) (*dispatchV1.StartScheTaskReply, error) {
+func (c *CarDispatchGrpc) StartScheTask(ctx context.Context, req *dispatchV1.StartScheTaskRequest) (*dispatchV1.ScheTask, error) {
 	cli, err := c.client.CarDispatchClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarDispatchClient error: %w", err)
@@ -89,7 +89,7 @@ func (c *CarDispatchGrpc) RestartScheTask(ctx context.Context, req *dispatchV1.R
 	return reply, nil
 }
 
-func (c *CarDispatchGrpc) GetScheTask(ctx context.Context, req *dispatchV1.GetScheTaskRequest) (*dispatchV1.GetScheTaskReply, error) {
+func (c *CarDispatchGrpc) GetScheTask(ctx context.Context, req *dispatchV1.GetScheTaskRequest) (*dispatchV1.ScheTask, error) {
 	cli, err := c.client.CarDispatchClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarDispatchClient error: %w", err)

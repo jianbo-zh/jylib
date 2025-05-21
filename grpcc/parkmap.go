@@ -8,9 +8,9 @@ import (
 )
 
 type IParkMap interface {
-	CreateMapVersion(context.Context, *mapV1.CreateMapVersionRequest) (*mapV1.CreateMapVersionReply, error)
+	CreateMapVersion(context.Context, *mapV1.CreateMapVersionRequest) (*mapV1.MapVersion, error)
 	GetMapVersions(context.Context, *mapV1.GetMapVersionsRequest) (*mapV1.GetMapVersionsReply, error)
-	GetMapVersion(context.Context, *mapV1.GetMapVersionRequest) (*mapV1.GetMapVersionReply, error)
+	GetMapVersion(context.Context, *mapV1.GetMapVersionRequest) (*mapV1.MapVersion, error)
 	GetVersionMap(context.Context, *mapV1.GetVersionMapRequest) (*mapV1.GetVersionMapReply, error)
 	GetVersionPois(context.Context, *mapV1.GetVersionPoisRequest) (*mapV1.GetVersionPoisReply, error)
 }
@@ -25,7 +25,7 @@ func NewParkMapGrpc(cli IClient) IParkMap {
 	}
 }
 
-func (c *ParkMapGrpc) CreateMapVersion(ctx context.Context, req *mapV1.CreateMapVersionRequest) (*mapV1.CreateMapVersionReply, error) {
+func (c *ParkMapGrpc) CreateMapVersion(ctx context.Context, req *mapV1.CreateMapVersionRequest) (*mapV1.MapVersion, error) {
 	cli, err := c.client.ParkMapClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)
@@ -49,7 +49,7 @@ func (c *ParkMapGrpc) GetMapVersions(ctx context.Context, req *mapV1.GetMapVersi
 	return reply, nil
 }
 
-func (c *ParkMapGrpc) GetMapVersion(ctx context.Context, req *mapV1.GetMapVersionRequest) (*mapV1.GetMapVersionReply, error) {
+func (c *ParkMapGrpc) GetMapVersion(ctx context.Context, req *mapV1.GetMapVersionRequest) (*mapV1.MapVersion, error) {
 	cli, err := c.client.ParkMapClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)

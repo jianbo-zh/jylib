@@ -8,18 +8,18 @@ import (
 )
 
 type ICarConfig interface {
-	CreateBaseConfig(context.Context, *configV1.CreateBaseConfigRequest) (*configV1.CreateBaseConfigReply, error)
-	CreateScenicAreaConfig(context.Context, *configV1.CreateScenicAreaConfigRequest) (*configV1.CreateScenicAreaConfigReply, error)
-	CreateHdMapConfig(context.Context, *configV1.CreateHdMapConfigRequest) (*configV1.CreateHdMapConfigReply, error)
-	CreatePoiConfig(context.Context, *configV1.CreatePoiConfigRequest) (*configV1.CreatePoiConfigReply, error)
-	CreateCarUiConfig(context.Context, *configV1.CreateCarUiConfigRequest) (*configV1.CreateCarUiConfigReply, error)
-	GetCarConfig(context.Context, *configV1.GetCarConfigRequest) (*configV1.GetCarConfigReply, error)
+	CreateBaseConfig(context.Context, *configV1.CreateBaseConfigRequest) (*configV1.CarConfig, error)
+	CreateScenicAreaConfig(context.Context, *configV1.CreateScenicAreaConfigRequest) (*configV1.CarConfig, error)
+	CreateHdMapConfig(context.Context, *configV1.CreateHdMapConfigRequest) (*configV1.CarConfig, error)
+	CreatePoiConfig(context.Context, *configV1.CreatePoiConfigRequest) (*configV1.CarConfig, error)
+	CreateCarUiConfig(context.Context, *configV1.CreateCarUiConfigRequest) (*configV1.CarConfig, error)
+	GetCarConfig(context.Context, *configV1.GetCarConfigRequest) (*configV1.CarConfig, error)
 	GetCarConfigs(context.Context, *configV1.GetCarConfigsRequest) (*configV1.GetCarConfigsReply, error)
 	GetCarConfigList(context.Context, *configV1.GetCarConfigListRequest) (*configV1.GetCarConfigListReply, error)
 	DeleteCarConfig(context.Context, *configV1.DeleteCarConfigRequest) (*configV1.DeleteCarConfigReply, error)
 	SendConfigToCar(context.Context, *configV1.SendConfigToCarRequest) (*configV1.SendConfigToCarReply, error)
-	CreateCarConfigPack(context.Context, *configV1.CreateCarConfigPackRequest) (*configV1.CreateCarConfigPackReply, error)
-	GetCarConfigPack(context.Context, *configV1.GetCarConfigPackRequest) (*configV1.GetCarConfigPackReply, error)
+	CreateCarConfigPack(context.Context, *configV1.CreateCarConfigPackRequest) (*configV1.CarConfigPack, error)
+	GetCarConfigPack(context.Context, *configV1.GetCarConfigPackRequest) (*configV1.CarConfigPack, error)
 	GetCarConfigPackList(context.Context, *configV1.GetCarConfigPackListRequest) (*configV1.GetCarConfigPackListReply, error)
 	DeleteCarConfigPack(context.Context, *configV1.DeleteCarConfigPackRequest) (*configV1.DeleteCarConfigPackReply, error)
 	SendConfigPackToCar(context.Context, *configV1.SendConfigPackToCarRequest) (*configV1.SendConfigPackToCarReply, error)
@@ -37,7 +37,7 @@ func NewCarConfigGrpc(cli IClient) ICarConfig {
 	}
 }
 
-func (c *CarConfigGrpc) CreateBaseConfig(ctx context.Context, req *configV1.CreateBaseConfigRequest) (*configV1.CreateBaseConfigReply, error) {
+func (c *CarConfigGrpc) CreateBaseConfig(ctx context.Context, req *configV1.CreateBaseConfigRequest) (*configV1.CarConfig, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -50,7 +50,7 @@ func (c *CarConfigGrpc) CreateBaseConfig(ctx context.Context, req *configV1.Crea
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) CreateScenicAreaConfig(ctx context.Context, req *configV1.CreateScenicAreaConfigRequest) (*configV1.CreateScenicAreaConfigReply, error) {
+func (c *CarConfigGrpc) CreateScenicAreaConfig(ctx context.Context, req *configV1.CreateScenicAreaConfigRequest) (*configV1.CarConfig, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -63,7 +63,7 @@ func (c *CarConfigGrpc) CreateScenicAreaConfig(ctx context.Context, req *configV
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) CreateHdMapConfig(ctx context.Context, req *configV1.CreateHdMapConfigRequest) (*configV1.CreateHdMapConfigReply, error) {
+func (c *CarConfigGrpc) CreateHdMapConfig(ctx context.Context, req *configV1.CreateHdMapConfigRequest) (*configV1.CarConfig, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -76,7 +76,7 @@ func (c *CarConfigGrpc) CreateHdMapConfig(ctx context.Context, req *configV1.Cre
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) CreatePoiConfig(ctx context.Context, req *configV1.CreatePoiConfigRequest) (*configV1.CreatePoiConfigReply, error) {
+func (c *CarConfigGrpc) CreatePoiConfig(ctx context.Context, req *configV1.CreatePoiConfigRequest) (*configV1.CarConfig, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -89,7 +89,7 @@ func (c *CarConfigGrpc) CreatePoiConfig(ctx context.Context, req *configV1.Creat
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) CreateCarUiConfig(ctx context.Context, req *configV1.CreateCarUiConfigRequest) (*configV1.CreateCarUiConfigReply, error) {
+func (c *CarConfigGrpc) CreateCarUiConfig(ctx context.Context, req *configV1.CreateCarUiConfigRequest) (*configV1.CarConfig, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -102,7 +102,7 @@ func (c *CarConfigGrpc) CreateCarUiConfig(ctx context.Context, req *configV1.Cre
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) GetCarConfig(ctx context.Context, req *configV1.GetCarConfigRequest) (*configV1.GetCarConfigReply, error) {
+func (c *CarConfigGrpc) GetCarConfig(ctx context.Context, req *configV1.GetCarConfigRequest) (*configV1.CarConfig, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -167,7 +167,7 @@ func (c *CarConfigGrpc) SendConfigToCar(ctx context.Context, req *configV1.SendC
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) CreateCarConfigPack(ctx context.Context, req *configV1.CreateCarConfigPackRequest) (*configV1.CreateCarConfigPackReply, error) {
+func (c *CarConfigGrpc) CreateCarConfigPack(ctx context.Context, req *configV1.CreateCarConfigPackRequest) (*configV1.CarConfigPack, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
@@ -180,7 +180,7 @@ func (c *CarConfigGrpc) CreateCarConfigPack(ctx context.Context, req *configV1.C
 	return reply, nil
 }
 
-func (c *CarConfigGrpc) GetCarConfigPack(ctx context.Context, req *configV1.GetCarConfigPackRequest) (*configV1.GetCarConfigPackReply, error) {
+func (c *CarConfigGrpc) GetCarConfigPack(ctx context.Context, req *configV1.GetCarConfigPackRequest) (*configV1.CarConfigPack, error) {
 	cli, err := c.client.CarConfigClient(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("client.CarConfigClient error: %w", err)
