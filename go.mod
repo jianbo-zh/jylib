@@ -7,7 +7,7 @@ require (
 	github.com/go-kratos/kratos/v2 v2.8.4
 	github.com/golang-jwt/jwt/v5 v5.1.0
 	github.com/jftuga/geodist v1.0.0
-	github.com/jianbo-zh/jyapi v0.1.19
+	github.com/jianbo-zh/jyapi v0.1.22
 	github.com/qichengzx/coordtransform v0.0.0-20220708113031-010878418826
 	github.com/quic-go/quic-go v0.51.0
 	github.com/spf13/cast v1.8.0

@@ -13,8 +13,9 @@ import (
 	"github.com/jianbo-zh/jylib/helpc"
 	"github.com/jianbo-zh/jylib/typec"
 	"github.com/jianbo-zh/jylib/util/tlsconf"
-	clientv3 "go.etcd.io/etcd/client/v3"
 	"google.golang.org/protobuf/types/known/durationpb"
+
+	clientv3 "go.etcd.io/etcd/client/v3"
 
 	authV1 "github.com/jianbo-zh/jyapi/api/carauth/v1"
 	configV1 "github.com/jianbo-zh/jyapi/api/carconfig/v1"
@@ -27,6 +28,15 @@ import (
 )
 
 type IClient interface {
+	CarAuthGrpc() ICarAuth
+	CarConfigGrpc() ICarConfig
+	CarDispatchGrpc() ICarDispatch
+	CarOrderGrpc() ICarOrder
+	CarProxyGrpc() ICarProxy
+	FileStorageGrpc() IFileStorage
+	MessageGrpc() IMessage
+	ParkMapGrpc() IParkMap
+
 	CarAuthClient(context.Context) (authV1.CarAuthClient, error)
 	CarConfigClient(context.Context) (configV1.ConfigClient, error)
 	CarDispatchClient(context.Context) (dispatchV1.DispatchClient, error)
@@ -76,6 +86,30 @@ func NewClient(env string, etcdConf *EtcdConf) IClient {
 		discovery: discovery,
 	}
 }
+
+// CarAuthGrpc
+func (c *Client) CarAuthGrpc() ICarAuth { return NewCarAuthGrpc(c) }
+
+// CarConfigGrpc
+func (c *Client) CarConfigGrpc() ICarConfig { return NewCarConfigGrpc(c) }
+
+// CarDispatchGrpc
+func (c *Client) CarDispatchGrpc() ICarDispatch { return NewCarDispatchGrpc(c) }
+
+// CarOrderGrpc
+func (c *Client) CarOrderGrpc() ICarOrder { return NewCarOrderGrpc(c) }
+
+// CarProxyGrpc
+func (c *Client) CarProxyGrpc() ICarProxy { return NewCarProxyGrpc(c) }
+
+// FileStorageGrpc
+func (c *Client) FileStorageGrpc() IFileStorage { return NewFileStorageGrpc(c) }
+
+// MessageGrpc
+func (c *Client) MessageGrpc() IMessage { return NewMessageGrpc(c) }
+
+// ParkMapGrpc
+func (c *Client) ParkMapGrpc() IParkMap { return NewParkMapGrpc(c) }
 
 // CarAuthClient
 func (c *Client) CarAuthClient(ctx context.Context) (authV1.CarAuthClient, error) {
