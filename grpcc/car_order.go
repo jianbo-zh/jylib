@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	orderV1 "github.com/jianbo-zh/jyapi/api/carorder/v1"
+	orderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
 )
 
 type ICarOrder interface {

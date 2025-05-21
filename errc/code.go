@@ -1,7 +1,7 @@
 package errc
 
 import (
-	zzzv1 "github.com/jianbo-zh/jyapi/api/zzz/v1"
+	zzzv1 "github.com/jianbo-zh/jypb/api/zzz/v1"
 )
 
 // 错误定义列表（内部抛出的）

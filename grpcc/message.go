@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	msgV1 "github.com/jianbo-zh/jyapi/api/message/v1"
+	msgV1 "github.com/jianbo-zh/jypb/api/message/v1"
 )
 
 type IMessage interface {

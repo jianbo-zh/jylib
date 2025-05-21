@@ -17,14 +17,14 @@ import (
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 
-	authV1 "github.com/jianbo-zh/jyapi/api/carauth/v1"
-	configV1 "github.com/jianbo-zh/jyapi/api/carconfig/v1"
-	dispatchV1 "github.com/jianbo-zh/jyapi/api/cardispatch/v1"
-	orderV1 "github.com/jianbo-zh/jyapi/api/carorder/v1"
-	proxyV1 "github.com/jianbo-zh/jyapi/api/carproxy/v1"
-	filestorageV1 "github.com/jianbo-zh/jyapi/api/filestorage/v1"
-	messageV1 "github.com/jianbo-zh/jyapi/api/message/v1"
-	parkmapV1 "github.com/jianbo-zh/jyapi/api/parkmap/v1"
+	authV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
+	configV1 "github.com/jianbo-zh/jypb/api/carconfig/v1"
+	dispatchV1 "github.com/jianbo-zh/jypb/api/cardispatch/v1"
+	orderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
+	proxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
+	filestorageV1 "github.com/jianbo-zh/jypb/api/filestorage/v1"
+	messageV1 "github.com/jianbo-zh/jypb/api/message/v1"
+	parkmapV1 "github.com/jianbo-zh/jypb/api/parkmap/v1"
 )
 
 type IClient interface {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	authV1 "github.com/jianbo-zh/jyapi/api/carauth/v1"
+	authV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
 )
 
 type ICarAuth interface {

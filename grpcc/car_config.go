@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	configV1 "github.com/jianbo-zh/jyapi/api/carconfig/v1"
+	configV1 "github.com/jianbo-zh/jypb/api/carconfig/v1"
 )
 
 type ICarConfig interface {

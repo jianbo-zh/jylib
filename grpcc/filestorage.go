@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	fsV1 "github.com/jianbo-zh/jyapi/api/filestorage/v1"
+	fsV1 "github.com/jianbo-zh/jypb/api/filestorage/v1"
 )
 
 type IFileStorage interface {

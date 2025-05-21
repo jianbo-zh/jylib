@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	mapV1 "github.com/jianbo-zh/jyapi/api/parkmap/v1"
+	mapV1 "github.com/jianbo-zh/jypb/api/parkmap/v1"
 )
 
 type IParkMap interface {

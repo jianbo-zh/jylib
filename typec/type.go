@@ -3,7 +3,7 @@ package typec
 import (
 	"time"
 
-	zzzV1 "github.com/jianbo-zh/jyapi/api/zzz/v1"
+	zzzV1 "github.com/jianbo-zh/jypb/api/zzz/v1"
 )
 
 var (

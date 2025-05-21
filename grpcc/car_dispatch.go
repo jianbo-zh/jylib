@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	dispatchV1 "github.com/jianbo-zh/jyapi/api/cardispatch/v1"
+	dispatchV1 "github.com/jianbo-zh/jypb/api/cardispatch/v1"
 )
 
 type ICarDispatch interface {

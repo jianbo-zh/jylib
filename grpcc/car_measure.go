@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	proxyV1 "github.com/jianbo-zh/jyapi/api/carproxy/v1"
+	proxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
 )
 
 type ICarMeasure interface {
