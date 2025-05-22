@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/go-kratos/kratos/v2/errors"
 	orderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
 )
 
@@ -49,7 +50,7 @@ func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderReques
 	}
 	reply, err := cli.GetOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrder error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -61,7 +62,7 @@ func (c *CarOrderGrpc) GetGoingOrder(ctx context.Context, req *orderV1.GetGoingO
 	}
 	reply, err := cli.GetGoingOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetGoingOrder error: %w", err)
+		return nil, fmt.Errorf("cli.GetGoingOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -73,7 +74,7 @@ func (c *CarOrderGrpc) GetOrderList(ctx context.Context, req *orderV1.GetOrderLi
 	}
 	reply, err := cli.GetOrderList(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderList error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrderList error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -85,7 +86,7 @@ func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrder
 	}
 	reply, err := cli.CreateOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateOrder error: %w", err)
+		return nil, fmt.Errorf("cli.CreateOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -97,7 +98,7 @@ func (c *CarOrderGrpc) CancelOrder(ctx context.Context, req *orderV1.CancelOrder
 	}
 	reply, err := cli.CancelOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelOrder error: %w", err)
+		return nil, fmt.Errorf("cli.CancelOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -109,7 +110,7 @@ func (c *CarOrderGrpc) StartOrder(ctx context.Context, req *orderV1.StartOrderRe
 	}
 	reply, err := cli.StartOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.StartOrder error: %w", err)
+		return nil, fmt.Errorf("cli.StartOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -121,7 +122,7 @@ func (c *CarOrderGrpc) FinishOrder(ctx context.Context, req *orderV1.FinishOrder
 	}
 	reply, err := cli.FinishOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.FinishOrder error: %w", err)
+		return nil, fmt.Errorf("cli.FinishOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -133,7 +134,7 @@ func (c *CarOrderGrpc) CommentOrder(ctx context.Context, req *orderV1.CommentOrd
 	}
 	reply, err := cli.CommentOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CommentOrder error: %w", err)
+		return nil, fmt.Errorf("cli.CommentOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -145,7 +146,7 @@ func (c *CarOrderGrpc) CheckOrderTimeoutAbort(ctx context.Context, req *orderV1.
 	}
 	reply, err := cli.CheckOrderTimeoutAbort(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderTimeoutAbort error: %w", err)
+		return nil, fmt.Errorf("cli.CheckOrderTimeoutAbort error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -157,7 +158,7 @@ func (c *CarOrderGrpc) CheckOrderExpiredClose(ctx context.Context, req *orderV1.
 	}
 	reply, err := cli.CheckOrderExpiredClose(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderExpiredClose error: %w", err)
+		return nil, fmt.Errorf("cli.CheckOrderExpiredClose error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -169,7 +170,7 @@ func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.CheckOrderTimeoutCancel(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderTimeoutCancel error: %w", err)
+		return nil, fmt.Errorf("cli.CheckOrderTimeoutCancel error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -181,7 +182,7 @@ func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrder
 	}
 	reply, err := cli.PrepayOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.PrepayOrder error: %w", err)
+		return nil, fmt.Errorf("cli.PrepayOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -193,7 +194,7 @@ func (c *CarOrderGrpc) CancelPayment(ctx context.Context, req *orderV1.CancelPay
 	}
 	reply, err := cli.CancelPayment(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelPayment error: %w", err)
+		return nil, fmt.Errorf("cli.CancelPayment error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -205,7 +206,7 @@ func (c *CarOrderGrpc) LaunchOrderRefund(ctx context.Context, req *orderV1.Launc
 	}
 	reply, err := cli.LaunchOrderRefund(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.LaunchOrderRefund error: %w", err)
+		return nil, fmt.Errorf("cli.LaunchOrderRefund error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -217,7 +218,7 @@ func (c *CarOrderGrpc) GetOrderRefund(ctx context.Context, req *orderV1.GetOrder
 	}
 	reply, err := cli.GetOrderRefund(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderRefund error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrderRefund error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -229,7 +230,7 @@ func (c *CarOrderGrpc) GetOrderRefunds(ctx context.Context, req *orderV1.GetOrde
 	}
 	reply, err := cli.GetOrderRefunds(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderRefunds error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrderRefunds error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -241,7 +242,7 @@ func (c *CarOrderGrpc) CalcOrderAmount(ctx context.Context, req *orderV1.CalcOrd
 	}
 	reply, err := cli.CalcOrderAmount(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CalcOrderAmount error: %w", err)
+		return nil, fmt.Errorf("cli.CalcOrderAmount error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -253,7 +254,7 @@ func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrde
 	}
 	reply, err := cli.GetOrderBilling(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderBilling error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrderBilling error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -265,7 +266,7 @@ func (c *CarOrderGrpc) LaunchOrderSharing(ctx context.Context, req *orderV1.Laun
 	}
 	reply, err := cli.LaunchOrderSharing(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.LaunchOrderSharing error: %w", err)
+		return nil, fmt.Errorf("cli.LaunchOrderSharing error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -277,7 +278,7 @@ func (c *CarOrderGrpc) CheckOrderSharingResult(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.CheckOrderSharingResult(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderSharingResult error: %w", err)
+		return nil, fmt.Errorf("cli.CheckOrderSharingResult error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -289,7 +290,7 @@ func (c *CarOrderGrpc) EmitSOSEvent(ctx context.Context, req *orderV1.EmitSOSEve
 	}
 	reply, err := cli.EmitSOSEvent(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EmitSOSEvent error: %w", err)
+		return nil, fmt.Errorf("cli.EmitSOSEvent error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -301,7 +302,7 @@ func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSO
 	}
 	reply, err := cli.CancelSOSEvent(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelSOSEvent error: %w", err)
+		return nil, fmt.Errorf("cli.CancelSOSEvent error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

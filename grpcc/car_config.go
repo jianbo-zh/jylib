@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/go-kratos/kratos/v2/errors"
 	configV1 "github.com/jianbo-zh/jypb/api/carconfig/v1"
 )
 
@@ -44,7 +45,7 @@ func (c *CarConfigGrpc) CreateBaseConfig(ctx context.Context, req *configV1.Crea
 	}
 	reply, err := cli.CreateBaseConfig(ctx, &configV1.CreateBaseConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateBaseConfig error: %w", err)
+		return nil, fmt.Errorf("cli.CreateBaseConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -57,7 +58,7 @@ func (c *CarConfigGrpc) CreateScenicAreaConfig(ctx context.Context, req *configV
 	}
 	reply, err := cli.CreateScenicAreaConfig(ctx, &configV1.CreateScenicAreaConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateScenicAreaConfig error: %w", err)
+		return nil, fmt.Errorf("cli.CreateScenicAreaConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -70,7 +71,7 @@ func (c *CarConfigGrpc) CreateHdMapConfig(ctx context.Context, req *configV1.Cre
 	}
 	reply, err := cli.CreateHdMapConfig(ctx, &configV1.CreateHdMapConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateHdMapConfig error: %w", err)
+		return nil, fmt.Errorf("cli.CreateHdMapConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -83,7 +84,7 @@ func (c *CarConfigGrpc) CreatePoiConfig(ctx context.Context, req *configV1.Creat
 	}
 	reply, err := cli.CreatePoiConfig(ctx, &configV1.CreatePoiConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreatePoiConfig error: %w", err)
+		return nil, fmt.Errorf("cli.CreatePoiConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -96,7 +97,7 @@ func (c *CarConfigGrpc) CreateCarUiConfig(ctx context.Context, req *configV1.Cre
 	}
 	reply, err := cli.CreateCarUiConfig(ctx, &configV1.CreateCarUiConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateCarUiConfig error: %w", err)
+		return nil, fmt.Errorf("cli.CreateCarUiConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -109,7 +110,7 @@ func (c *CarConfigGrpc) GetCarConfig(ctx context.Context, req *configV1.GetCarCo
 	}
 	reply, err := cli.GetCarConfig(ctx, &configV1.GetCarConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetCarConfig error: %w", err)
+		return nil, fmt.Errorf("cli.GetCarConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -122,7 +123,7 @@ func (c *CarConfigGrpc) GetCarConfigs(ctx context.Context, req *configV1.GetCarC
 	}
 	reply, err := cli.GetCarConfigs(ctx, &configV1.GetCarConfigsRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetCarConfigs error: %w", err)
+		return nil, fmt.Errorf("cli.GetCarConfigserror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -135,7 +136,7 @@ func (c *CarConfigGrpc) GetCarConfigList(ctx context.Context, req *configV1.GetC
 	}
 	reply, err := cli.GetCarConfigList(ctx, &configV1.GetCarConfigListRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetCarConfigList error: %w", err)
+		return nil, fmt.Errorf("cli.GetCarConfigListerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -148,7 +149,7 @@ func (c *CarConfigGrpc) DeleteCarConfig(ctx context.Context, req *configV1.Delet
 	}
 	reply, err := cli.DeleteCarConfig(ctx, &configV1.DeleteCarConfigRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.DeleteCarConfig error: %w", err)
+		return nil, fmt.Errorf("cli.DeleteCarConfigerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -161,7 +162,7 @@ func (c *CarConfigGrpc) SendConfigToCar(ctx context.Context, req *configV1.SendC
 	}
 	reply, err := cli.SendConfigToCar(ctx, &configV1.SendConfigToCarRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.SendConfigToCar error: %w", err)
+		return nil, fmt.Errorf("cli.SendConfigToCarerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -174,7 +175,7 @@ func (c *CarConfigGrpc) CreateCarConfigPack(ctx context.Context, req *configV1.C
 	}
 	reply, err := cli.CreateCarConfigPack(ctx, &configV1.CreateCarConfigPackRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateCarConfigPack error: %w", err)
+		return nil, fmt.Errorf("cli.CreateCarConfigPackerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -187,7 +188,7 @@ func (c *CarConfigGrpc) GetCarConfigPack(ctx context.Context, req *configV1.GetC
 	}
 	reply, err := cli.GetCarConfigPack(ctx, &configV1.GetCarConfigPackRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetCarConfigPack error: %w", err)
+		return nil, fmt.Errorf("cli.GetCarConfigPackerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -200,7 +201,7 @@ func (c *CarConfigGrpc) GetCarConfigPackList(ctx context.Context, req *configV1.
 	}
 	reply, err := cli.GetCarConfigPackList(ctx, &configV1.GetCarConfigPackListRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetCarConfigPackList error: %w", err)
+		return nil, fmt.Errorf("cli.GetCarConfigPackListerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -213,7 +214,7 @@ func (c *CarConfigGrpc) DeleteCarConfigPack(ctx context.Context, req *configV1.D
 	}
 	reply, err := cli.DeleteCarConfigPack(ctx, &configV1.DeleteCarConfigPackRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.DeleteCarConfigPack error: %w", err)
+		return nil, fmt.Errorf("cli.DeleteCarConfigPackerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -226,7 +227,7 @@ func (c *CarConfigGrpc) SendConfigPackToCar(ctx context.Context, req *configV1.S
 	}
 	reply, err := cli.SendConfigPackToCar(ctx, &configV1.SendConfigPackToCarRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.SendConfigPackToCar error: %w", err)
+		return nil, fmt.Errorf("cli.SendConfigPackToCarerror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -239,7 +240,7 @@ func (c *CarConfigGrpc) GetDownloadProcess(ctx context.Context, req *configV1.Ge
 	}
 	reply, err := cli.GetDownloadProcess(ctx, &configV1.GetDownloadProcessRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetDownloadProcess error: %w", err)
+		return nil, fmt.Errorf("cli.GetDownloadProcesserror: %w", errors.FromError(err))
 	}
 
 	return reply, nil
@@ -252,7 +253,7 @@ func (c *CarConfigGrpc) UpdateConfigStatus(ctx context.Context, req *configV1.Up
 	}
 	reply, err := cli.UpdateConfigStatus(ctx, &configV1.UpdateConfigStatusRequest{})
 	if err != nil {
-		return nil, fmt.Errorf("cli.UpdateConfigStatus error: %w", err)
+		return nil, fmt.Errorf("cli.UpdateConfigStatuserror: %w", errors.FromError(err))
 	}
 
 	return reply, nil

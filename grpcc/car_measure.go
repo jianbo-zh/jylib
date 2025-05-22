@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/go-kratos/kratos/v2/errors"
 	proxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
 )
 
@@ -69,7 +70,7 @@ func (c *CarMeasureGrpc) CarSpeed(ctx context.Context, req *proxyV1.Device) (*pr
 	}
 	reply, err := cli.CarSpeed(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarSpeed error: %w", err)
+		return nil, fmt.Errorf("cli.CarSpeed error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -81,7 +82,7 @@ func (c *CarMeasureGrpc) CarOnline(ctx context.Context, req *proxyV1.Device) (*p
 	}
 	reply, err := cli.CarOnline(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarOnline error: %w", err)
+		return nil, fmt.Errorf("cli.CarOnline error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -93,7 +94,7 @@ func (c *CarMeasureGrpc) CarLonLat(ctx context.Context, req *proxyV1.Device) (*p
 	}
 	reply, err := cli.CarLonLat(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarLonLat error: %w", err)
+		return nil, fmt.Errorf("cli.CarLonLat error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -105,7 +106,7 @@ func (c *CarMeasureGrpc) CarHeading(ctx context.Context, req *proxyV1.Device) (*
 	}
 	reply, err := cli.CarHeading(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarHeading error: %w", err)
+		return nil, fmt.Errorf("cli.CarHeading error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -117,7 +118,7 @@ func (c *CarMeasureGrpc) CarSupportType(ctx context.Context, req *proxyV1.Device
 	}
 	reply, err := cli.CarSupportType(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarSupportType error: %w", err)
+		return nil, fmt.Errorf("cli.CarSupportType error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -129,7 +130,7 @@ func (c *CarMeasureGrpc) CarDrivingState(ctx context.Context, req *proxyV1.Devic
 	}
 	reply, err := cli.CarDrivingState(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarDrivingState error: %w", err)
+		return nil, fmt.Errorf("cli.CarDrivingState error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -141,7 +142,7 @@ func (c *CarMeasureGrpc) CarRemainingPower(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.CarRemainingPower(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarRemainingPower error: %w", err)
+		return nil, fmt.Errorf("cli.CarRemainingPower error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -153,7 +154,7 @@ func (c *CarMeasureGrpc) CarInRoad(ctx context.Context, req *proxyV1.Device) (*p
 	}
 	reply, err := cli.CarInRoad(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarInRoad error: %w", err)
+		return nil, fmt.Errorf("cli.CarInRoad error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -165,7 +166,7 @@ func (c *CarMeasureGrpc) CarLoad(ctx context.Context, req *proxyV1.Device) (*pro
 	}
 	reply, err := cli.CarLoad(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarLoad error: %w", err)
+		return nil, fmt.Errorf("cli.CarLoad error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -177,7 +178,7 @@ func (c *CarMeasureGrpc) CarEstop(ctx context.Context, req *proxyV1.Device) (*pr
 	}
 	reply, err := cli.CarEstop(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarEstop error: %w", err)
+		return nil, fmt.Errorf("cli.CarEstop error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -189,7 +190,7 @@ func (c *CarMeasureGrpc) CarSupportAuto(ctx context.Context, req *proxyV1.Device
 	}
 	reply, err := cli.CarSupportAuto(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarSupportAuto error: %w", err)
+		return nil, fmt.Errorf("cli.CarSupportAuto error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -201,7 +202,7 @@ func (c *CarMeasureGrpc) CarMeasure(ctx context.Context, req *proxyV1.CarMeasure
 	}
 	reply, err := cli.CarMeasure(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarMeasure error: %w", err)
+		return nil, fmt.Errorf("cli.CarMeasure error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -213,7 +214,7 @@ func (c *CarMeasureGrpc) CarPowerEstimate(ctx context.Context, req *proxyV1.Devi
 	}
 	reply, err := cli.CarPowerEstimate(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CarPowerEstimate error: %w", err)
+		return nil, fmt.Errorf("cli.CarPowerEstimate error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -225,7 +226,7 @@ func (c *CarMeasureGrpc) MetricModuleStatus(ctx context.Context, req *proxyV1.De
 	}
 	reply, err := cli.MetricModuleStatus(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricModuleStatus error: %w", err)
+		return nil, fmt.Errorf("cli.MetricModuleStatus error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -237,7 +238,7 @@ func (c *CarMeasureGrpc) MetricBatData(ctx context.Context, req *proxyV1.Device)
 	}
 	reply, err := cli.MetricBatData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricBatData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricBatData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -249,7 +250,7 @@ func (c *CarMeasureGrpc) MetricChassisData(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.MetricChassisData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricChassisData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricChassisData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -261,7 +262,7 @@ func (c *CarMeasureGrpc) MetricGpsData(ctx context.Context, req *proxyV1.Device)
 	}
 	reply, err := cli.MetricGpsData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricGpsData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricGpsData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -273,7 +274,7 @@ func (c *CarMeasureGrpc) MetricGpsStatus(ctx context.Context, req *proxyV1.Devic
 	}
 	reply, err := cli.MetricGpsStatus(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricGpsStatus error: %w", err)
+		return nil, fmt.Errorf("cli.MetricGpsStatus error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -285,7 +286,7 @@ func (c *CarMeasureGrpc) MetricGuardianData(ctx context.Context, req *proxyV1.De
 	}
 	reply, err := cli.MetricGuardianData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricGuardianData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricGuardianData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -297,7 +298,7 @@ func (c *CarMeasureGrpc) MetricFenceData(ctx context.Context, req *proxyV1.Devic
 	}
 	reply, err := cli.MetricFenceData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricFenceData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricFenceData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -309,7 +310,7 @@ func (c *CarMeasureGrpc) MetricFenceId(ctx context.Context, req *proxyV1.Device)
 	}
 	reply, err := cli.MetricFenceId(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricFenceId error: %w", err)
+		return nil, fmt.Errorf("cli.MetricFenceId error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -321,7 +322,7 @@ func (c *CarMeasureGrpc) MetricUltrasonicData(ctx context.Context, req *proxyV1.
 	}
 	reply, err := cli.MetricUltrasonicData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricUltrasonicData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricUltrasonicData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -333,7 +334,7 @@ func (c *CarMeasureGrpc) MetricLocalizationData(ctx context.Context, req *proxyV
 	}
 	reply, err := cli.MetricLocalizationData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricLocalizationData error: %w", err)
+		return nil, fmt.Errorf("cli.MetricLocalizationData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -345,7 +346,7 @@ func (c *CarMeasureGrpc) MetricPerceptionObstacles(ctx context.Context, req *pro
 	}
 	reply, err := cli.MetricPerceptionObstacles(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricPerceptionObstacles error: %w", err)
+		return nil, fmt.Errorf("cli.MetricPerceptionObstacles error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -357,7 +358,7 @@ func (c *CarMeasureGrpc) MetricSysInfo(ctx context.Context, req *proxyV1.Device)
 	}
 	reply, err := cli.MetricSysInfo(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.MetricSysInfo error: %w", err)
+		return nil, fmt.Errorf("cli.MetricSysInfo error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -369,7 +370,7 @@ func (c *CarMeasureGrpc) EventAlarmReport(ctx context.Context, req *proxyV1.Devi
 	}
 	reply, err := cli.EventAlarmReport(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventAlarmReport error: %w", err)
+		return nil, fmt.Errorf("cli.EventAlarmReport error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -381,7 +382,7 @@ func (c *CarMeasureGrpc) EventAlarmSupport(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.EventAlarmSupport(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventAlarmSupport error: %w", err)
+		return nil, fmt.Errorf("cli.EventAlarmSupport error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -393,7 +394,7 @@ func (c *CarMeasureGrpc) EventChassisState(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.EventChassisState(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventChassisState error: %w", err)
+		return nil, fmt.Errorf("cli.EventChassisState error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -405,7 +406,7 @@ func (c *CarMeasureGrpc) EventChassisError(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.EventChassisError(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventChassisError error: %w", err)
+		return nil, fmt.Errorf("cli.EventChassisError error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -417,7 +418,7 @@ func (c *CarMeasureGrpc) EventEmergencyBrake(ctx context.Context, req *proxyV1.D
 	}
 	reply, err := cli.EventEmergencyBrake(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventEmergencyBrake error: %w", err)
+		return nil, fmt.Errorf("cli.EventEmergencyBrake error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -429,7 +430,7 @@ func (c *CarMeasureGrpc) EventCurrentVersion(ctx context.Context, req *proxyV1.D
 	}
 	reply, err := cli.EventCurrentVersion(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventCurrentVersion error: %w", err)
+		return nil, fmt.Errorf("cli.EventCurrentVersion error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -441,7 +442,7 @@ func (c *CarMeasureGrpc) EventResourceProgress(ctx context.Context, req *proxyV1
 	}
 	reply, err := cli.EventResourceProgress(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventResourceProgress error: %w", err)
+		return nil, fmt.Errorf("cli.EventResourceProgress error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -453,7 +454,7 @@ func (c *CarMeasureGrpc) EventSolType(ctx context.Context, req *proxyV1.Device) 
 	}
 	reply, err := cli.EventSolType(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventSolType error: %w", err)
+		return nil, fmt.Errorf("cli.EventSolType error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -465,7 +466,7 @@ func (c *CarMeasureGrpc) EventGuardianStatus(ctx context.Context, req *proxyV1.D
 	}
 	reply, err := cli.EventGuardianStatus(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventGuardianStatus error: %w", err)
+		return nil, fmt.Errorf("cli.EventGuardianStatus error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -477,7 +478,7 @@ func (c *CarMeasureGrpc) EventVoiceAnnouncements(ctx context.Context, req *proxy
 	}
 	reply, err := cli.EventVoiceAnnouncements(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventVoiceAnnouncements error: %w", err)
+		return nil, fmt.Errorf("cli.EventVoiceAnnouncements error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -489,7 +490,7 @@ func (c *CarMeasureGrpc) EventPInCarDetect(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.EventPInCarDetect(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventPInCarDetect error: %w", err)
+		return nil, fmt.Errorf("cli.EventPInCarDetect error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -501,7 +502,7 @@ func (c *CarMeasureGrpc) EventLocatedType(ctx context.Context, req *proxyV1.Devi
 	}
 	reply, err := cli.EventLocatedType(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventLocatedType error: %w", err)
+		return nil, fmt.Errorf("cli.EventLocatedType error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -513,7 +514,7 @@ func (c *CarMeasureGrpc) EventAutoPhase(ctx context.Context, req *proxyV1.Device
 	}
 	reply, err := cli.EventAutoPhase(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventAutoPhase error: %w", err)
+		return nil, fmt.Errorf("cli.EventAutoPhase error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -525,7 +526,7 @@ func (c *CarMeasureGrpc) EventVehicleState(ctx context.Context, req *proxyV1.Dev
 	}
 	reply, err := cli.EventVehicleState(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventVehicleState error: %w", err)
+		return nil, fmt.Errorf("cli.EventVehicleState error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -537,7 +538,7 @@ func (c *CarMeasureGrpc) EventPowerOn(ctx context.Context, req *proxyV1.Device) 
 	}
 	reply, err := cli.EventPowerOn(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventPowerOn error: %w", err)
+		return nil, fmt.Errorf("cli.EventPowerOn error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -549,7 +550,7 @@ func (c *CarMeasureGrpc) EventNearbyPOI(ctx context.Context, req *proxyV1.Device
 	}
 	reply, err := cli.EventNearbyPOI(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventNearbyPOI error: %w", err)
+		return nil, fmt.Errorf("cli.EventNearbyPOI error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -561,7 +562,7 @@ func (c *CarMeasureGrpc) EventUOCState(ctx context.Context, req *proxyV1.Device)
 	}
 	reply, err := cli.EventUOCState(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EventUOCState error: %w", err)
+		return nil, fmt.Errorf("cli.EventUOCState error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/go-kratos/kratos/v2/errors"
 	fsV1 "github.com/jianbo-zh/jypb/api/filestorage/v1"
 )
 
@@ -31,7 +32,7 @@ func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileReques
 	}
 	reply, err := cli.SaveFile(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.SaveFile error: %w", err)
+		return nil, fmt.Errorf("cli.SaveFile error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -43,7 +44,7 @@ func (c *FileStorageGrpc) GetFiles(ctx context.Context, req *fsV1.GetFilesReques
 	}
 	reply, err := cli.GetFiles(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFiles error: %w", err)
+		return nil, fmt.Errorf("cli.GetFiles error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -55,7 +56,7 @@ func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest)
 	}
 	reply, err := cli.GetFile(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFile error: %w", err)
+		return nil, fmt.Errorf("cli.GetFile error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -67,7 +68,7 @@ func (c *FileStorageGrpc) GetFileData(ctx context.Context, req *fsV1.GetFileData
 	}
 	reply, err := cli.GetFileData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFileData error: %w", err)
+		return nil, fmt.Errorf("cli.GetFileData error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

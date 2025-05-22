@@ -69,7 +69,7 @@ type EtcdConf struct {
 	DialTimeout *durationpb.Duration
 }
 
-func NewClient(env string, etcdConf *EtcdConf) IClient {
+func NewClient(env string, etcdConf *EtcdConf, logger log.Logger) IClient {
 	client, err := clientv3.New(clientv3.Config{
 		Endpoints:   etcdConf.Endpoints,
 		Username:    etcdConf.Username,
@@ -85,6 +85,7 @@ func NewClient(env string, etcdConf *EtcdConf) IClient {
 	return &Client{
 		env:       env,
 		discovery: discovery,
+		logger:    logger,
 	}
 }
 
@@ -141,7 +142,7 @@ func (c *Client) CarAuthClient(ctx context.Context) (authV1.CarAuthClient, error
 func (c *Client) CarConfigClient(ctx context.Context) (configV1.ConfigClient, error) {
 	conn, err := grpc.Dial(ctx,
 		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_Config)),
+		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarConfig)),
 		grpc.WithTimeout(5*time.Second),
 		grpc.WithMiddleware(
 			recovery.Recovery(),
