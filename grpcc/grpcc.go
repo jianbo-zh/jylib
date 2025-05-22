@@ -164,7 +164,7 @@ func (c *Client) CarConfigClient(ctx context.Context) (configV1.ConfigClient, er
 func (c *Client) CarDispatchClient(ctx context.Context) (dispatchV1.DispatchClient, error) {
 	conn, err := grpc.Dial(ctx,
 		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_Dispatch)),
+		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarDispatch)),
 		grpc.WithTimeout(5*time.Second),
 		grpc.WithMiddleware(
 			recovery.Recovery(),
