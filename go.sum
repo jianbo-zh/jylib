@@ -930,6 +930,8 @@ github.com/jianbo-zh/jypb v0.1.18 h1:4GLzQvvKPMXvl0Kfr7pPXdunU4nFDCLsPOXNd0ice8s
 github.com/jianbo-zh/jypb v0.1.18/go.mod h1:kErRP1pGKVHBYRieoZM6g06lil3vMM/88gaD2brlQwQ=
 github.com/jianbo-zh/jypb v0.1.19 h1:gODNNFVeE9RsGMgDuiJUWhGxWTI5jGTrReOnPazD/fk=
 github.com/jianbo-zh/jypb v0.1.19/go.mod h1:kErRP1pGKVHBYRieoZM6g06lil3vMM/88gaD2brlQwQ=
+github.com/jianbo-zh/jypb v0.1.20 h1:jAIWj5QZk8Q0vF8TUHTvCq9/p4lw2Lhp7Zm72dFcXHs=
+github.com/jianbo-zh/jypb v0.1.20/go.mod h1:kErRP1pGKVHBYRieoZM6g06lil3vMM/88gaD2brlQwQ=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af h1:pmfjZENx5imkbgOkpRUYLnmbU7UEFbjtDA2hxJ1ichM=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/json-iterator/go v1.1.5/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCVDaaPEHmU=
