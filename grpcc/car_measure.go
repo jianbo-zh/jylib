@@ -22,6 +22,7 @@ type ICarMeasure interface {
 	CarEstop(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarEstopReply, error)
 	CarSupportAuto(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarSupportAutoReply, error)
 	CarMeasure(context.Context, *carmeasureV1.CarMeasureRequest, ...selector.NodeFilter) (*carmeasureV1.CarMeasureReply, error)
+	CarMeasures(context.Context, *carmeasureV1.CarMeasuresRequest, ...selector.NodeFilter) (*carmeasureV1.CarMeasuresReply, error)
 	CarPowerEstimate(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarPowerEstimateReply, error)
 	MetricModuleStatus(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricModuleStatusReply, error)
 	MetricBatData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricBatDataReply, error)
@@ -204,6 +205,18 @@ func (c *CarMeasureGrpc) CarMeasure(ctx context.Context, req *carmeasureV1.CarMe
 	reply, err := cli.CarMeasure(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.CarMeasure error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarMeasureGrpc) CarMeasures(ctx context.Context, req *carmeasureV1.CarMeasuresRequest, filters ...selector.NodeFilter) (*carmeasureV1.CarMeasuresReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
+	}
+	reply, err := cli.CarMeasures(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.CarMeasures error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
