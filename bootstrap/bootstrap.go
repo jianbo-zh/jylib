@@ -5,12 +5,12 @@ import (
 	"log"
 
 	"github.com/go-kratos/kratos/v2/config"
-	confV1 "github.com/jianbo-zh/jypb/config/service/v1"
+	configV1 "github.com/jianbo-zh/jypb/config/v1"
 )
 
 var Flags *CommandFlags
 
-func LoadConfig() *confV1.Bootstrap {
+func LoadConfig() *configV1.Bootstrap {
 	Flags = NewCommandFlags()
 	Flags.Init()
 	flag.Parse()
@@ -30,7 +30,7 @@ func LoadConfig() *confV1.Bootstrap {
 		config.WithSource(sources...),
 	)
 
-	var bc confV1.Bootstrap
+	var bc configV1.Bootstrap
 	if err := conf.Load(); err != nil {
 		log.Fatal(err)
 	}

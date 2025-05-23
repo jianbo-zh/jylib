@@ -5,13 +5,13 @@ import (
 	"os"
 	"strings"
 
-	confV1 "github.com/jianbo-zh/jypb/config/service/v1"
+	configV1 "github.com/jianbo-zh/jypb/config/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/natefinch/lumberjack"
 )
 
-func NewLoggerProvider(serviceInfo *ServiceInfo, bc *confV1.Log) log.Logger {
+func NewLoggerProvider(serviceInfo *ServiceInfo, bc *configV1.Log) log.Logger {
 
 	saveDir := "./"
 	if bc == nil {
@@ -43,15 +43,15 @@ func NewLoggerProvider(serviceInfo *ServiceInfo, bc *confV1.Log) log.Logger {
 
 	level := log.LevelInfo
 	switch bc.Level {
-	case confV1.Log_DEBUG:
+	case configV1.Log_DEBUG:
 		level = log.LevelDebug
-	case confV1.Log_INFO:
+	case configV1.Log_INFO:
 		level = log.LevelInfo
-	case confV1.Log_WARN:
+	case configV1.Log_WARN:
 		level = log.LevelWarn
-	case confV1.Log_ERROR:
+	case configV1.Log_ERROR:
 		level = log.LevelError
-	case confV1.Log_FATAL:
+	case configV1.Log_FATAL:
 		level = log.LevelFatal
 	}
 

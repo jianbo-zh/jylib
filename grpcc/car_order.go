@@ -5,32 +5,33 @@ import (
 	"fmt"
 
 	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/go-kratos/kratos/v2/selector"
 	orderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
 )
 
 type ICarOrder interface {
-	GetOrder(context.Context, *orderV1.GetOrderRequest) (*orderV1.Order, error)
-	GetGoingOrder(context.Context, *orderV1.GetGoingOrderRequest) (*orderV1.GetGoingOrderReply, error)
-	GetOrderList(context.Context, *orderV1.GetOrderListRequest) (*orderV1.GetOrderListReply, error)
-	CreateOrder(context.Context, *orderV1.CreateOrderRequest) (*orderV1.Order, error)
-	CancelOrder(context.Context, *orderV1.CancelOrderRequest) (*orderV1.CancelOrderReply, error)
-	StartOrder(context.Context, *orderV1.StartOrderRequest) (*orderV1.StartOrderReply, error)
-	FinishOrder(context.Context, *orderV1.FinishOrderRequest) (*orderV1.FinishOrderReply, error)
-	CommentOrder(context.Context, *orderV1.CommentOrderRequest) (*orderV1.CommentOrderReply, error)
-	CheckOrderTimeoutAbort(context.Context, *orderV1.CheckOrderTimeoutAbortRequest) (*orderV1.CheckOrderTimeoutAbortReply, error)
-	CheckOrderExpiredClose(context.Context, *orderV1.CheckOrderExpiredCloseRequest) (*orderV1.CheckOrderExpiredCloseReply, error)
-	CheckOrderTimeoutCancel(context.Context, *orderV1.CheckOrderTimeoutCancelRequest) (*orderV1.CheckOrderTimeoutCancelReply, error)
-	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest) (*orderV1.PayParam, error)
-	CancelPayment(context.Context, *orderV1.CancelPaymentRequest) (*orderV1.CancelPaymentReply, error)
-	LaunchOrderRefund(context.Context, *orderV1.LaunchOrderRefundRequest) (*orderV1.LaunchOrderRefundReply, error)
-	GetOrderRefund(context.Context, *orderV1.GetOrderRefundRequest) (*orderV1.GetOrderRefundReply, error)
-	GetOrderRefunds(context.Context, *orderV1.GetOrderRefundsRequest) (*orderV1.GetOrderRefundsReply, error)
-	CalcOrderAmount(context.Context, *orderV1.CalcOrderAmountRequest) (*orderV1.CalcOrderAmountReply, error)
-	GetOrderBilling(context.Context, *orderV1.GetOrderBillingRequest) (*orderV1.OrderBilling, error)
-	LaunchOrderSharing(context.Context, *orderV1.LaunchOrderSharingRequest) (*orderV1.LaunchOrderSharingReply, error)
-	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest) (*orderV1.CheckOrderSharingResultReply, error)
-	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest) (*orderV1.EmitSOSEventReply, error)
-	CancelSOSEvent(context.Context, *orderV1.CancelSOSEventRequest) (*orderV1.CancelSOSEventReply, error)
+	GetOrder(context.Context, *orderV1.GetOrderRequest, ...selector.NodeFilter) (*orderV1.Order, error)
+	GetGoingOrder(context.Context, *orderV1.GetGoingOrderRequest, ...selector.NodeFilter) (*orderV1.GetGoingOrderReply, error)
+	GetOrderList(context.Context, *orderV1.GetOrderListRequest, ...selector.NodeFilter) (*orderV1.GetOrderListReply, error)
+	CreateOrder(context.Context, *orderV1.CreateOrderRequest, ...selector.NodeFilter) (*orderV1.Order, error)
+	CancelOrder(context.Context, *orderV1.CancelOrderRequest, ...selector.NodeFilter) (*orderV1.CancelOrderReply, error)
+	StartOrder(context.Context, *orderV1.StartOrderRequest, ...selector.NodeFilter) (*orderV1.StartOrderReply, error)
+	FinishOrder(context.Context, *orderV1.FinishOrderRequest, ...selector.NodeFilter) (*orderV1.FinishOrderReply, error)
+	CommentOrder(context.Context, *orderV1.CommentOrderRequest, ...selector.NodeFilter) (*orderV1.CommentOrderReply, error)
+	CheckOrderTimeoutAbort(context.Context, *orderV1.CheckOrderTimeoutAbortRequest, ...selector.NodeFilter) (*orderV1.CheckOrderTimeoutAbortReply, error)
+	CheckOrderExpiredClose(context.Context, *orderV1.CheckOrderExpiredCloseRequest, ...selector.NodeFilter) (*orderV1.CheckOrderExpiredCloseReply, error)
+	CheckOrderTimeoutCancel(context.Context, *orderV1.CheckOrderTimeoutCancelRequest, ...selector.NodeFilter) (*orderV1.CheckOrderTimeoutCancelReply, error)
+	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest, ...selector.NodeFilter) (*orderV1.PayParam, error)
+	CancelPayment(context.Context, *orderV1.CancelPaymentRequest, ...selector.NodeFilter) (*orderV1.CancelPaymentReply, error)
+	LaunchOrderRefund(context.Context, *orderV1.LaunchOrderRefundRequest, ...selector.NodeFilter) (*orderV1.LaunchOrderRefundReply, error)
+	GetOrderRefund(context.Context, *orderV1.GetOrderRefundRequest, ...selector.NodeFilter) (*orderV1.GetOrderRefundReply, error)
+	GetOrderRefunds(context.Context, *orderV1.GetOrderRefundsRequest, ...selector.NodeFilter) (*orderV1.GetOrderRefundsReply, error)
+	CalcOrderAmount(context.Context, *orderV1.CalcOrderAmountRequest, ...selector.NodeFilter) (*orderV1.CalcOrderAmountReply, error)
+	GetOrderBilling(context.Context, *orderV1.GetOrderBillingRequest, ...selector.NodeFilter) (*orderV1.OrderBilling, error)
+	LaunchOrderSharing(context.Context, *orderV1.LaunchOrderSharingRequest, ...selector.NodeFilter) (*orderV1.LaunchOrderSharingReply, error)
+	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest, ...selector.NodeFilter) (*orderV1.CheckOrderSharingResultReply, error)
+	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest, ...selector.NodeFilter) (*orderV1.EmitSOSEventReply, error)
+	CancelSOSEvent(context.Context, *orderV1.CancelSOSEventRequest, ...selector.NodeFilter) (*orderV1.CancelSOSEventReply, error)
 }
 
 type CarOrderGrpc struct {
@@ -43,8 +44,8 @@ func NewCarOrderGrpc(cli IClient) ICarOrder {
 	}
 }
 
-func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderRequest) (*orderV1.Order, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderRequest, filters ...selector.NodeFilter) (*orderV1.Order, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -55,8 +56,8 @@ func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderReques
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) GetGoingOrder(ctx context.Context, req *orderV1.GetGoingOrderRequest) (*orderV1.GetGoingOrderReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) GetGoingOrder(ctx context.Context, req *orderV1.GetGoingOrderRequest, filters ...selector.NodeFilter) (*orderV1.GetGoingOrderReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -67,8 +68,8 @@ func (c *CarOrderGrpc) GetGoingOrder(ctx context.Context, req *orderV1.GetGoingO
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) GetOrderList(ctx context.Context, req *orderV1.GetOrderListRequest) (*orderV1.GetOrderListReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) GetOrderList(ctx context.Context, req *orderV1.GetOrderListRequest, filters ...selector.NodeFilter) (*orderV1.GetOrderListReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -79,8 +80,8 @@ func (c *CarOrderGrpc) GetOrderList(ctx context.Context, req *orderV1.GetOrderLi
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrderRequest) (*orderV1.Order, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrderRequest, filters ...selector.NodeFilter) (*orderV1.Order, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -91,8 +92,8 @@ func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrder
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CancelOrder(ctx context.Context, req *orderV1.CancelOrderRequest) (*orderV1.CancelOrderReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CancelOrder(ctx context.Context, req *orderV1.CancelOrderRequest, filters ...selector.NodeFilter) (*orderV1.CancelOrderReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -103,8 +104,8 @@ func (c *CarOrderGrpc) CancelOrder(ctx context.Context, req *orderV1.CancelOrder
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) StartOrder(ctx context.Context, req *orderV1.StartOrderRequest) (*orderV1.StartOrderReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) StartOrder(ctx context.Context, req *orderV1.StartOrderRequest, filters ...selector.NodeFilter) (*orderV1.StartOrderReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -115,8 +116,8 @@ func (c *CarOrderGrpc) StartOrder(ctx context.Context, req *orderV1.StartOrderRe
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) FinishOrder(ctx context.Context, req *orderV1.FinishOrderRequest) (*orderV1.FinishOrderReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) FinishOrder(ctx context.Context, req *orderV1.FinishOrderRequest, filters ...selector.NodeFilter) (*orderV1.FinishOrderReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -127,8 +128,8 @@ func (c *CarOrderGrpc) FinishOrder(ctx context.Context, req *orderV1.FinishOrder
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CommentOrder(ctx context.Context, req *orderV1.CommentOrderRequest) (*orderV1.CommentOrderReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CommentOrder(ctx context.Context, req *orderV1.CommentOrderRequest, filters ...selector.NodeFilter) (*orderV1.CommentOrderReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -139,8 +140,8 @@ func (c *CarOrderGrpc) CommentOrder(ctx context.Context, req *orderV1.CommentOrd
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CheckOrderTimeoutAbort(ctx context.Context, req *orderV1.CheckOrderTimeoutAbortRequest) (*orderV1.CheckOrderTimeoutAbortReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CheckOrderTimeoutAbort(ctx context.Context, req *orderV1.CheckOrderTimeoutAbortRequest, filters ...selector.NodeFilter) (*orderV1.CheckOrderTimeoutAbortReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -151,8 +152,8 @@ func (c *CarOrderGrpc) CheckOrderTimeoutAbort(ctx context.Context, req *orderV1.
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CheckOrderExpiredClose(ctx context.Context, req *orderV1.CheckOrderExpiredCloseRequest) (*orderV1.CheckOrderExpiredCloseReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CheckOrderExpiredClose(ctx context.Context, req *orderV1.CheckOrderExpiredCloseRequest, filters ...selector.NodeFilter) (*orderV1.CheckOrderExpiredCloseReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -163,8 +164,8 @@ func (c *CarOrderGrpc) CheckOrderExpiredClose(ctx context.Context, req *orderV1.
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1.CheckOrderTimeoutCancelRequest) (*orderV1.CheckOrderTimeoutCancelReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1.CheckOrderTimeoutCancelRequest, filters ...selector.NodeFilter) (*orderV1.CheckOrderTimeoutCancelReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -175,8 +176,8 @@ func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrderRequest) (*orderV1.PayParam, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrderRequest, filters ...selector.NodeFilter) (*orderV1.PayParam, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -187,8 +188,8 @@ func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrder
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CancelPayment(ctx context.Context, req *orderV1.CancelPaymentRequest) (*orderV1.CancelPaymentReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CancelPayment(ctx context.Context, req *orderV1.CancelPaymentRequest, filters ...selector.NodeFilter) (*orderV1.CancelPaymentReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -199,8 +200,8 @@ func (c *CarOrderGrpc) CancelPayment(ctx context.Context, req *orderV1.CancelPay
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) LaunchOrderRefund(ctx context.Context, req *orderV1.LaunchOrderRefundRequest) (*orderV1.LaunchOrderRefundReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) LaunchOrderRefund(ctx context.Context, req *orderV1.LaunchOrderRefundRequest, filters ...selector.NodeFilter) (*orderV1.LaunchOrderRefundReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -211,8 +212,8 @@ func (c *CarOrderGrpc) LaunchOrderRefund(ctx context.Context, req *orderV1.Launc
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) GetOrderRefund(ctx context.Context, req *orderV1.GetOrderRefundRequest) (*orderV1.GetOrderRefundReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) GetOrderRefund(ctx context.Context, req *orderV1.GetOrderRefundRequest, filters ...selector.NodeFilter) (*orderV1.GetOrderRefundReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -223,8 +224,8 @@ func (c *CarOrderGrpc) GetOrderRefund(ctx context.Context, req *orderV1.GetOrder
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) GetOrderRefunds(ctx context.Context, req *orderV1.GetOrderRefundsRequest) (*orderV1.GetOrderRefundsReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) GetOrderRefunds(ctx context.Context, req *orderV1.GetOrderRefundsRequest, filters ...selector.NodeFilter) (*orderV1.GetOrderRefundsReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -235,8 +236,8 @@ func (c *CarOrderGrpc) GetOrderRefunds(ctx context.Context, req *orderV1.GetOrde
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CalcOrderAmount(ctx context.Context, req *orderV1.CalcOrderAmountRequest) (*orderV1.CalcOrderAmountReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CalcOrderAmount(ctx context.Context, req *orderV1.CalcOrderAmountRequest, filters ...selector.NodeFilter) (*orderV1.CalcOrderAmountReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -247,8 +248,8 @@ func (c *CarOrderGrpc) CalcOrderAmount(ctx context.Context, req *orderV1.CalcOrd
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrderBillingRequest) (*orderV1.OrderBilling, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrderBillingRequest, filters ...selector.NodeFilter) (*orderV1.OrderBilling, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -259,8 +260,8 @@ func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrde
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) LaunchOrderSharing(ctx context.Context, req *orderV1.LaunchOrderSharingRequest) (*orderV1.LaunchOrderSharingReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) LaunchOrderSharing(ctx context.Context, req *orderV1.LaunchOrderSharingRequest, filters ...selector.NodeFilter) (*orderV1.LaunchOrderSharingReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -271,8 +272,8 @@ func (c *CarOrderGrpc) LaunchOrderSharing(ctx context.Context, req *orderV1.Laun
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CheckOrderSharingResult(ctx context.Context, req *orderV1.CheckOrderSharingResultRequest) (*orderV1.CheckOrderSharingResultReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CheckOrderSharingResult(ctx context.Context, req *orderV1.CheckOrderSharingResultRequest, filters ...selector.NodeFilter) (*orderV1.CheckOrderSharingResultReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -283,8 +284,8 @@ func (c *CarOrderGrpc) CheckOrderSharingResult(ctx context.Context, req *orderV1
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) EmitSOSEvent(ctx context.Context, req *orderV1.EmitSOSEventRequest) (*orderV1.EmitSOSEventReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) EmitSOSEvent(ctx context.Context, req *orderV1.EmitSOSEventRequest, filters ...selector.NodeFilter) (*orderV1.EmitSOSEventReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
@@ -295,8 +296,8 @@ func (c *CarOrderGrpc) EmitSOSEvent(ctx context.Context, req *orderV1.EmitSOSEve
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSOSEventRequest) (*orderV1.CancelSOSEventReply, error) {
-	cli, err := c.client.CarOrderClient(ctx)
+func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSOSEventRequest, filters ...selector.NodeFilter) (*orderV1.CancelSOSEventReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}

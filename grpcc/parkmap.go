@@ -5,15 +5,16 @@ import (
 	"fmt"
 
 	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/go-kratos/kratos/v2/selector"
 	mapV1 "github.com/jianbo-zh/jypb/api/parkmap/v1"
 )
 
 type IParkMap interface {
-	CreateMapVersion(context.Context, *mapV1.CreateMapVersionRequest) (*mapV1.MapVersion, error)
-	GetMapVersions(context.Context, *mapV1.GetMapVersionsRequest) (*mapV1.GetMapVersionsReply, error)
-	GetMapVersion(context.Context, *mapV1.GetMapVersionRequest) (*mapV1.MapVersion, error)
-	GetVersionMap(context.Context, *mapV1.GetVersionMapRequest) (*mapV1.GetVersionMapReply, error)
-	GetVersionPois(context.Context, *mapV1.GetVersionPoisRequest) (*mapV1.GetVersionPoisReply, error)
+	CreateMapVersion(context.Context, *mapV1.CreateMapVersionRequest, ...selector.NodeFilter) (*mapV1.MapVersion, error)
+	GetMapVersions(context.Context, *mapV1.GetMapVersionsRequest, ...selector.NodeFilter) (*mapV1.GetMapVersionsReply, error)
+	GetMapVersion(context.Context, *mapV1.GetMapVersionRequest, ...selector.NodeFilter) (*mapV1.MapVersion, error)
+	GetVersionMap(context.Context, *mapV1.GetVersionMapRequest, ...selector.NodeFilter) (*mapV1.GetVersionMapReply, error)
+	GetVersionPois(context.Context, *mapV1.GetVersionPoisRequest, ...selector.NodeFilter) (*mapV1.GetVersionPoisReply, error)
 }
 
 type ParkMapGrpc struct {
@@ -26,8 +27,8 @@ func NewParkMapGrpc(cli IClient) IParkMap {
 	}
 }
 
-func (c *ParkMapGrpc) CreateMapVersion(ctx context.Context, req *mapV1.CreateMapVersionRequest) (*mapV1.MapVersion, error) {
-	cli, err := c.client.ParkMapClient(ctx)
+func (c *ParkMapGrpc) CreateMapVersion(ctx context.Context, req *mapV1.CreateMapVersionRequest, filters ...selector.NodeFilter) (*mapV1.MapVersion, error) {
+	cli, err := c.client.ParkMapClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)
 	}
@@ -38,8 +39,8 @@ func (c *ParkMapGrpc) CreateMapVersion(ctx context.Context, req *mapV1.CreateMap
 	return reply, nil
 }
 
-func (c *ParkMapGrpc) GetMapVersions(ctx context.Context, req *mapV1.GetMapVersionsRequest) (*mapV1.GetMapVersionsReply, error) {
-	cli, err := c.client.ParkMapClient(ctx)
+func (c *ParkMapGrpc) GetMapVersions(ctx context.Context, req *mapV1.GetMapVersionsRequest, filters ...selector.NodeFilter) (*mapV1.GetMapVersionsReply, error) {
+	cli, err := c.client.ParkMapClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)
 	}
@@ -50,8 +51,8 @@ func (c *ParkMapGrpc) GetMapVersions(ctx context.Context, req *mapV1.GetMapVersi
 	return reply, nil
 }
 
-func (c *ParkMapGrpc) GetMapVersion(ctx context.Context, req *mapV1.GetMapVersionRequest) (*mapV1.MapVersion, error) {
-	cli, err := c.client.ParkMapClient(ctx)
+func (c *ParkMapGrpc) GetMapVersion(ctx context.Context, req *mapV1.GetMapVersionRequest, filters ...selector.NodeFilter) (*mapV1.MapVersion, error) {
+	cli, err := c.client.ParkMapClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)
 	}
@@ -62,8 +63,8 @@ func (c *ParkMapGrpc) GetMapVersion(ctx context.Context, req *mapV1.GetMapVersio
 	return reply, nil
 }
 
-func (c *ParkMapGrpc) GetVersionMap(ctx context.Context, req *mapV1.GetVersionMapRequest) (*mapV1.GetVersionMapReply, error) {
-	cli, err := c.client.ParkMapClient(ctx)
+func (c *ParkMapGrpc) GetVersionMap(ctx context.Context, req *mapV1.GetVersionMapRequest, filters ...selector.NodeFilter) (*mapV1.GetVersionMapReply, error) {
+	cli, err := c.client.ParkMapClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)
 	}
@@ -74,8 +75,8 @@ func (c *ParkMapGrpc) GetVersionMap(ctx context.Context, req *mapV1.GetVersionMa
 	return reply, nil
 }
 
-func (c *ParkMapGrpc) GetVersionPois(ctx context.Context, req *mapV1.GetVersionPoisRequest) (*mapV1.GetVersionPoisReply, error) {
-	cli, err := c.client.ParkMapClient(ctx)
+func (c *ParkMapGrpc) GetVersionPois(ctx context.Context, req *mapV1.GetVersionPoisRequest, filters ...selector.NodeFilter) (*mapV1.GetVersionPoisReply, error) {
+	cli, err := c.client.ParkMapClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.ParkMapClient error: %w", err)
 	}

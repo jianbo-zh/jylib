@@ -5,11 +5,12 @@ import (
 	"fmt"
 
 	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/go-kratos/kratos/v2/selector"
 	authV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
 )
 
 type ICarAuth interface {
-	CheckAuth(context.Context, *authV1.CheckAuthRequest) (*authV1.CheckAuthReply, error)
+	CheckAuth(context.Context, *authV1.CheckAuthRequest, ...selector.NodeFilter) (*authV1.CheckAuthReply, error)
 }
 
 type CarAuthGrpc struct {
@@ -22,8 +23,8 @@ func NewCarAuthGrpc(cli IClient) ICarAuth {
 	}
 }
 
-func (c *CarAuthGrpc) CheckAuth(ctx context.Context, req *authV1.CheckAuthRequest) (*authV1.CheckAuthReply, error) {
-	cli, err := c.client.CarAuthClient(ctx)
+func (c *CarAuthGrpc) CheckAuth(ctx context.Context, req *authV1.CheckAuthRequest, filters ...selector.NodeFilter) (*authV1.CheckAuthReply, error) {
+	cli, err := c.client.CarAuthClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarAuthClient error: %w", err)
 	}

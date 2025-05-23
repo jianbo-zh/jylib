@@ -5,52 +5,53 @@ import (
 	"fmt"
 
 	"github.com/go-kratos/kratos/v2/errors"
-	proxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
+	"github.com/go-kratos/kratos/v2/selector"
+	carmeasureV1 "github.com/jianbo-zh/jypb/api/carmeasure/v1"
 )
 
 type ICarMeasure interface {
-	CarSpeed(context.Context, *proxyV1.Device) (*proxyV1.CarSpeedReply, error)
-	CarOnline(context.Context, *proxyV1.Device) (*proxyV1.CarOnlineReply, error)
-	CarLonLat(context.Context, *proxyV1.Device) (*proxyV1.CarLonLatReply, error)
-	CarHeading(context.Context, *proxyV1.Device) (*proxyV1.CarHeadingReply, error)
-	CarSupportType(context.Context, *proxyV1.Device) (*proxyV1.CarSupportTypeReply, error)
-	CarDrivingState(context.Context, *proxyV1.Device) (*proxyV1.CarDrivingStateReply, error)
-	CarRemainingPower(context.Context, *proxyV1.Device) (*proxyV1.CarRemainingPowerReply, error)
-	CarInRoad(context.Context, *proxyV1.Device) (*proxyV1.CarInRoadReply, error)
-	CarLoad(context.Context, *proxyV1.Device) (*proxyV1.CarLoadReply, error)
-	CarEstop(context.Context, *proxyV1.Device) (*proxyV1.CarEstopReply, error)
-	CarSupportAuto(context.Context, *proxyV1.Device) (*proxyV1.CarSupportAutoReply, error)
-	CarMeasure(context.Context, *proxyV1.CarMeasureRequest) (*proxyV1.CarMeasureReply, error)
-	CarPowerEstimate(context.Context, *proxyV1.Device) (*proxyV1.CarPowerEstimateReply, error)
-	MetricModuleStatus(context.Context, *proxyV1.Device) (*proxyV1.MetricModuleStatusReply, error)
-	MetricBatData(context.Context, *proxyV1.Device) (*proxyV1.MetricBatDataReply, error)
-	MetricChassisData(context.Context, *proxyV1.Device) (*proxyV1.MetricChassisDataReply, error)
-	MetricGpsData(context.Context, *proxyV1.Device) (*proxyV1.MetricGpsDataReply, error)
-	MetricGpsStatus(context.Context, *proxyV1.Device) (*proxyV1.MetricGpsStatusReply, error)
-	MetricGuardianData(context.Context, *proxyV1.Device) (*proxyV1.MetricGuardianDataReply, error)
-	MetricFenceData(context.Context, *proxyV1.Device) (*proxyV1.MetricFenceDataReply, error)
-	MetricFenceId(context.Context, *proxyV1.Device) (*proxyV1.MetricFenceIdReply, error)
-	MetricUltrasonicData(context.Context, *proxyV1.Device) (*proxyV1.MetricUltrasonicDataReply, error)
-	MetricLocalizationData(context.Context, *proxyV1.Device) (*proxyV1.MetricLocalizationDataReply, error)
-	MetricPerceptionObstacles(context.Context, *proxyV1.Device) (*proxyV1.MetricPerceptionObstaclesReply, error)
-	MetricSysInfo(context.Context, *proxyV1.Device) (*proxyV1.MetricSysInfoReply, error)
-	EventAlarmReport(context.Context, *proxyV1.Device) (*proxyV1.EventAlarmReportReply, error)
-	EventAlarmSupport(context.Context, *proxyV1.Device) (*proxyV1.EventAlarmSupportReply, error)
-	EventChassisState(context.Context, *proxyV1.Device) (*proxyV1.EventChassisStateReply, error)
-	EventChassisError(context.Context, *proxyV1.Device) (*proxyV1.EventChassisErrorReply, error)
-	EventEmergencyBrake(context.Context, *proxyV1.Device) (*proxyV1.EventEmergencyBrakeReply, error)
-	EventCurrentVersion(context.Context, *proxyV1.Device) (*proxyV1.EventCurrentVersionReply, error)
-	EventResourceProgress(context.Context, *proxyV1.Device) (*proxyV1.EventResourceProgressReply, error)
-	EventSolType(context.Context, *proxyV1.Device) (*proxyV1.EventSolTypeReply, error)
-	EventGuardianStatus(context.Context, *proxyV1.Device) (*proxyV1.EventGuardianStatusReply, error)
-	EventVoiceAnnouncements(context.Context, *proxyV1.Device) (*proxyV1.EventVoiceAnnouncementsReply, error)
-	EventPInCarDetect(context.Context, *proxyV1.Device) (*proxyV1.EventPInCarDetectReply, error)
-	EventLocatedType(context.Context, *proxyV1.Device) (*proxyV1.EventLocatedTypeReply, error)
-	EventAutoPhase(context.Context, *proxyV1.Device) (*proxyV1.EventAutoPhaseReply, error)
-	EventVehicleState(context.Context, *proxyV1.Device) (*proxyV1.EventVehicleStateReply, error)
-	EventPowerOn(context.Context, *proxyV1.Device) (*proxyV1.EventPowerOnReply, error)
-	EventNearbyPOI(context.Context, *proxyV1.Device) (*proxyV1.EventNearbyPOIReply, error)
-	EventUOCState(context.Context, *proxyV1.Device) (*proxyV1.EventUOCStateReply, error)
+	CarSpeed(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarSpeedReply, error)
+	CarOnline(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarOnlineReply, error)
+	CarLonLat(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarLonLatReply, error)
+	CarHeading(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarHeadingReply, error)
+	CarSupportType(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarSupportTypeReply, error)
+	CarDrivingState(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarDrivingStateReply, error)
+	CarRemainingPower(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarRemainingPowerReply, error)
+	CarInRoad(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarInRoadReply, error)
+	CarLoad(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarLoadReply, error)
+	CarEstop(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarEstopReply, error)
+	CarSupportAuto(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarSupportAutoReply, error)
+	CarMeasure(context.Context, *carmeasureV1.CarMeasureRequest, ...selector.NodeFilter) (*carmeasureV1.CarMeasureReply, error)
+	CarPowerEstimate(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.CarPowerEstimateReply, error)
+	MetricModuleStatus(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricModuleStatusReply, error)
+	MetricBatData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricBatDataReply, error)
+	MetricChassisData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricChassisDataReply, error)
+	MetricGpsData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricGpsDataReply, error)
+	MetricGpsStatus(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricGpsStatusReply, error)
+	MetricGuardianData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricGuardianDataReply, error)
+	MetricFenceData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricFenceDataReply, error)
+	MetricFenceId(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricFenceIdReply, error)
+	MetricUltrasonicData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricUltrasonicDataReply, error)
+	MetricLocalizationData(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricLocalizationDataReply, error)
+	MetricPerceptionObstacles(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricPerceptionObstaclesReply, error)
+	MetricSysInfo(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.MetricSysInfoReply, error)
+	EventAlarmReport(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventAlarmReportReply, error)
+	EventAlarmSupport(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventAlarmSupportReply, error)
+	EventChassisState(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventChassisStateReply, error)
+	EventChassisError(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventChassisErrorReply, error)
+	EventEmergencyBrake(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventEmergencyBrakeReply, error)
+	EventCurrentVersion(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventCurrentVersionReply, error)
+	EventResourceProgress(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventResourceProgressReply, error)
+	EventSolType(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventSolTypeReply, error)
+	EventGuardianStatus(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventGuardianStatusReply, error)
+	EventVoiceAnnouncements(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventVoiceAnnouncementsReply, error)
+	EventPInCarDetect(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventPInCarDetectReply, error)
+	EventLocatedType(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventLocatedTypeReply, error)
+	EventAutoPhase(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventAutoPhaseReply, error)
+	EventVehicleState(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventVehicleStateReply, error)
+	EventPowerOn(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventPowerOnReply, error)
+	EventNearbyPOI(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventNearbyPOIReply, error)
+	EventUOCState(context.Context, *carmeasureV1.Device, ...selector.NodeFilter) (*carmeasureV1.EventUOCStateReply, error)
 }
 
 type CarMeasureGrpc struct {
@@ -63,8 +64,8 @@ func NewCarMeasureGrpc(cli IClient) ICarMeasure {
 	}
 }
 
-func (c *CarMeasureGrpc) CarSpeed(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarSpeedReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarSpeed(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarSpeedReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -75,8 +76,8 @@ func (c *CarMeasureGrpc) CarSpeed(ctx context.Context, req *proxyV1.Device) (*pr
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarOnline(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarOnlineReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarOnline(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarOnlineReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -87,8 +88,8 @@ func (c *CarMeasureGrpc) CarOnline(ctx context.Context, req *proxyV1.Device) (*p
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarLonLat(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarLonLatReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarLonLat(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarLonLatReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -99,8 +100,8 @@ func (c *CarMeasureGrpc) CarLonLat(ctx context.Context, req *proxyV1.Device) (*p
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarHeading(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarHeadingReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarHeading(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarHeadingReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -111,8 +112,8 @@ func (c *CarMeasureGrpc) CarHeading(ctx context.Context, req *proxyV1.Device) (*
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarSupportType(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarSupportTypeReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarSupportType(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarSupportTypeReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -123,8 +124,8 @@ func (c *CarMeasureGrpc) CarSupportType(ctx context.Context, req *proxyV1.Device
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarDrivingState(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarDrivingStateReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarDrivingState(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarDrivingStateReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -135,8 +136,8 @@ func (c *CarMeasureGrpc) CarDrivingState(ctx context.Context, req *proxyV1.Devic
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarRemainingPower(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarRemainingPowerReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarRemainingPower(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarRemainingPowerReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -147,8 +148,8 @@ func (c *CarMeasureGrpc) CarRemainingPower(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarInRoad(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarInRoadReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarInRoad(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarInRoadReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -159,8 +160,8 @@ func (c *CarMeasureGrpc) CarInRoad(ctx context.Context, req *proxyV1.Device) (*p
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarLoad(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarLoadReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarLoad(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarLoadReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -171,8 +172,8 @@ func (c *CarMeasureGrpc) CarLoad(ctx context.Context, req *proxyV1.Device) (*pro
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarEstop(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarEstopReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarEstop(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarEstopReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -183,8 +184,8 @@ func (c *CarMeasureGrpc) CarEstop(ctx context.Context, req *proxyV1.Device) (*pr
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarSupportAuto(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarSupportAutoReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarSupportAuto(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarSupportAutoReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -195,8 +196,8 @@ func (c *CarMeasureGrpc) CarSupportAuto(ctx context.Context, req *proxyV1.Device
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarMeasure(ctx context.Context, req *proxyV1.CarMeasureRequest) (*proxyV1.CarMeasureReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarMeasure(ctx context.Context, req *carmeasureV1.CarMeasureRequest, filters ...selector.NodeFilter) (*carmeasureV1.CarMeasureReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -207,8 +208,8 @@ func (c *CarMeasureGrpc) CarMeasure(ctx context.Context, req *proxyV1.CarMeasure
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) CarPowerEstimate(ctx context.Context, req *proxyV1.Device) (*proxyV1.CarPowerEstimateReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) CarPowerEstimate(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.CarPowerEstimateReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -219,8 +220,8 @@ func (c *CarMeasureGrpc) CarPowerEstimate(ctx context.Context, req *proxyV1.Devi
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricModuleStatus(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricModuleStatusReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricModuleStatus(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricModuleStatusReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -231,8 +232,8 @@ func (c *CarMeasureGrpc) MetricModuleStatus(ctx context.Context, req *proxyV1.De
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricBatData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricBatDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricBatData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricBatDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -243,8 +244,8 @@ func (c *CarMeasureGrpc) MetricBatData(ctx context.Context, req *proxyV1.Device)
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricChassisData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricChassisDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricChassisData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricChassisDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -255,8 +256,8 @@ func (c *CarMeasureGrpc) MetricChassisData(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricGpsData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricGpsDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricGpsData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricGpsDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -267,8 +268,8 @@ func (c *CarMeasureGrpc) MetricGpsData(ctx context.Context, req *proxyV1.Device)
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricGpsStatus(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricGpsStatusReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricGpsStatus(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricGpsStatusReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -279,8 +280,8 @@ func (c *CarMeasureGrpc) MetricGpsStatus(ctx context.Context, req *proxyV1.Devic
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricGuardianData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricGuardianDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricGuardianData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricGuardianDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -291,8 +292,8 @@ func (c *CarMeasureGrpc) MetricGuardianData(ctx context.Context, req *proxyV1.De
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricFenceData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricFenceDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricFenceData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricFenceDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -303,8 +304,8 @@ func (c *CarMeasureGrpc) MetricFenceData(ctx context.Context, req *proxyV1.Devic
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricFenceId(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricFenceIdReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricFenceId(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricFenceIdReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -315,8 +316,8 @@ func (c *CarMeasureGrpc) MetricFenceId(ctx context.Context, req *proxyV1.Device)
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricUltrasonicData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricUltrasonicDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricUltrasonicData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricUltrasonicDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -327,8 +328,8 @@ func (c *CarMeasureGrpc) MetricUltrasonicData(ctx context.Context, req *proxyV1.
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricLocalizationData(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricLocalizationDataReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricLocalizationData(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricLocalizationDataReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -339,8 +340,8 @@ func (c *CarMeasureGrpc) MetricLocalizationData(ctx context.Context, req *proxyV
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricPerceptionObstacles(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricPerceptionObstaclesReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricPerceptionObstacles(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricPerceptionObstaclesReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -351,8 +352,8 @@ func (c *CarMeasureGrpc) MetricPerceptionObstacles(ctx context.Context, req *pro
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) MetricSysInfo(ctx context.Context, req *proxyV1.Device) (*proxyV1.MetricSysInfoReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) MetricSysInfo(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.MetricSysInfoReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -363,8 +364,8 @@ func (c *CarMeasureGrpc) MetricSysInfo(ctx context.Context, req *proxyV1.Device)
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventAlarmReport(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventAlarmReportReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventAlarmReport(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventAlarmReportReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -375,8 +376,8 @@ func (c *CarMeasureGrpc) EventAlarmReport(ctx context.Context, req *proxyV1.Devi
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventAlarmSupport(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventAlarmSupportReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventAlarmSupport(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventAlarmSupportReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -387,8 +388,8 @@ func (c *CarMeasureGrpc) EventAlarmSupport(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventChassisState(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventChassisStateReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventChassisState(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventChassisStateReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -399,8 +400,8 @@ func (c *CarMeasureGrpc) EventChassisState(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventChassisError(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventChassisErrorReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventChassisError(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventChassisErrorReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -411,8 +412,8 @@ func (c *CarMeasureGrpc) EventChassisError(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventEmergencyBrake(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventEmergencyBrakeReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventEmergencyBrake(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventEmergencyBrakeReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -423,8 +424,8 @@ func (c *CarMeasureGrpc) EventEmergencyBrake(ctx context.Context, req *proxyV1.D
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventCurrentVersion(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventCurrentVersionReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventCurrentVersion(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventCurrentVersionReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -435,8 +436,8 @@ func (c *CarMeasureGrpc) EventCurrentVersion(ctx context.Context, req *proxyV1.D
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventResourceProgress(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventResourceProgressReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventResourceProgress(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventResourceProgressReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -447,8 +448,8 @@ func (c *CarMeasureGrpc) EventResourceProgress(ctx context.Context, req *proxyV1
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventSolType(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventSolTypeReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventSolType(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventSolTypeReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -459,8 +460,8 @@ func (c *CarMeasureGrpc) EventSolType(ctx context.Context, req *proxyV1.Device) 
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventGuardianStatus(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventGuardianStatusReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventGuardianStatus(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventGuardianStatusReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -471,8 +472,8 @@ func (c *CarMeasureGrpc) EventGuardianStatus(ctx context.Context, req *proxyV1.D
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventVoiceAnnouncements(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventVoiceAnnouncementsReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventVoiceAnnouncements(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventVoiceAnnouncementsReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -483,8 +484,8 @@ func (c *CarMeasureGrpc) EventVoiceAnnouncements(ctx context.Context, req *proxy
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventPInCarDetect(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventPInCarDetectReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventPInCarDetect(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventPInCarDetectReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -495,8 +496,8 @@ func (c *CarMeasureGrpc) EventPInCarDetect(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventLocatedType(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventLocatedTypeReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventLocatedType(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventLocatedTypeReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -507,8 +508,8 @@ func (c *CarMeasureGrpc) EventLocatedType(ctx context.Context, req *proxyV1.Devi
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventAutoPhase(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventAutoPhaseReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventAutoPhase(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventAutoPhaseReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -519,8 +520,8 @@ func (c *CarMeasureGrpc) EventAutoPhase(ctx context.Context, req *proxyV1.Device
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventVehicleState(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventVehicleStateReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventVehicleState(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventVehicleStateReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -531,8 +532,8 @@ func (c *CarMeasureGrpc) EventVehicleState(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventPowerOn(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventPowerOnReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventPowerOn(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventPowerOnReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -543,8 +544,8 @@ func (c *CarMeasureGrpc) EventPowerOn(ctx context.Context, req *proxyV1.Device) 
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventNearbyPOI(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventNearbyPOIReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventNearbyPOI(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventNearbyPOIReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}
@@ -555,8 +556,8 @@ func (c *CarMeasureGrpc) EventNearbyPOI(ctx context.Context, req *proxyV1.Device
 	return reply, nil
 }
 
-func (c *CarMeasureGrpc) EventUOCState(ctx context.Context, req *proxyV1.Device) (*proxyV1.EventUOCStateReply, error) {
-	cli, err := c.client.CarMeasureClient(ctx)
+func (c *CarMeasureGrpc) EventUOCState(ctx context.Context, req *carmeasureV1.Device, filters ...selector.NodeFilter) (*carmeasureV1.EventUOCStateReply, error) {
+	cli, err := c.client.CarMeasureClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
 	}

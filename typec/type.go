@@ -33,6 +33,7 @@ const (
 	Service_CarConfig      string = "GR.carconfig"
 	Service_CarDispatch    string = "GR.cardispatch"
 	Service_CarProxy       string = "GR.carproxy"
+	Service_CarMeasure     string = "GR.carmeasure"
 	Service_ParkMap        string = "GR.parkmap"
 	Service_FileStorage    string = "GR.filestorage"
 	Service_CarOrder       string = "GR.carorder"
