@@ -24,11 +24,11 @@ type ICarOrder interface {
 	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest, ...selector.NodeFilter) (*orderV1.PayParam, error)
 	CancelPayment(context.Context, *orderV1.CancelPaymentRequest, ...selector.NodeFilter) (*orderV1.CancelPaymentReply, error)
 	LaunchOrderRefund(context.Context, *orderV1.LaunchOrderRefundRequest, ...selector.NodeFilter) (*orderV1.LaunchOrderRefundReply, error)
+	ExecuteOrderRefund(context.Context, *orderV1.ExecuteOrderRefundRequest, ...selector.NodeFilter) (*orderV1.ExecuteOrderRefundReply, error)
 	GetOrderRefund(context.Context, *orderV1.GetOrderRefundRequest, ...selector.NodeFilter) (*orderV1.GetOrderRefundReply, error)
 	GetOrderRefunds(context.Context, *orderV1.GetOrderRefundsRequest, ...selector.NodeFilter) (*orderV1.GetOrderRefundsReply, error)
-	CalcOrderAmount(context.Context, *orderV1.CalcOrderAmountRequest, ...selector.NodeFilter) (*orderV1.CalcOrderAmountReply, error)
 	GetOrderBilling(context.Context, *orderV1.GetOrderBillingRequest, ...selector.NodeFilter) (*orderV1.OrderBilling, error)
-	LaunchOrderSharing(context.Context, *orderV1.LaunchOrderSharingRequest, ...selector.NodeFilter) (*orderV1.LaunchOrderSharingReply, error)
+	ExecuteOrderSharing(context.Context, *orderV1.ExecuteOrderSharingRequest, ...selector.NodeFilter) (*orderV1.ExecuteOrderSharingReply, error)
 	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest, ...selector.NodeFilter) (*orderV1.CheckOrderSharingResultReply, error)
 	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest, ...selector.NodeFilter) (*orderV1.EmitSOSEventReply, error)
 	CancelSOSEvent(context.Context, *orderV1.CancelSOSEventRequest, ...selector.NodeFilter) (*orderV1.CancelSOSEventReply, error)
@@ -212,6 +212,18 @@ func (c *CarOrderGrpc) LaunchOrderRefund(ctx context.Context, req *orderV1.Launc
 	return reply, nil
 }
 
+func (c *CarOrderGrpc) ExecuteOrderRefund(ctx context.Context, req *orderV1.ExecuteOrderRefundRequest, filters ...selector.NodeFilter) (*orderV1.ExecuteOrderRefundReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.ExecuteOrderRefund(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.ExecuteOrderRefund error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
 func (c *CarOrderGrpc) GetOrderRefund(ctx context.Context, req *orderV1.GetOrderRefundRequest, filters ...selector.NodeFilter) (*orderV1.GetOrderRefundReply, error) {
 	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
@@ -236,18 +248,6 @@ func (c *CarOrderGrpc) GetOrderRefunds(ctx context.Context, req *orderV1.GetOrde
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CalcOrderAmount(ctx context.Context, req *orderV1.CalcOrderAmountRequest, filters ...selector.NodeFilter) (*orderV1.CalcOrderAmountReply, error) {
-	cli, err := c.client.CarOrderClient(ctx, filters...)
-	if err != nil {
-		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
-	}
-	reply, err := cli.CalcOrderAmount(ctx, req)
-	if err != nil {
-		return nil, fmt.Errorf("cli.CalcOrderAmount error: %w", errors.FromError(err))
-	}
-	return reply, nil
-}
-
 func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrderBillingRequest, filters ...selector.NodeFilter) (*orderV1.OrderBilling, error) {
 	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
@@ -260,14 +260,14 @@ func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrde
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) LaunchOrderSharing(ctx context.Context, req *orderV1.LaunchOrderSharingRequest, filters ...selector.NodeFilter) (*orderV1.LaunchOrderSharingReply, error) {
+func (c *CarOrderGrpc) ExecuteOrderSharing(ctx context.Context, req *orderV1.ExecuteOrderSharingRequest, filters ...selector.NodeFilter) (*orderV1.ExecuteOrderSharingReply, error) {
 	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
-	reply, err := cli.LaunchOrderSharing(ctx, req)
+	reply, err := cli.ExecuteOrderSharing(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.LaunchOrderSharing error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.ExecuteOrderSharing error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
