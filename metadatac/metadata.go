@@ -1,4 +1,4 @@
-package metadata
+package metadatac
 
 import (
 	"context"
