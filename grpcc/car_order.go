@@ -25,7 +25,6 @@ type ICarOrder interface {
 	CancelPayment(context.Context, *orderV1.CancelPaymentRequest, ...selector.NodeFilter) (*orderV1.CancelPaymentReply, error)
 	LaunchOrderRefund(context.Context, *orderV1.LaunchOrderRefundRequest, ...selector.NodeFilter) (*orderV1.LaunchOrderRefundReply, error)
 	ExecuteOrderRefund(context.Context, *orderV1.ExecuteOrderRefundRequest, ...selector.NodeFilter) (*orderV1.ExecuteOrderRefundReply, error)
-	GetOrderRefund(context.Context, *orderV1.GetOrderRefundRequest, ...selector.NodeFilter) (*orderV1.GetOrderRefundReply, error)
 	GetOrderRefunds(context.Context, *orderV1.GetOrderRefundsRequest, ...selector.NodeFilter) (*orderV1.GetOrderRefundsReply, error)
 	GetOrderBilling(context.Context, *orderV1.GetOrderBillingRequest, ...selector.NodeFilter) (*orderV1.OrderBilling, error)
 	ExecuteOrderSharing(context.Context, *orderV1.ExecuteOrderSharingRequest, ...selector.NodeFilter) (*orderV1.ExecuteOrderSharingReply, error)
@@ -220,18 +219,6 @@ func (c *CarOrderGrpc) ExecuteOrderRefund(ctx context.Context, req *orderV1.Exec
 	reply, err := cli.ExecuteOrderRefund(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.ExecuteOrderRefund error: %w", errors.FromError(err))
-	}
-	return reply, nil
-}
-
-func (c *CarOrderGrpc) GetOrderRefund(ctx context.Context, req *orderV1.GetOrderRefundRequest, filters ...selector.NodeFilter) (*orderV1.GetOrderRefundReply, error) {
-	cli, err := c.client.CarOrderClient(ctx, filters...)
-	if err != nil {
-		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
-	}
-	reply, err := cli.GetOrderRefund(ctx, req)
-	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderRefund error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
