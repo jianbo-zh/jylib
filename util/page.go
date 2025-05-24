@@ -5,7 +5,7 @@ const (
 	DefaultPageSize = 10
 )
 
-func OffsetLimit(page, pageSize int) (int, int) {
+func PageOffset(page, pageSize int) (int, int, int) {
 	if page < 1 {
 		page = 1
 	}
@@ -14,8 +14,7 @@ func OffsetLimit(page, pageSize int) (int, int) {
 	} else if pageSize > MaxPageSize {
 		pageSize = MaxPageSize
 	}
-	offset := (page - 1) * pageSize
-	return offset, pageSize
+	return page, pageSize, (page - 1) * pageSize
 }
 
 func PageCount(total, pageSize int) int {
