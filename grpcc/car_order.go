@@ -21,7 +21,7 @@ type ICarOrder interface {
 	CheckOrderTimeoutAbort(context.Context, *orderV1.CheckOrderTimeoutAbortRequest, ...selector.NodeFilter) (*orderV1.CheckOrderTimeoutAbortReply, error)
 	CheckOrderExpiredClose(context.Context, *orderV1.CheckOrderExpiredCloseRequest, ...selector.NodeFilter) (*orderV1.CheckOrderExpiredCloseReply, error)
 	CheckOrderTimeoutCancel(context.Context, *orderV1.CheckOrderTimeoutCancelRequest, ...selector.NodeFilter) (*orderV1.CheckOrderTimeoutCancelReply, error)
-	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest, ...selector.NodeFilter) (*orderV1.PayParam, error)
+	PrepayOrder(context.Context, *orderV1.PrepayOrderRequest, ...selector.NodeFilter) (*orderV1.PrepayOrderReply, error)
 	CancelPayment(context.Context, *orderV1.CancelPaymentRequest, ...selector.NodeFilter) (*orderV1.CancelPaymentReply, error)
 	LaunchOrderRefund(context.Context, *orderV1.LaunchOrderRefundRequest, ...selector.NodeFilter) (*orderV1.LaunchOrderRefundReply, error)
 	ExecuteOrderRefund(context.Context, *orderV1.ExecuteOrderRefundRequest, ...selector.NodeFilter) (*orderV1.ExecuteOrderRefundReply, error)
@@ -176,7 +176,7 @@ func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrderRequest, filters ...selector.NodeFilter) (*orderV1.PayParam, error) {
+func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrderRequest, filters ...selector.NodeFilter) (*orderV1.PrepayOrderReply, error) {
 	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
