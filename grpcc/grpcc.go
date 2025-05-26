@@ -19,6 +19,7 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
+	ggrpc "google.golang.org/grpc"
 
 	carauthV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
 	carconfigV1 "github.com/jianbo-zh/jypb/api/carconfig/v1"
@@ -74,7 +75,7 @@ type EtcdConf struct {
 	DialTimeout *durationpb.Duration
 }
 
-func NewClient(env string, etcdConf *EtcdConf, logger log.Logger) IClient {
+func NewClient(env string, caCrtFile string, etcdConf *EtcdConf, logger log.Logger) IClient {
 	client, err := clientv3.New(clientv3.Config{
 		Endpoints:   etcdConf.Endpoints,
 		Username:    etcdConf.Username,
@@ -94,6 +95,7 @@ func NewClient(env string, etcdConf *EtcdConf, logger log.Logger) IClient {
 		env:       env,
 		discovery: discovery,
 		logger:    logger,
+		CaCrtFile: caCrtFile,
 	}
 }
 
@@ -126,21 +128,7 @@ func (c *Client) ParkMapGrpc() IParkMap { return NewParkMapGrpc(c) }
 
 // CarAuthClient
 func (c *Client) CarAuthClient(ctx context.Context, filters ...selector.NodeFilter) (carauthV1.CarAuthClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarAuth)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsCarAuth, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -150,21 +138,7 @@ func (c *Client) CarAuthClient(ctx context.Context, filters ...selector.NodeFilt
 
 // CarConfigClient
 func (c *Client) CarConfigClient(ctx context.Context, filters ...selector.NodeFilter) (carconfigV1.ConfigClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarConfig)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsCarConfig, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -174,21 +148,7 @@ func (c *Client) CarConfigClient(ctx context.Context, filters ...selector.NodeFi
 
 // CarDispatchClient
 func (c *Client) CarDispatchClient(ctx context.Context, filters ...selector.NodeFilter) (cardispatchV1.DispatchClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarDispatch)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsCarDispatch, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -198,21 +158,7 @@ func (c *Client) CarDispatchClient(ctx context.Context, filters ...selector.Node
 
 // CarOrderClient
 func (c *Client) CarOrderClient(ctx context.Context, filters ...selector.NodeFilter) (carorderV1.CarOrderClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarOrder)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsOrder, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -222,21 +168,7 @@ func (c *Client) CarOrderClient(ctx context.Context, filters ...selector.NodeFil
 
 // CarProxyClient
 func (c *Client) CarProxyClient(ctx context.Context, filters ...selector.NodeFilter) (carproxyV1.CarProxyClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarProxy)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_GwCarProxy, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -246,21 +178,7 @@ func (c *Client) CarProxyClient(ctx context.Context, filters ...selector.NodeFil
 
 // CarProxyClient
 func (c *Client) CarMeasureClient(ctx context.Context, filters ...selector.NodeFilter) (carmeasureV1.CarMeasureClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_CarMeasure)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsCarMeasure, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -270,21 +188,7 @@ func (c *Client) CarMeasureClient(ctx context.Context, filters ...selector.NodeF
 
 // FileStorageClient
 func (c *Client) FileStorageClient(ctx context.Context, filters ...selector.NodeFilter) (filestorageV1.FileStorageClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_FileStorage)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsFileStorage, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -294,21 +198,7 @@ func (c *Client) FileStorageClient(ctx context.Context, filters ...selector.Node
 
 // MessageClient
 func (c *Client) MessageClient(ctx context.Context, filters ...selector.NodeFilter) (messageV1.MessageClient, error) {
-	conn, err := grpc.Dial(ctx,
-		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_Message)),
-		grpc.WithTimeout(5*time.Second),
-		grpc.WithMiddleware(
-			recovery.Recovery(),
-			tracing.Client(),
-			metadata.Client(),
-		),
-		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
+	conn, err := c.grpcDial(ctx, typec.Service_MsMessage, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -318,24 +208,32 @@ func (c *Client) MessageClient(ctx context.Context, filters ...selector.NodeFilt
 
 // ParkMapClient
 func (c *Client) ParkMapClient(ctx context.Context, filters ...selector.NodeFilter) (parkmapV1.ParkMapClient, error) {
-	conn, err := grpc.Dial(ctx,
+	conn, err := c.grpcDial(ctx, typec.Service_MsParkMap, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("grpc.Dial error: %w", err)
+	}
+
+	return parkmapV1.NewParkMapClient(conn), nil
+}
+
+func (c *Client) grpcDial(ctx context.Context, serverName string, filters ...selector.NodeFilter) (*ggrpc.ClientConn, error) {
+	options := []grpc.ClientOption{
 		grpc.WithDiscovery(c.discovery),
-		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, typec.Service_ParkMap)),
-		grpc.WithTimeout(5*time.Second),
+		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, serverName)),
+		grpc.WithTimeout(5 * time.Second),
 		grpc.WithMiddleware(
 			recovery.Recovery(),
 			tracing.Client(),
 			metadata.Client(),
 		),
 		grpc.WithLogger(c.logger),
-		grpc.WithTLSConfig(
-			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		),
-		grpc.WithNodeFilter(filters...),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("grpc.Dial error: %w", err)
+		// 使用 DialInsecure 再加上 WithTLSConfig 会报错
+		// grpc.WithTLSConfig(
+		// 	tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
+		// ),
 	}
-
-	return parkmapV1.NewParkMapClient(conn), nil
+	if filters != nil {
+		options = append(options, grpc.WithNodeFilter(filters...))
+	}
+	return grpc.DialInsecure(ctx, options...)
 }

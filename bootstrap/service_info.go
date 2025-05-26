@@ -1,25 +1,34 @@
 package bootstrap
 
 import (
-	"os"
+	"github.com/google/uuid"
+	"github.com/jianbo-zh/jylib/grpcc/metadatac"
 )
 
+var Service *ServiceInfo
+
 type ServiceInfo struct {
+	Id       string
 	Name     string
 	Version  string
-	Id       string
 	Metadata map[string]string
 }
 
-func NewServiceInfo(name, version, id string) ServiceInfo {
+func RegisterServiceInfo(id string, name string, version string, metadata map[string]string) {
 	if id == "" {
-		id, _ = os.Hostname()
+		id = uuid.NewString()
 	}
-	return ServiceInfo{
+
+	if metadata == nil {
+		metadata = make(map[string]string)
+	}
+	metadata[metadatac.Key_InstanceId] = id
+
+	Service = &ServiceInfo{
+		Id:       id,
 		Name:     name,
 		Version:  version,
-		Id:       id,
-		Metadata: map[string]string{},
+		Metadata: metadata,
 	}
 }
 
@@ -28,5 +37,8 @@ func (s *ServiceInfo) GetInstanceId() string {
 }
 
 func (s *ServiceInfo) SetMataData(k, v string) {
+	if s.Metadata == nil {
+		s.Metadata = make(map[string]string)
+	}
 	s.Metadata[k] = v
 }
