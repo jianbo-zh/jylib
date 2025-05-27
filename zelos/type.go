@@ -15,21 +15,21 @@ const (
 )
 
 type Error struct {
-	Code    int
+	Code    string
 	Message string
 }
 
 func (err *Error) Error() string {
-	return fmt.Sprintf("zelo %d %s", err.Code, err.Message)
+	return fmt.Sprintf("zelo %s %s", err.Code, err.Message)
 }
 
-func NewError(code int, msg string) error {
+func NewError(code string, msg string) error {
 	return &Error{Code: code, Message: msg}
 }
 
 type Status struct {
 	Success   bool   `json:"success,omitempty"`
-	ErrorCode int    `json:"errorCode,omitempty"`
+	ErrorCode string `json:"errorCode,omitempty"`
 	Message   string `json:"message,omitempty"`
 }
 

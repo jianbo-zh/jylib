@@ -90,7 +90,9 @@ func (z *Zelos) StationList(ctx context.Context, req *StationListRequest) (int, 
 	query := url.Values{}
 	query.Add("pageNumber", strconv.Itoa(req.PageNo))
 	query.Add("pageSize", strconv.Itoa(req.PageSize))
-	query.Add("organizationId", strconv.Itoa(req.OrgId))
+	if req.OrgId > 0 {
+		query.Add("organizationId", strconv.Itoa(req.OrgId))
+	}
 
 	respBs, err := z.get(ctx, "/business-server/open-apis/stations", query)
 	if err != nil {
@@ -105,6 +107,8 @@ func (z *Zelos) StationList(ctx context.Context, req *StationListRequest) (int, 
 	} else if !data.Success {
 		return 0, nil, NewError(data.ErrorCode, data.Message)
 	}
+	fmt.Println("------")
+	fmt.Printf("%+v", data)
 
 	return data.Data.Total, data.Data.List, nil
 }
@@ -336,7 +340,7 @@ func (z *Zelos) get(ctx context.Context, path string, query url.Values) ([]byte,
 }
 
 func (z *Zelos) post(ctx context.Context, path string, query url.Values, body []byte) ([]byte, error) {
-	return z.body(ctx, HttpMethod_PUT, path, query, body)
+	return z.body(ctx, HttpMethod_POST, path, query, body)
 }
 
 func (z *Zelos) put(ctx context.Context, path string, query url.Values, body []byte) ([]byte, error) {
@@ -405,15 +409,30 @@ func (z *Zelos) getAccessToken(ctx context.Context) (string, error) {
 	z.mutex.Lock()
 	defer z.mutex.Unlock()
 
+	return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoLXNlcnZlciIsImlhdCI6MTc0ODIzMTEwMjc1NSwiZXhwIjoxNzQ4MzE3NTAyNzU1LCJqdGkiOiI1MTVjYTUxOC00ZmE2LTQzNGMtYWQ3OS1iYjcyN2JjMzY5MmEiLCJhcHBJZCI6Im8zZjIxMGI2MGYyODI0MjNjODgxNzYyYzhmMDJjYmUxYyJ9.t5xK3OZyVJ6EPdnM-4kkMgZ1cNE3fqCliYI96Ee7F3E", nil
+
 	if z.Auth == nil || z.Auth.ExpiredAt.Before(time.Now()) {
 		bs, _ := json.Marshal(&AppIdKey{
 			AppId:  z.AppId,
 			AppKey: z.AppKey,
 		})
 
-		body, err := z.post(ctx, "/app/accessToken", nil, bs)
+		tokenUrl := "https://auth.zelostech.com.cn/app/accessToken"
+		request, err := http.NewRequest("POST", tokenUrl, bytes.NewReader(bs))
 		if err != nil {
-			return "", fmt.Errorf("http.post error: %w", err)
+			return "", fmt.Errorf("http.NewRequest error: %w", err)
+		}
+		request.Header.Set("Content-Type", "application/json")
+
+		resp, err := z.httpCli.Do(request)
+		if err != nil {
+			return "", fmt.Errorf("client.Do error: %w", err)
+		}
+		defer resp.Body.Close()
+
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return "", fmt.Errorf("io.ReadAll error: %w", err)
 		}
 
 		var result AccessTokenResponse
