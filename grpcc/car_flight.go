@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/selector"
-	"github.com/jianbo-zh/jypb/api/carflight/v1"
+	carflightV1 "github.com/jianbo-zh/jypb/api/carflight/v1"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -17,6 +17,9 @@ type ICarFlight interface {
 	TempParking(context.Context, *carflightV1.TempParkingRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
 	KeepDriving(context.Context, *carflightV1.KeepDrivingRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
 	ArrivalStop(context.Context, *carflightV1.ArrivalStopRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
+	GetOptionalFlights(context.Context, *carflightV1.GetOptionalFlightsRequest, ...selector.NodeFilter) (*carflightV1.GetOptionalFlightsReply, error)
+	GetFlightTrace(context.Context, *carflightV1.GetFlightTraceRequest, ...selector.NodeFilter) (*carflightV1.GetFlightTraceReply, error)
+	GetRoutePath(context.Context, *carflightV1.GetRoutePathRequest, ...selector.NodeFilter) (*carflightV1.GetRoutePathReply, error)
 }
 
 type CarFlightGrpc struct {
@@ -97,6 +100,42 @@ func (c *CarFlightGrpc) ArrivalStop(ctx context.Context, req *carflightV1.Arriva
 	reply, err := cli.ArrivalStop(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.ArrivalStop error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarFlightGrpc) GetOptionalFlights(ctx context.Context, req *carflightV1.GetOptionalFlightsRequest, filters ...selector.NodeFilter) (*carflightV1.GetOptionalFlightsReply, error) {
+	cli, err := c.client.CarFlightClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
+	}
+	reply, err := cli.GetOptionalFlights(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.GetOptionalFlights error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarFlightGrpc) GetFlightTrace(ctx context.Context, req *carflightV1.GetFlightTraceRequest, filters ...selector.NodeFilter) (*carflightV1.GetFlightTraceReply, error) {
+	cli, err := c.client.CarFlightClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
+	}
+	reply, err := cli.GetFlightTrace(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.GetFlightTrace error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarFlightGrpc) GetRoutePath(ctx context.Context, req *carflightV1.GetRoutePathRequest, filters ...selector.NodeFilter) (*carflightV1.GetRoutePathReply, error) {
+	cli, err := c.client.CarFlightClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
+	}
+	reply, err := cli.GetRoutePath(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.GetRoutePath error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

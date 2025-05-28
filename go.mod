@@ -14,7 +14,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/consul/api v1.32.1
 	github.com/jftuga/geodist v1.0.0
-	github.com/jianbo-zh/jypb v0.1.30
+	github.com/jianbo-zh/jypb v0.1.31
 	github.com/nacos-group/nacos-sdk-go v1.1.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/qichengzx/coordtransform v0.0.0-20220708113031-010878418826
@@ -51,7 +51,6 @@ require (
 	github.com/go-kratos/aegis v0.2.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/go-playground/assert/v2 v2.2.0 // indirect
 	github.com/go-playground/form/v4 v4.2.1 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
