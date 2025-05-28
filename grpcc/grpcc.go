@@ -24,6 +24,7 @@ import (
 	carauthV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
 	carconfigV1 "github.com/jianbo-zh/jypb/api/carconfig/v1"
 	cardispatchV1 "github.com/jianbo-zh/jypb/api/cardispatch/v1"
+	carflightV1 "github.com/jianbo-zh/jypb/api/carflight/v1"
 	carmeasureV1 "github.com/jianbo-zh/jypb/api/carmeasure/v1"
 	carorderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
 	carproxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
@@ -39,6 +40,7 @@ type IClient interface {
 	CarOrderGrpc() ICarOrder
 	CarProxyGrpc() ICarProxy
 	CarMeasureGrpc() ICarMeasure
+	CarFlightGrpc() ICarFlight
 	FileStorageGrpc() IFileStorage
 	MessageGrpc() IMessage
 	ParkMapGrpc() IParkMap
@@ -49,6 +51,7 @@ type IClient interface {
 	CarOrderClient(context.Context, ...selector.NodeFilter) (carorderV1.CarOrderClient, error)
 	CarProxyClient(context.Context, ...selector.NodeFilter) (carproxyV1.CarProxyClient, error)
 	CarMeasureClient(context.Context, ...selector.NodeFilter) (carmeasureV1.CarMeasureClient, error)
+	CarFlightClient(context.Context, ...selector.NodeFilter) (carflightV1.CarFlightClient, error)
 	FileStorageClient(context.Context, ...selector.NodeFilter) (filestorageV1.FileStorageClient, error)
 	MessageClient(context.Context, ...selector.NodeFilter) (messageV1.MessageClient, error)
 	ParkMapClient(context.Context, ...selector.NodeFilter) (parkmapV1.ParkMapClient, error)
@@ -117,6 +120,9 @@ func (c *Client) CarProxyGrpc() ICarProxy { return NewCarProxyGrpc(c) }
 // CarMeasureGrpc
 func (c *Client) CarMeasureGrpc() ICarMeasure { return NewCarMeasureGrpc(c) }
 
+// CarFlightGrpc
+func (c *Client) CarFlightGrpc() ICarFlight { return NewCarFlightGrpc(c) }
+
 // FileStorageGrpc
 func (c *Client) FileStorageGrpc() IFileStorage { return NewFileStorageGrpc(c) }
 
@@ -184,6 +190,16 @@ func (c *Client) CarMeasureClient(ctx context.Context, filters ...selector.NodeF
 	}
 
 	return carmeasureV1.NewCarMeasureClient(conn), nil
+}
+
+// CarFlightClient
+func (c *Client) CarFlightClient(ctx context.Context, filters ...selector.NodeFilter) (carflightV1.CarFlightClient, error) {
+	conn, err := c.grpcDial(ctx, typec.Service_MsCarFlight, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("grpc.Dial error: %w", err)
+	}
+
+	return carflightV1.NewCarFlightClient(conn), nil
 }
 
 // FileStorageClient

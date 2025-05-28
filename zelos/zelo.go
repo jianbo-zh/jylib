@@ -38,6 +38,8 @@ type IZelos interface {
 	UpdateStops(ctx context.Context, req *UpdateStopsRequest) error
 	// 删除停车点
 	DeleteStops(ctx context.Context, req *DeleteStopsRequest) error
+	// 常用命令（关机/重启/车辆刹车/继续行走/远程上电/车辆到达）
+	CommonCmd(ctx context.Context, req *CommonCmdRequest) error
 }
 
 type Zelos struct {
@@ -319,6 +321,30 @@ func (z *Zelos) DeleteStops(ctx context.Context, req *DeleteStopsRequest) error 
 	}
 
 	respBs, err := z.delete(ctx, "/business-server/open-apis/stop/delete", nil, bs)
+	if err != nil {
+		return fmt.Errorf("io.ReadAll error: %w", err)
+	}
+
+	var data Status
+	err = json.Unmarshal(respBs, &data)
+	if err != nil {
+		return fmt.Errorf("json.Unmarshal error: %w", err)
+
+	} else if !data.Success {
+		return NewError(data.ErrorCode, data.Message)
+	}
+
+	return nil
+}
+
+// CommonCmd 下发常用指令
+func (z *Zelos) CommonCmd(ctx context.Context, req *CommonCmdRequest) error {
+	bs, err := json.Marshal(req)
+	if err != nil {
+		return fmt.Errorf("json.Marshal error: %w", err)
+	}
+
+	respBs, err := z.post(ctx, "/business-server/open-apis/vehicle/command", nil, bs)
 	if err != nil {
 		return fmt.Errorf("io.ReadAll error: %w", err)
 	}

@@ -34,6 +34,7 @@ const (
 	Service_MsCarAuth     string = "ms_carauth.GR"
 	Service_MsCarConfig   string = "ms_carconfig.GR"
 	Service_MsCarDispatch string = "ms_cardispatch.GR"
+	Service_MsCarFlight   string = "ms_carflight.GR"
 )
 
 type Role zzzV1.Operator_Role

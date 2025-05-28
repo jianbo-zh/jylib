@@ -7,6 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/selector"
 	orderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type ICarOrder interface {
@@ -31,6 +32,8 @@ type ICarOrder interface {
 	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest, ...selector.NodeFilter) (*orderV1.CheckOrderSharingResultReply, error)
 	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest, ...selector.NodeFilter) (*orderV1.EmitSOSEventReply, error)
 	CancelSOSEvent(context.Context, *orderV1.CancelSOSEventRequest, ...selector.NodeFilter) (*orderV1.CancelSOSEventReply, error)
+	CancelFlightOrder(context.Context, *orderV1.CancelFlightOrderRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
+	FinishFlightOrder(context.Context, *orderV1.FinishFlightOrderRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
 }
 
 type CarOrderGrpc struct {
@@ -291,6 +294,30 @@ func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSO
 	reply, err := cli.CancelSOSEvent(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.CancelSOSEvent error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarOrderGrpc) CancelFlightOrder(ctx context.Context, req *orderV1.CancelFlightOrderRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.CancelFlightOrder(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.CancelFlightOrder error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarOrderGrpc) FinishFlightOrder(ctx context.Context, req *orderV1.FinishFlightOrderRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.FinishFlightOrder(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.FinishFlightOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

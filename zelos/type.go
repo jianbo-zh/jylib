@@ -14,6 +14,26 @@ const (
 	HttpMethod_DELETE HttpMethod = "DELETE"
 )
 
+// 常用命令类型
+type CommandType string
+
+const (
+	// 关机
+	CommandType_BUSINESS_SHUTDOWN = "BUSINESS_SHUTDOWN"
+	// 硬重启
+	CommandType_RESTART_HARD = "RESTART_HARD"
+	// 软重启
+	CommandType_RESTART_SOFT = "RESTART_SOFT"
+	// 车辆刹车
+	CommandType_EMERGENCY_STOP = "EMERGENCY_STOP"
+	// 车辆继续行走，刹车车辆恢复自动驾驶
+	CommandType_RECOVERY = "RECOVERY"
+	// 远程上电，需要tbox在线
+	CommandType_BUSINESS_TBOX_SET_UP = "BUSINESS_TBOX_SET_UP"
+	// 车辆到达，车辆立即到底当前任务目的地
+	CommandType_BUSINESS_ARRIVE = "BUSINESS_ARRIVE"
+)
+
 type Error struct {
 	Code    string
 	Message string
@@ -272,4 +292,11 @@ type DeleteStopsRequest struct {
 	Id       int    `json:"id,omitempty"`
 	UserId   int    `json:"userId,omitempty"`
 	UserName string `json:"userName,omitempty"`
+}
+
+type CommonCmdRequest struct {
+	VehicleName string      `json:"vehicleName,omitempty"`
+	CommandType CommandType `json:"commandType,omitempty"`
+	UserId      string      `json:"userId,omitempty"`
+	UserName    string      `json:"userName,omitempty"`
 }
