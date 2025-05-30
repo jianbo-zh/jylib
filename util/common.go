@@ -3,11 +3,24 @@ package util
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/go-kratos/kratos/v2/transport"
 	"google.golang.org/protobuf/encoding/prototext"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
+
+func ToPbTimestamp0(t time.Time) *timestamppb.Timestamp {
+	return timestamppb.New(t)
+}
+
+func ToPbTimestamp1(t *time.Time) *timestamppb.Timestamp {
+	if t == nil {
+		return nil
+	}
+	return timestamppb.New(*t)
+}
 
 func ToPtr[T any](abc T) *T {
 	return &abc
