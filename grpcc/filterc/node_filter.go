@@ -7,8 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/selector"
 )
 
-// Metadata is metadata filter.
-func Metadata(md map[string]string) selector.NodeFilter {
+func WithMetadata0(md map[string]string) selector.NodeFilter {
 	return func(_ context.Context, nodes []selector.Node) []selector.Node {
 		newNodes := make([]selector.Node, 0, len(nodes))
 		for _, n := range nodes {
@@ -21,19 +20,6 @@ func Metadata(md map[string]string) selector.NodeFilter {
 				}
 			}
 			if isMatch {
-				newNodes = append(newNodes, n)
-			}
-		}
-		return newNodes
-	}
-}
-
-// Version is version filter.
-func Version(version string) selector.NodeFilter {
-	return func(_ context.Context, nodes []selector.Node) []selector.Node {
-		newNodes := make([]selector.Node, 0, len(nodes))
-		for _, n := range nodes {
-			if n.Version() == version {
 				newNodes = append(newNodes, n)
 			}
 		}

@@ -32,7 +32,7 @@ func NewLoggerProvider(serviceInfo *ServiceInfo, bc *configV1.Log) log.Logger {
 	}
 
 	ll := &lumberjack.Logger{
-		Filename:   fmt.Sprintf("%s/%s.log", saveDir, serviceInfo.GetInstanceId()),
+		Filename:   fmt.Sprintf("%s/%s.log", saveDir, serviceInfo.Name),
 		MaxSize:    int(bc.MaxSizeMb),
 		MaxAge:     int(bc.MaxAgeDay),
 		MaxBackups: int(bc.MaxBackups),

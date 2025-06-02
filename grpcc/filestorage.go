@@ -5,15 +5,15 @@ import (
 	"fmt"
 
 	"github.com/go-kratos/kratos/v2/errors"
-	"github.com/go-kratos/kratos/v2/selector"
+	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	fsV1 "github.com/jianbo-zh/jypb/api/filestorage/v1"
 )
 
 type IFileStorage interface {
-	SaveFile(context.Context, *fsV1.SaveFileRequest, ...selector.NodeFilter) (*fsV1.File, error)
-	GetFiles(context.Context, *fsV1.GetFilesRequest, ...selector.NodeFilter) (*fsV1.GetFilesReply, error)
-	GetFile(context.Context, *fsV1.GetFileRequest, ...selector.NodeFilter) (*fsV1.File, error)
-	GetFileData(context.Context, *fsV1.GetFileDataRequest, ...selector.NodeFilter) (*fsV1.GetFileDataReply, error)
+	SaveFile(context.Context, *fsV1.SaveFileRequest, ...filterc.Filter) (*fsV1.File, error)
+	GetFiles(context.Context, *fsV1.GetFilesRequest, ...filterc.Filter) (*fsV1.GetFilesReply, error)
+	GetFile(context.Context, *fsV1.GetFileRequest, ...filterc.Filter) (*fsV1.File, error)
+	GetFileData(context.Context, *fsV1.GetFileDataRequest, ...filterc.Filter) (*fsV1.GetFileDataReply, error)
 }
 
 type FileStorageGrpc struct {
@@ -26,7 +26,7 @@ func NewFileStorageGrpc(cli IClient) IFileStorage {
 	}
 }
 
-func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileRequest, filters ...selector.NodeFilter) (*fsV1.File, error) {
+func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileRequest, filters ...filterc.Filter) (*fsV1.File, error) {
 	cli, err := c.client.FileStorageClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.client.FileStorageClient error: %w", err)
@@ -38,7 +38,7 @@ func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileReques
 	return reply, nil
 }
 
-func (c *FileStorageGrpc) GetFiles(ctx context.Context, req *fsV1.GetFilesRequest, filters ...selector.NodeFilter) (*fsV1.GetFilesReply, error) {
+func (c *FileStorageGrpc) GetFiles(ctx context.Context, req *fsV1.GetFilesRequest, filters ...filterc.Filter) (*fsV1.GetFilesReply, error) {
 	cli, err := c.client.FileStorageClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.client.FileStorageClient error: %w", err)
@@ -50,7 +50,7 @@ func (c *FileStorageGrpc) GetFiles(ctx context.Context, req *fsV1.GetFilesReques
 	return reply, nil
 }
 
-func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest, filters ...selector.NodeFilter) (*fsV1.File, error) {
+func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest, filters ...filterc.Filter) (*fsV1.File, error) {
 	cli, err := c.client.FileStorageClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.client.FileStorageClient error: %w", err)
@@ -62,7 +62,7 @@ func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest,
 	return reply, nil
 }
 
-func (c *FileStorageGrpc) GetFileData(ctx context.Context, req *fsV1.GetFileDataRequest, filters ...selector.NodeFilter) (*fsV1.GetFileDataReply, error) {
+func (c *FileStorageGrpc) GetFileData(ctx context.Context, req *fsV1.GetFileDataRequest, filters ...filterc.Filter) (*fsV1.GetFileDataReply, error) {
 	cli, err := c.client.FileStorageClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.client.FileStorageClient error: %w", err)

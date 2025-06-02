@@ -11,10 +11,9 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/etcd/v2 v2.0.0-20250429074618-c82f7957223f
 	github.com/go-kratos/kratos/v2 v2.8.4
 	github.com/golang-jwt/jwt/v5 v5.1.0
-	github.com/google/uuid v1.6.0
 	github.com/hashicorp/consul/api v1.32.1
 	github.com/jftuga/geodist v1.0.0
-	github.com/jianbo-zh/jypb v0.1.33
+	github.com/jianbo-zh/jypb v0.1.34
 	github.com/nacos-group/nacos-sdk-go v1.1.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/qichengzx/coordtransform v0.0.0-20220708113031-010878418826
@@ -58,6 +57,7 @@ require (
 	github.com/google/gnostic v0.7.0 // indirect
 	github.com/google/gnostic-models v0.6.9-0.20230804172637-c7be7c783f49 // indirect
 	github.com/google/pprof v0.0.0-20210720184732-4bb14d4b1be1 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect

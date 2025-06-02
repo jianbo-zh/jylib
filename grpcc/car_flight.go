@@ -5,27 +5,27 @@ import (
 	"fmt"
 
 	"github.com/go-kratos/kratos/v2/errors"
-	"github.com/go-kratos/kratos/v2/selector"
+	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	carflightV1 "github.com/jianbo-zh/jypb/api/carflight/v1"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type ICarFlight interface {
-	CreateFlight(context.Context, *carflightV1.CreateFlightRequest, ...selector.NodeFilter) (*carflightV1.Flight, error)
-	StartFlight(context.Context, *carflightV1.StartFlightRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	EndFlight(context.Context, *carflightV1.EndFlightRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	TempParking(context.Context, *carflightV1.TempParkingRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	KeepDriving(context.Context, *carflightV1.KeepDrivingRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	ArrivalStop(context.Context, *carflightV1.ArrivalStopRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	GotoNextStop(context.Context, *carflightV1.GotoNextStopRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	GetFlight(context.Context, *carflightV1.GetFlightRequest, ...selector.NodeFilter) (*carflightV1.Flight, error)
-	GetOptionalFlights(context.Context, *carflightV1.GetOptionalFlightsRequest, ...selector.NodeFilter) (*carflightV1.GetOptionalFlightsReply, error)
-	GetFlightTrace(context.Context, *carflightV1.GetFlightTraceRequest, ...selector.NodeFilter) (*carflightV1.GetFlightTraceReply, error)
-	GetRoutePath(context.Context, *carflightV1.GetRoutePathRequest, ...selector.NodeFilter) (*carflightV1.GetRoutePathReply, error)
-	UpdateFlightBooking(context.Context, *carflightV1.UpdateFlightBookingRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
+	CreateFlight(context.Context, *carflightV1.CreateFlightRequest, ...filterc.Filter) (*carflightV1.Flight, error)
+	StartFlight(context.Context, *carflightV1.StartFlightRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	EndFlight(context.Context, *carflightV1.EndFlightRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	TempParking(context.Context, *carflightV1.TempParkingRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	KeepDriving(context.Context, *carflightV1.KeepDrivingRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	ArrivalStop(context.Context, *carflightV1.ArrivalStopRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	GotoNextStop(context.Context, *carflightV1.GotoNextStopRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	GetFlight(context.Context, *carflightV1.GetFlightRequest, ...filterc.Filter) (*carflightV1.Flight, error)
+	GetOptionalFlights(context.Context, *carflightV1.GetOptionalFlightsRequest, ...filterc.Filter) (*carflightV1.GetOptionalFlightsReply, error)
+	GetFlightTrace(context.Context, *carflightV1.GetFlightTraceRequest, ...filterc.Filter) (*carflightV1.GetFlightTraceReply, error)
+	GetRoutePath(context.Context, *carflightV1.GetRoutePathRequest, ...filterc.Filter) (*carflightV1.GetRoutePathReply, error)
+	UpdateFlightBooking(context.Context, *carflightV1.UpdateFlightBookingRequest, ...filterc.Filter) (*emptypb.Empty, error)
 
 	// 调用zelos查询车辆详情
-	GetYokeeCarDetail(context.Context, *carflightV1.GetYokeeCarDetailRequest, ...selector.NodeFilter) (*carflightV1.GetYokeeCarDetailReply, error)
+	GetYokeeCarDetail(context.Context, *carflightV1.GetYokeeCarDetailRequest, ...filterc.Filter) (*carflightV1.GetYokeeCarDetailReply, error)
 }
 
 type CarFlightGrpc struct {
@@ -38,7 +38,7 @@ func NewCarFlightGrpc(cli IClient) ICarFlight {
 	}
 }
 
-func (c *CarFlightGrpc) CreateFlight(ctx context.Context, req *carflightV1.CreateFlightRequest, filters ...selector.NodeFilter) (*carflightV1.Flight, error) {
+func (c *CarFlightGrpc) CreateFlight(ctx context.Context, req *carflightV1.CreateFlightRequest, filters ...filterc.Filter) (*carflightV1.Flight, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -50,7 +50,7 @@ func (c *CarFlightGrpc) CreateFlight(ctx context.Context, req *carflightV1.Creat
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) StartFlight(ctx context.Context, req *carflightV1.StartFlightRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) StartFlight(ctx context.Context, req *carflightV1.StartFlightRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -62,7 +62,7 @@ func (c *CarFlightGrpc) StartFlight(ctx context.Context, req *carflightV1.StartF
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) EndFlight(ctx context.Context, req *carflightV1.EndFlightRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) EndFlight(ctx context.Context, req *carflightV1.EndFlightRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -74,7 +74,7 @@ func (c *CarFlightGrpc) EndFlight(ctx context.Context, req *carflightV1.EndFligh
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) TempParking(ctx context.Context, req *carflightV1.TempParkingRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) TempParking(ctx context.Context, req *carflightV1.TempParkingRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -86,7 +86,7 @@ func (c *CarFlightGrpc) TempParking(ctx context.Context, req *carflightV1.TempPa
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) KeepDriving(ctx context.Context, req *carflightV1.KeepDrivingRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) KeepDriving(ctx context.Context, req *carflightV1.KeepDrivingRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -98,7 +98,7 @@ func (c *CarFlightGrpc) KeepDriving(ctx context.Context, req *carflightV1.KeepDr
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) ArrivalStop(ctx context.Context, req *carflightV1.ArrivalStopRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) ArrivalStop(ctx context.Context, req *carflightV1.ArrivalStopRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -110,7 +110,7 @@ func (c *CarFlightGrpc) ArrivalStop(ctx context.Context, req *carflightV1.Arriva
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GotoNextStop(ctx context.Context, req *carflightV1.GotoNextStopRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) GotoNextStop(ctx context.Context, req *carflightV1.GotoNextStopRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -122,7 +122,7 @@ func (c *CarFlightGrpc) GotoNextStop(ctx context.Context, req *carflightV1.GotoN
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GetFlight(ctx context.Context, req *carflightV1.GetFlightRequest, filters ...selector.NodeFilter) (*carflightV1.Flight, error) {
+func (c *CarFlightGrpc) GetFlight(ctx context.Context, req *carflightV1.GetFlightRequest, filters ...filterc.Filter) (*carflightV1.Flight, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -134,7 +134,7 @@ func (c *CarFlightGrpc) GetFlight(ctx context.Context, req *carflightV1.GetFligh
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GetOptionalFlights(ctx context.Context, req *carflightV1.GetOptionalFlightsRequest, filters ...selector.NodeFilter) (*carflightV1.GetOptionalFlightsReply, error) {
+func (c *CarFlightGrpc) GetOptionalFlights(ctx context.Context, req *carflightV1.GetOptionalFlightsRequest, filters ...filterc.Filter) (*carflightV1.GetOptionalFlightsReply, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -146,7 +146,7 @@ func (c *CarFlightGrpc) GetOptionalFlights(ctx context.Context, req *carflightV1
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GetFlightTrace(ctx context.Context, req *carflightV1.GetFlightTraceRequest, filters ...selector.NodeFilter) (*carflightV1.GetFlightTraceReply, error) {
+func (c *CarFlightGrpc) GetFlightTrace(ctx context.Context, req *carflightV1.GetFlightTraceRequest, filters ...filterc.Filter) (*carflightV1.GetFlightTraceReply, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -158,7 +158,7 @@ func (c *CarFlightGrpc) GetFlightTrace(ctx context.Context, req *carflightV1.Get
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GetRoutePath(ctx context.Context, req *carflightV1.GetRoutePathRequest, filters ...selector.NodeFilter) (*carflightV1.GetRoutePathReply, error) {
+func (c *CarFlightGrpc) GetRoutePath(ctx context.Context, req *carflightV1.GetRoutePathRequest, filters ...filterc.Filter) (*carflightV1.GetRoutePathReply, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -170,7 +170,7 @@ func (c *CarFlightGrpc) GetRoutePath(ctx context.Context, req *carflightV1.GetRo
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) UpdateFlightBooking(ctx context.Context, req *carflightV1.UpdateFlightBookingRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarFlightGrpc) UpdateFlightBooking(ctx context.Context, req *carflightV1.UpdateFlightBookingRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
@@ -182,7 +182,7 @@ func (c *CarFlightGrpc) UpdateFlightBooking(ctx context.Context, req *carflightV
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GetYokeeCarDetail(ctx context.Context, req *carflightV1.GetYokeeCarDetailRequest, filters ...selector.NodeFilter) (*carflightV1.GetYokeeCarDetailReply, error) {
+func (c *CarFlightGrpc) GetYokeeCarDetail(ctx context.Context, req *carflightV1.GetYokeeCarDetailRequest, filters ...filterc.Filter) (*carflightV1.GetYokeeCarDetailReply, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)

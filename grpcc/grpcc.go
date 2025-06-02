@@ -2,7 +2,9 @@ package grpcc
 
 import (
 	"context"
+	"crypto/md5"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/go-kratos/kratos/contrib/registry/etcd/v2"
@@ -13,6 +15,7 @@ import (
 	"github.com/go-kratos/kratos/v2/selector"
 	"github.com/go-kratos/kratos/v2/selector/wrr"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
+	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	"github.com/jianbo-zh/jylib/helpc"
 	"github.com/jianbo-zh/jylib/typec"
 	"github.com/jianbo-zh/jylib/util/tlsconf"
@@ -45,16 +48,16 @@ type IClient interface {
 	MessageGrpc() IMessage
 	ParkMapGrpc() IParkMap
 
-	CarAuthClient(context.Context, ...selector.NodeFilter) (carauthV1.CarAuthClient, error)
-	CarConfigClient(context.Context, ...selector.NodeFilter) (carconfigV1.ConfigClient, error)
-	CarDispatchClient(context.Context, ...selector.NodeFilter) (cardispatchV1.DispatchClient, error)
-	CarOrderClient(context.Context, ...selector.NodeFilter) (carorderV1.CarOrderClient, error)
-	CarProxyClient(context.Context, ...selector.NodeFilter) (carproxyV1.CarProxyClient, error)
-	CarMeasureClient(context.Context, ...selector.NodeFilter) (carmeasureV1.CarMeasureClient, error)
-	CarFlightClient(context.Context, ...selector.NodeFilter) (carflightV1.CarFlightClient, error)
-	FileStorageClient(context.Context, ...selector.NodeFilter) (filestorageV1.FileStorageClient, error)
-	MessageClient(context.Context, ...selector.NodeFilter) (messageV1.MessageClient, error)
-	ParkMapClient(context.Context, ...selector.NodeFilter) (parkmapV1.ParkMapClient, error)
+	CarAuthClient(context.Context, ...filterc.Filter) (carauthV1.CarAuthClient, error)
+	CarConfigClient(context.Context, ...filterc.Filter) (carconfigV1.ConfigClient, error)
+	CarDispatchClient(context.Context, ...filterc.Filter) (cardispatchV1.DispatchClient, error)
+	CarOrderClient(context.Context, ...filterc.Filter) (carorderV1.CarOrderClient, error)
+	CarProxyClient(context.Context, ...filterc.Filter) (carproxyV1.CarProxyClient, error)
+	CarMeasureClient(context.Context, ...filterc.Filter) (carmeasureV1.CarMeasureClient, error)
+	CarFlightClient(context.Context, ...filterc.Filter) (carflightV1.CarFlightClient, error)
+	FileStorageClient(context.Context, ...filterc.Filter) (filestorageV1.FileStorageClient, error)
+	MessageClient(context.Context, ...filterc.Filter) (messageV1.MessageClient, error)
+	ParkMapClient(context.Context, ...filterc.Filter) (parkmapV1.ParkMapClient, error)
 }
 
 type Client struct {
@@ -62,6 +65,8 @@ type Client struct {
 	discovery *etcd.Registry
 	logger    log.Logger
 	CaCrtFile string
+
+	grpcConns sync.Map
 }
 
 type TlsConf struct {
@@ -133,8 +138,8 @@ func (c *Client) MessageGrpc() IMessage { return NewMessageGrpc(c) }
 func (c *Client) ParkMapGrpc() IParkMap { return NewParkMapGrpc(c) }
 
 // CarAuthClient
-func (c *Client) CarAuthClient(ctx context.Context, filters ...selector.NodeFilter) (carauthV1.CarAuthClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsCarAuth, filters...)
+func (c *Client) CarAuthClient(ctx context.Context, filters ...filterc.Filter) (carauthV1.CarAuthClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsCarAuth, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -143,8 +148,8 @@ func (c *Client) CarAuthClient(ctx context.Context, filters ...selector.NodeFilt
 }
 
 // CarConfigClient
-func (c *Client) CarConfigClient(ctx context.Context, filters ...selector.NodeFilter) (carconfigV1.ConfigClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsCarConfig, filters...)
+func (c *Client) CarConfigClient(ctx context.Context, filters ...filterc.Filter) (carconfigV1.ConfigClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsCarConfig, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -153,8 +158,8 @@ func (c *Client) CarConfigClient(ctx context.Context, filters ...selector.NodeFi
 }
 
 // CarDispatchClient
-func (c *Client) CarDispatchClient(ctx context.Context, filters ...selector.NodeFilter) (cardispatchV1.DispatchClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsCarDispatch, filters...)
+func (c *Client) CarDispatchClient(ctx context.Context, filters ...filterc.Filter) (cardispatchV1.DispatchClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsCarDispatch, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -163,8 +168,8 @@ func (c *Client) CarDispatchClient(ctx context.Context, filters ...selector.Node
 }
 
 // CarOrderClient
-func (c *Client) CarOrderClient(ctx context.Context, filters ...selector.NodeFilter) (carorderV1.CarOrderClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsOrder, filters...)
+func (c *Client) CarOrderClient(ctx context.Context, filters ...filterc.Filter) (carorderV1.CarOrderClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsOrder, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -173,8 +178,8 @@ func (c *Client) CarOrderClient(ctx context.Context, filters ...selector.NodeFil
 }
 
 // CarProxyClient
-func (c *Client) CarProxyClient(ctx context.Context, filters ...selector.NodeFilter) (carproxyV1.CarProxyClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_GwCarProxy, filters...)
+func (c *Client) CarProxyClient(ctx context.Context, filters ...filterc.Filter) (carproxyV1.CarProxyClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_GwCarProxy, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -183,8 +188,8 @@ func (c *Client) CarProxyClient(ctx context.Context, filters ...selector.NodeFil
 }
 
 // CarProxyClient
-func (c *Client) CarMeasureClient(ctx context.Context, filters ...selector.NodeFilter) (carmeasureV1.CarMeasureClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsCarMeasure, filters...)
+func (c *Client) CarMeasureClient(ctx context.Context, filters ...filterc.Filter) (carmeasureV1.CarMeasureClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsCarMeasure, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -193,8 +198,8 @@ func (c *Client) CarMeasureClient(ctx context.Context, filters ...selector.NodeF
 }
 
 // CarFlightClient
-func (c *Client) CarFlightClient(ctx context.Context, filters ...selector.NodeFilter) (carflightV1.CarFlightClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsCarFlight, filters...)
+func (c *Client) CarFlightClient(ctx context.Context, filters ...filterc.Filter) (carflightV1.CarFlightClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsCarFlight, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -203,8 +208,8 @@ func (c *Client) CarFlightClient(ctx context.Context, filters ...selector.NodeFi
 }
 
 // FileStorageClient
-func (c *Client) FileStorageClient(ctx context.Context, filters ...selector.NodeFilter) (filestorageV1.FileStorageClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsFileStorage, filters...)
+func (c *Client) FileStorageClient(ctx context.Context, filters ...filterc.Filter) (filestorageV1.FileStorageClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsFileStorage, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -213,8 +218,8 @@ func (c *Client) FileStorageClient(ctx context.Context, filters ...selector.Node
 }
 
 // MessageClient
-func (c *Client) MessageClient(ctx context.Context, filters ...selector.NodeFilter) (messageV1.MessageClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsMessage, filters...)
+func (c *Client) MessageClient(ctx context.Context, filters ...filterc.Filter) (messageV1.MessageClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsMessage, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -223,8 +228,8 @@ func (c *Client) MessageClient(ctx context.Context, filters ...selector.NodeFilt
 }
 
 // ParkMapClient
-func (c *Client) ParkMapClient(ctx context.Context, filters ...selector.NodeFilter) (parkmapV1.ParkMapClient, error) {
-	conn, err := c.grpcDial(ctx, typec.Service_MsParkMap, filters...)
+func (c *Client) ParkMapClient(ctx context.Context, filters ...filterc.Filter) (parkmapV1.ParkMapClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsParkMap, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
@@ -232,7 +237,30 @@ func (c *Client) ParkMapClient(ctx context.Context, filters ...selector.NodeFilt
 	return parkmapV1.NewParkMapClient(conn), nil
 }
 
-func (c *Client) grpcDial(ctx context.Context, serverName string, filters ...selector.NodeFilter) (*ggrpc.ClientConn, error) {
+func (c *Client) grpcConn(ctx context.Context, service string, filters ...filterc.Filter) (*ggrpc.ClientConn, error) {
+	sumRaw := service
+	for _, filter := range filters {
+		sumRaw += filter.Uuid()
+	}
+	uuid := fmt.Sprintf("%x", md5.Sum([]byte(sumRaw)))
+	value, ok := c.grpcConns.Load(uuid)
+	if !ok {
+		conn, err := c.grpcDial(ctx, service, filters...)
+		if err != nil {
+			return nil, fmt.Errorf("grpc.Dial error: %w", err)
+		}
+
+		c.grpcConns.Store(uuid, conn)
+		return conn, nil
+	}
+	conn, ok := value.(*ggrpc.ClientConn)
+	if !ok {
+		return nil, fmt.Errorf("value assert *grpc.ClientConn failed")
+	}
+	return conn, nil
+}
+
+func (c *Client) grpcDial(ctx context.Context, serverName string, filters ...filterc.Filter) (*ggrpc.ClientConn, error) {
 	options := []grpc.ClientOption{
 		grpc.WithDiscovery(c.discovery),
 		grpc.WithEndpoint(helpc.ServerEndpoint(c.env, serverName)),
@@ -249,7 +277,9 @@ func (c *Client) grpcDial(ctx context.Context, serverName string, filters ...sel
 		// ),
 	}
 	if filters != nil {
-		options = append(options, grpc.WithNodeFilter(filters...))
+		for _, filter := range filters {
+			options = append(options, grpc.WithNodeFilter(filter.Filter()))
+		}
 	}
 	return grpc.DialInsecure(ctx, options...)
 }
