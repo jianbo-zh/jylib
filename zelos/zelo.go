@@ -187,6 +187,14 @@ func (z *Zelos) VehicleDetail(ctx context.Context, vehicleName string) (*Vehicle
 
 // AddDispatch 开始任务并出发
 func (z *Zelos) AddDispatch(ctx context.Context, req *AddDispatchRequest) (*Dispatch, error) {
+	// return &Dispatch{
+	// 	VehicleId:                 2857,
+	// 	VehicleName:               "HT00005",
+	// 	VehicleNumber:             "苏HT0005",
+	// 	VehicleBusinessStatus:     "IDLE",
+	// 	VehicleBusinessStatusName: "空闲",
+	// 	DispatchId:                1,
+	// }, nil
 	bs, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("json.Marshal error: %w", err)

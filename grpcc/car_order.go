@@ -32,12 +32,12 @@ type ICarOrder interface {
 	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest, ...selector.NodeFilter) (*orderV1.CheckOrderSharingResultReply, error)
 	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest, ...selector.NodeFilter) (*orderV1.EmitSOSEventReply, error)
 	CancelSOSEvent(context.Context, *orderV1.CancelSOSEventRequest, ...selector.NodeFilter) (*orderV1.CancelSOSEventReply, error)
-	CancelFlightOrders(context.Context, *orderV1.CancelFlightOrdersRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
-	FinishFlightOrders(context.Context, *orderV1.FinishFlightOrdersRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
+	CancelUnuseFlightOrders(context.Context, *orderV1.CancelUnuseFlightOrdersRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
+	CancelInuseFlightOrders(context.Context, *orderV1.CancelInuseFlightOrdersRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
+	FinishInuseFlightOrders(context.Context, *orderV1.FinishInuseFlightOrdersRequest, ...selector.NodeFilter) (*emptypb.Empty, error)
 	GetUserCoupons(context.Context, *orderV1.GetUserCouponsRequest, ...selector.NodeFilter) (*orderV1.GetUserCouponsReply, error)
 	GetFlightOrder(context.Context, *orderV1.GetFlightOrderRequest, ...selector.NodeFilter) (*orderV1.FlightOrder, error)
 	CreateFlightOrder(context.Context, *orderV1.CreateFlightOrderRequest, ...selector.NodeFilter) (*orderV1.FlightOrder, error)
-	StartFlightOrder(context.Context, *orderV1.StartFlightOrderRequest, ...selector.NodeFilter) (*orderV1.FlightOrder, error)
 	GetFlightOrderList(context.Context, *orderV1.GetFlightOrderListRequest, ...selector.NodeFilter) (*orderV1.GetFlightOrderListReply, error)
 	GetFlightOrderStops(context.Context, *orderV1.GetFlightOrderStopsRequest, ...selector.NodeFilter) (*orderV1.GetFlightOrderStopsReply, error)
 
@@ -309,26 +309,38 @@ func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSO
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) CancelFlightOrders(ctx context.Context, req *orderV1.CancelFlightOrdersRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarOrderGrpc) CancelUnuseFlightOrders(ctx context.Context, req *orderV1.CancelUnuseFlightOrdersRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
-	reply, err := cli.CancelFlightOrders(ctx, req)
+	reply, err := cli.CancelUnuseFlightOrders(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelFlightOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelUnuseFlightOrders error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
 
-func (c *CarOrderGrpc) FinishFlightOrders(ctx context.Context, req *orderV1.FinishFlightOrdersRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+func (c *CarOrderGrpc) CancelInuseFlightOrders(ctx context.Context, req *orderV1.CancelInuseFlightOrdersRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
 	cli, err := c.client.CarOrderClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
 	}
-	reply, err := cli.FinishFlightOrders(ctx, req)
+	reply, err := cli.CancelInuseFlightOrders(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.FinishFlightOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelInuseFlightOrders error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarOrderGrpc) FinishInuseFlightOrders(ctx context.Context, req *orderV1.FinishInuseFlightOrdersRequest, filters ...selector.NodeFilter) (*emptypb.Empty, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.FinishInuseFlightOrders(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.FinishInuseFlightOrders error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -365,18 +377,6 @@ func (c *CarOrderGrpc) CreateFlightOrder(ctx context.Context, req *orderV1.Creat
 	reply, err := cli.CreateFlightOrder(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.CreateFlightOrder error: %w", err)
-	}
-	return reply, nil
-}
-
-func (c *CarOrderGrpc) StartFlightOrder(ctx context.Context, req *orderV1.StartFlightOrderRequest, filters ...selector.NodeFilter) (*orderV1.FlightOrder, error) {
-	cli, err := c.client.CarOrderClient(ctx, filters...)
-	if err != nil {
-		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
-	}
-	reply, err := cli.StartFlightOrder(ctx, req)
-	if err != nil {
-		return nil, fmt.Errorf("cli.StartFlightOrder error: %w", err)
 	}
 	return reply, nil
 }
