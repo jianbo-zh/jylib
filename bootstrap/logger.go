@@ -3,7 +3,6 @@ package bootstrap
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	configV1 "github.com/jianbo-zh/jypb/config/v1"
 
@@ -33,7 +32,7 @@ func NewLoggerProvider(serviceInfo *ServiceInfo, bc *configV1.Log) log.Logger {
 	}
 
 	ll := &lumberjack.Logger{
-		Filename:   fmt.Sprintf("%s/%s.log", saveDir, strings.TrimPrefix(serviceInfo.Name, "GR.")),
+		Filename:   fmt.Sprintf("%s/%s.log", saveDir, serviceInfo.GetInstanceId()),
 		MaxSize:    int(bc.MaxSizeMb),
 		MaxAge:     int(bc.MaxAgeDay),
 		MaxBackups: int(bc.MaxBackups),
