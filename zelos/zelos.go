@@ -109,8 +109,6 @@ func (z *Zelos) StationList(ctx context.Context, req *StationListRequest) (int, 
 	} else if !data.Success {
 		return 0, nil, NewError(data.ErrorCode, data.Message)
 	}
-	fmt.Println("------")
-	fmt.Printf("%+v", data)
 
 	return data.Data.Total, data.Data.List, nil
 }
@@ -187,14 +185,6 @@ func (z *Zelos) VehicleDetail(ctx context.Context, vehicleName string) (*Vehicle
 
 // AddDispatch 开始任务并出发
 func (z *Zelos) AddDispatch(ctx context.Context, req *AddDispatchRequest) (*Dispatch, error) {
-	// return &Dispatch{
-	// 	VehicleId:                 2857,
-	// 	VehicleName:               "HT00005",
-	// 	VehicleNumber:             "苏HT0005",
-	// 	VehicleBusinessStatus:     "IDLE",
-	// 	VehicleBusinessStatusName: "空闲",
-	// 	DispatchId:                1,
-	// }, nil
 	bs, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("json.Marshal error: %w", err)
@@ -386,6 +376,17 @@ func (z *Zelos) delete(ctx context.Context, path string, query url.Values, body 
 }
 
 func (z *Zelos) body(ctx context.Context, method HttpMethod, path string, query url.Values, data []byte) ([]byte, error) {
+	bs, err := json.Marshal(map[string]any{
+		"method": method,
+		"path":   path,
+		"query":  query,
+		"data":   string(data),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("json.marshal error: %w", err)
+	}
+	fmt.Println("zelos request: ", string(bs))
+
 	u := z.url(path)
 	if query != nil {
 		u.RawQuery = query.Encode()
@@ -405,12 +406,27 @@ func (z *Zelos) body(ctx context.Context, method HttpMethod, path string, query 
 	if err != nil {
 		return nil, fmt.Errorf("client.Do error: %w", err)
 	}
-	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("io.ReadAll error: %w", err)
+	}
 
-	return io.ReadAll(resp.Body)
+	fmt.Println("zelos response: ", string(body))
+	fmt.Println("")
+	return body, nil
 }
 
 func (z *Zelos) nobody(ctx context.Context, method HttpMethod, path string, query url.Values) ([]byte, error) {
+	bs, err := json.Marshal(map[string]any{
+		"method": method,
+		"path":   path,
+		"query":  query,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("json.marshal error: %w", err)
+	}
+	fmt.Println("zelos request: ", string(bs))
+
 	u := z.url(path)
 	if query != nil {
 		u.RawQuery = query.Encode()
@@ -431,7 +447,15 @@ func (z *Zelos) nobody(ctx context.Context, method HttpMethod, path string, quer
 	}
 	defer resp.Body.Close()
 
-	return io.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("io.ReadAll error: %w", err)
+	}
+
+	fmt.Println("zelos response: ", string(body))
+	fmt.Println("")
+
+	return body, nil
 }
 
 func (z *Zelos) url(path string) *url.URL {
@@ -442,8 +466,6 @@ func (z *Zelos) url(path string) *url.URL {
 func (z *Zelos) getAccessToken(ctx context.Context) (string, error) {
 	z.mutex.Lock()
 	defer z.mutex.Unlock()
-
-	return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoLXNlcnZlciIsImlhdCI6MTc0ODIzMTEwMjc1NSwiZXhwIjoxNzQ4MzE3NTAyNzU1LCJqdGkiOiI1MTVjYTUxOC00ZmE2LTQzNGMtYWQ3OS1iYjcyN2JjMzY5MmEiLCJhcHBJZCI6Im8zZjIxMGI2MGYyODI0MjNjODgxNzYyYzhmMDJjYmUxYyJ9.t5xK3OZyVJ6EPdnM-4kkMgZ1cNE3fqCliYI96Ee7F3E", nil
 
 	if z.Auth == nil || z.Auth.ExpiredAt.Before(time.Now()) {
 		bs, _ := json.Marshal(&AppIdKey{

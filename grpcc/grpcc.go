@@ -42,6 +42,7 @@ type IClient interface {
 	CarDispatchGrpc() ICarDispatch
 	CarOrderGrpc() ICarOrder
 	CarProxyGrpc() ICarProxy
+	CarControlGrpc() ICarProxy
 	CarMeasureGrpc() ICarMeasure
 	CarFlightGrpc() ICarFlight
 	FileStorageGrpc() IFileStorage
@@ -53,6 +54,7 @@ type IClient interface {
 	CarDispatchClient(context.Context, ...filterc.Filter) (cardispatchV1.DispatchClient, error)
 	CarOrderClient(context.Context, ...filterc.Filter) (carorderV1.CarOrderClient, error)
 	CarProxyClient(context.Context, ...filterc.Filter) (carproxyV1.CarProxyClient, error)
+	CarControlClient(context.Context, ...filterc.Filter) (carproxyV1.CarProxyClient, error)
 	CarMeasureClient(context.Context, ...filterc.Filter) (carmeasureV1.CarMeasureClient, error)
 	CarFlightClient(context.Context, ...filterc.Filter) (carflightV1.CarFlightClient, error)
 	FileStorageClient(context.Context, ...filterc.Filter) (filestorageV1.FileStorageClient, error)
@@ -122,6 +124,9 @@ func (c *Client) CarOrderGrpc() ICarOrder { return NewCarOrderGrpc(c) }
 // CarProxyGrpc
 func (c *Client) CarProxyGrpc() ICarProxy { return NewCarProxyGrpc(c) }
 
+// CarProxyGrpc
+func (c *Client) CarControlGrpc() ICarProxy { return NewCarControlGrpc(c) }
+
 // CarMeasureGrpc
 func (c *Client) CarMeasureGrpc() ICarMeasure { return NewCarMeasureGrpc(c) }
 
@@ -180,6 +185,16 @@ func (c *Client) CarOrderClient(ctx context.Context, filters ...filterc.Filter) 
 // CarProxyClient
 func (c *Client) CarProxyClient(ctx context.Context, filters ...filterc.Filter) (carproxyV1.CarProxyClient, error) {
 	conn, err := c.grpcConn(ctx, typec.Service_GwCarProxy, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("grpc.Dial error: %w", err)
+	}
+
+	return carproxyV1.NewCarProxyClient(conn), nil
+}
+
+// CarControlClient
+func (c *Client) CarControlClient(ctx context.Context, filters ...filterc.Filter) (carproxyV1.CarProxyClient, error) {
+	conn, err := c.grpcConn(ctx, typec.Service_MsCarControl, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
