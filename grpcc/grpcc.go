@@ -287,14 +287,14 @@ func (c *Client) grpcDial(ctx context.Context, serverName string, filters ...fil
 		),
 		grpc.WithLogger(c.logger),
 		// 使用 DialInsecure 再加上 WithTLSConfig 会报错
-		// grpc.WithTLSConfig(
-		// 	tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
-		// ),
+		grpc.WithTLSConfig(
+			tlsconf.NewClientTlsConfig("", "", c.CaCrtFile),
+		),
 	}
 	if filters != nil {
 		for _, filter := range filters {
 			options = append(options, grpc.WithNodeFilter(filter.Filter()))
 		}
 	}
-	return grpc.DialInsecure(ctx, options...)
+	return grpc.Dial(ctx, options...)
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
-	proxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
+	"github.com/jianbo-zh/jypb/api/zzz/v1"
 )
 
 type CarControlGrpc struct {
@@ -19,7 +19,7 @@ func NewCarControlGrpc(cli IClient) ICarProxy {
 	}
 }
 
-func (c *CarControlGrpc) UserSOSLockCar(ctx context.Context, req *proxyV1.UserSOSLockCarRequest, filters ...filterc.Filter) (*proxyV1.UserSOSLockCarReply, error) {
+func (c *CarControlGrpc) UserSOSLockCar(ctx context.Context, req *zzzV1.UserSOSLockCarRequest, filters ...filterc.Filter) (*zzzV1.UserSOSLockCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -31,7 +31,7 @@ func (c *CarControlGrpc) UserSOSLockCar(ctx context.Context, req *proxyV1.UserSO
 	return reply, nil
 }
 
-func (c *CarControlGrpc) UserLockCar(ctx context.Context, req *proxyV1.UserLockCarRequest, filters ...filterc.Filter) (*proxyV1.UserLockCarReply, error) {
+func (c *CarControlGrpc) UserLockCar(ctx context.Context, req *zzzV1.UserLockCarRequest, filters ...filterc.Filter) (*zzzV1.UserLockCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -43,7 +43,7 @@ func (c *CarControlGrpc) UserLockCar(ctx context.Context, req *proxyV1.UserLockC
 	return reply, nil
 }
 
-func (c *CarControlGrpc) UserUnlockCar(ctx context.Context, req *proxyV1.UserUnlockCarRequest, filters ...filterc.Filter) (*proxyV1.UserUnlockCarReply, error) {
+func (c *CarControlGrpc) UserUnlockCar(ctx context.Context, req *zzzV1.UserUnlockCarRequest, filters ...filterc.Filter) (*zzzV1.UserUnlockCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -55,7 +55,7 @@ func (c *CarControlGrpc) UserUnlockCar(ctx context.Context, req *proxyV1.UserUnl
 	return reply, nil
 }
 
-func (c *CarControlGrpc) UserReturnCar(ctx context.Context, req *proxyV1.UserReturnCarRequest, filters ...filterc.Filter) (*proxyV1.UserReturnCarReply, error) {
+func (c *CarControlGrpc) UserReturnCar(ctx context.Context, req *zzzV1.UserReturnCarRequest, filters ...filterc.Filter) (*zzzV1.UserReturnCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -67,7 +67,7 @@ func (c *CarControlGrpc) UserReturnCar(ctx context.Context, req *proxyV1.UserRet
 	return reply, nil
 }
 
-func (c *CarControlGrpc) UserAutoDriving(ctx context.Context, req *proxyV1.UserAutoDrivingRequest, filters ...filterc.Filter) (*proxyV1.UserAutoDrivingReply, error) {
+func (c *CarControlGrpc) UserAutoDriving(ctx context.Context, req *zzzV1.UserAutoDrivingRequest, filters ...filterc.Filter) (*zzzV1.UserAutoDrivingReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -79,7 +79,7 @@ func (c *CarControlGrpc) UserAutoDriving(ctx context.Context, req *proxyV1.UserA
 	return reply, nil
 }
 
-func (c *CarControlGrpc) UserManualDriving(ctx context.Context, req *proxyV1.UserManualDrivingRequest, filters ...filterc.Filter) (*proxyV1.UserManualDrivingReply, error) {
+func (c *CarControlGrpc) UserManualDriving(ctx context.Context, req *zzzV1.UserManualDrivingRequest, filters ...filterc.Filter) (*zzzV1.UserManualDrivingReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -91,7 +91,7 @@ func (c *CarControlGrpc) UserManualDriving(ctx context.Context, req *proxyV1.Use
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsEnterMaintainMode(ctx context.Context, req *proxyV1.DevopsEnterMaintainModeRequest, filters ...filterc.Filter) (*proxyV1.DevopsEnterMaintainModeReply, error) {
+func (c *CarControlGrpc) DevopsEnterMaintainMode(ctx context.Context, req *zzzV1.DevopsEnterMaintainModeRequest, filters ...filterc.Filter) (*zzzV1.DevopsEnterMaintainModeReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -103,7 +103,7 @@ func (c *CarControlGrpc) DevopsEnterMaintainMode(ctx context.Context, req *proxy
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsExitMaintainMode(ctx context.Context, req *proxyV1.DevopsExitMaintainModeRequest, filters ...filterc.Filter) (*proxyV1.DevopsExitMaintainModeReply, error) {
+func (c *CarControlGrpc) DevopsExitMaintainMode(ctx context.Context, req *zzzV1.DevopsExitMaintainModeRequest, filters ...filterc.Filter) (*zzzV1.DevopsExitMaintainModeReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -115,7 +115,7 @@ func (c *CarControlGrpc) DevopsExitMaintainMode(ctx context.Context, req *proxyV
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsUnlockCar(ctx context.Context, req *proxyV1.DevopsUnlockCarRequest, filters ...filterc.Filter) (*proxyV1.DevopsUnlockCarReply, error) {
+func (c *CarControlGrpc) DevopsUnlockCar(ctx context.Context, req *zzzV1.DevopsUnlockCarRequest, filters ...filterc.Filter) (*zzzV1.DevopsUnlockCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -127,7 +127,7 @@ func (c *CarControlGrpc) DevopsUnlockCar(ctx context.Context, req *proxyV1.Devop
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsLockCar(ctx context.Context, req *proxyV1.DevopsLockCarRequest, filters ...filterc.Filter) (*proxyV1.DevopsLockCarReply, error) {
+func (c *CarControlGrpc) DevopsLockCar(ctx context.Context, req *zzzV1.DevopsLockCarRequest, filters ...filterc.Filter) (*zzzV1.DevopsLockCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -139,7 +139,7 @@ func (c *CarControlGrpc) DevopsLockCar(ctx context.Context, req *proxyV1.DevopsL
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsReturnCar(ctx context.Context, req *proxyV1.DevopsReturnCarRequest, filters ...filterc.Filter) (*proxyV1.DevopsReturnCarReply, error) {
+func (c *CarControlGrpc) DevopsReturnCar(ctx context.Context, req *zzzV1.DevopsReturnCarRequest, filters ...filterc.Filter) (*zzzV1.DevopsReturnCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -151,7 +151,7 @@ func (c *CarControlGrpc) DevopsReturnCar(ctx context.Context, req *proxyV1.Devop
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsAutoDriving(ctx context.Context, req *proxyV1.DevopsAutoDrivingRequest, filters ...filterc.Filter) (*proxyV1.DevopsAutoDrivingReply, error) {
+func (c *CarControlGrpc) DevopsAutoDriving(ctx context.Context, req *zzzV1.DevopsAutoDrivingRequest, filters ...filterc.Filter) (*zzzV1.DevopsAutoDrivingReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -163,7 +163,7 @@ func (c *CarControlGrpc) DevopsAutoDriving(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DevopsManualDriving(ctx context.Context, req *proxyV1.DevopsManualDrivingRequest, filters ...filterc.Filter) (*proxyV1.DevopsManualDrivingReply, error) {
+func (c *CarControlGrpc) DevopsManualDriving(ctx context.Context, req *zzzV1.DevopsManualDrivingRequest, filters ...filterc.Filter) (*zzzV1.DevopsManualDrivingReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -175,7 +175,7 @@ func (c *CarControlGrpc) DevopsManualDriving(ctx context.Context, req *proxyV1.D
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminReturnCar(ctx context.Context, req *proxyV1.AdminReturnCarRequest, filters ...filterc.Filter) (*proxyV1.AdminReturnCarReply, error) {
+func (c *CarControlGrpc) AdminReturnCar(ctx context.Context, req *zzzV1.AdminReturnCarRequest, filters ...filterc.Filter) (*zzzV1.AdminReturnCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -187,7 +187,7 @@ func (c *CarControlGrpc) AdminReturnCar(ctx context.Context, req *proxyV1.AdminR
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminUpdateMapVersion(ctx context.Context, req *proxyV1.AdminUpdateMapVersionRequest, filters ...filterc.Filter) (*proxyV1.AdminUpdateMapVersionReply, error) {
+func (c *CarControlGrpc) AdminUpdateMapVersion(ctx context.Context, req *zzzV1.AdminUpdateMapVersionRequest, filters ...filterc.Filter) (*zzzV1.AdminUpdateMapVersionReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -199,7 +199,7 @@ func (c *CarControlGrpc) AdminUpdateMapVersion(ctx context.Context, req *proxyV1
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *proxyV1.AdminUpdateStaticConfigsRequest, filters ...filterc.Filter) (*proxyV1.AdminUpdateStaticConfigsReply, error) {
+func (c *CarControlGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *zzzV1.AdminUpdateStaticConfigsRequest, filters ...filterc.Filter) (*zzzV1.AdminUpdateStaticConfigsReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -211,7 +211,7 @@ func (c *CarControlGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *prox
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminQueryLogBagFiles(ctx context.Context, req *proxyV1.AdminQueryLogBagFilesRequest, filters ...filterc.Filter) (*proxyV1.AdminQueryLogBagFilesReply, error) {
+func (c *CarControlGrpc) AdminQueryLogBagFiles(ctx context.Context, req *zzzV1.AdminQueryLogBagFilesRequest, filters ...filterc.Filter) (*zzzV1.AdminQueryLogBagFilesReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -223,7 +223,7 @@ func (c *CarControlGrpc) AdminQueryLogBagFiles(ctx context.Context, req *proxyV1
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminPackUploadFiles(ctx context.Context, req *proxyV1.AdminUploadLogBagFilesRequest, filters ...filterc.Filter) (*proxyV1.AdminUploadLogBagFilesReply, error) {
+func (c *CarControlGrpc) AdminPackUploadFiles(ctx context.Context, req *zzzV1.AdminUploadLogBagFilesRequest, filters ...filterc.Filter) (*zzzV1.AdminUploadLogBagFilesReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -235,7 +235,7 @@ func (c *CarControlGrpc) AdminPackUploadFiles(ctx context.Context, req *proxyV1.
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminRemoteOperationLogin(ctx context.Context, req *proxyV1.AdminRemoteOperationLoginRequest, filters ...filterc.Filter) (*proxyV1.AdminRemoteOperationLoginReply, error) {
+func (c *CarControlGrpc) AdminRemoteOperationLogin(ctx context.Context, req *zzzV1.AdminRemoteOperationLoginRequest, filters ...filterc.Filter) (*zzzV1.AdminRemoteOperationLoginReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -247,7 +247,7 @@ func (c *CarControlGrpc) AdminRemoteOperationLogin(ctx context.Context, req *pro
 	return reply, nil
 }
 
-func (c *CarControlGrpc) AdminRemoteOperationLogout(ctx context.Context, req *proxyV1.AdminRemoteOperationLogoutRequest, filters ...filterc.Filter) (*proxyV1.AdminRemoteOperationLogoutReply, error) {
+func (c *CarControlGrpc) AdminRemoteOperationLogout(ctx context.Context, req *zzzV1.AdminRemoteOperationLogoutRequest, filters ...filterc.Filter) (*zzzV1.AdminRemoteOperationLogoutReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -259,7 +259,7 @@ func (c *CarControlGrpc) AdminRemoteOperationLogout(ctx context.Context, req *pr
 	return reply, nil
 }
 
-func (c *CarControlGrpc) TaskSystemReturnCar(ctx context.Context, req *proxyV1.TaskSystemReturnCarRequest, filters ...filterc.Filter) (*proxyV1.TaskSystemReturnCarReply, error) {
+func (c *CarControlGrpc) TaskSystemReturnCar(ctx context.Context, req *zzzV1.TaskSystemReturnCarRequest, filters ...filterc.Filter) (*zzzV1.TaskSystemReturnCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -271,7 +271,7 @@ func (c *CarControlGrpc) TaskSystemReturnCar(ctx context.Context, req *proxyV1.T
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DispatchPlanPath(ctx context.Context, req *proxyV1.DispatchPlanPathRequest, filters ...filterc.Filter) (*proxyV1.DispatchPlanPathReply, error) {
+func (c *CarControlGrpc) DispatchPlanPath(ctx context.Context, req *zzzV1.DispatchPlanPathRequest, filters ...filterc.Filter) (*zzzV1.DispatchPlanPathReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -283,7 +283,7 @@ func (c *CarControlGrpc) DispatchPlanPath(ctx context.Context, req *proxyV1.Disp
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DispatchStart(ctx context.Context, req *proxyV1.DispatchStartRequest, filters ...filterc.Filter) (*proxyV1.DispatchStartReply, error) {
+func (c *CarControlGrpc) DispatchStart(ctx context.Context, req *zzzV1.DispatchStartRequest, filters ...filterc.Filter) (*zzzV1.DispatchStartReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -295,7 +295,7 @@ func (c *CarControlGrpc) DispatchStart(ctx context.Context, req *proxyV1.Dispatc
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DispatchRestart(ctx context.Context, req *proxyV1.DispatchRestartRequest, filters ...filterc.Filter) (*proxyV1.DispatchRestartReply, error) {
+func (c *CarControlGrpc) DispatchRestart(ctx context.Context, req *zzzV1.DispatchRestartRequest, filters ...filterc.Filter) (*zzzV1.DispatchRestartReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
@@ -307,7 +307,7 @@ func (c *CarControlGrpc) DispatchRestart(ctx context.Context, req *proxyV1.Dispa
 	return reply, nil
 }
 
-func (c *CarControlGrpc) DispatchLockCar(ctx context.Context, req *proxyV1.DispatchLockCarRequest, filters ...filterc.Filter) (*proxyV1.DispatchLockCarReply, error) {
+func (c *CarControlGrpc) DispatchLockCar(ctx context.Context, req *zzzV1.DispatchLockCarRequest, filters ...filterc.Filter) (*zzzV1.DispatchLockCarReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarControlClient error: %w", err)

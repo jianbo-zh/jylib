@@ -6,35 +6,39 @@ import (
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
-	proxyV1 "github.com/jianbo-zh/jypb/api/carproxy/v1"
+	"github.com/jianbo-zh/jypb/api/zzz/v1"
 )
 
 type ICarProxy interface {
-	UserSOSLockCar(context.Context, *proxyV1.UserSOSLockCarRequest, ...filterc.Filter) (*proxyV1.UserSOSLockCarReply, error)
-	UserLockCar(context.Context, *proxyV1.UserLockCarRequest, ...filterc.Filter) (*proxyV1.UserLockCarReply, error)
-	UserUnlockCar(context.Context, *proxyV1.UserUnlockCarRequest, ...filterc.Filter) (*proxyV1.UserUnlockCarReply, error)
-	UserReturnCar(context.Context, *proxyV1.UserReturnCarRequest, ...filterc.Filter) (*proxyV1.UserReturnCarReply, error)
-	UserAutoDriving(context.Context, *proxyV1.UserAutoDrivingRequest, ...filterc.Filter) (*proxyV1.UserAutoDrivingReply, error)
-	UserManualDriving(context.Context, *proxyV1.UserManualDrivingRequest, ...filterc.Filter) (*proxyV1.UserManualDrivingReply, error)
-	DevopsEnterMaintainMode(context.Context, *proxyV1.DevopsEnterMaintainModeRequest, ...filterc.Filter) (*proxyV1.DevopsEnterMaintainModeReply, error)
-	DevopsExitMaintainMode(context.Context, *proxyV1.DevopsExitMaintainModeRequest, ...filterc.Filter) (*proxyV1.DevopsExitMaintainModeReply, error)
-	DevopsUnlockCar(context.Context, *proxyV1.DevopsUnlockCarRequest, ...filterc.Filter) (*proxyV1.DevopsUnlockCarReply, error)
-	DevopsLockCar(context.Context, *proxyV1.DevopsLockCarRequest, ...filterc.Filter) (*proxyV1.DevopsLockCarReply, error)
-	DevopsReturnCar(context.Context, *proxyV1.DevopsReturnCarRequest, ...filterc.Filter) (*proxyV1.DevopsReturnCarReply, error)
-	DevopsAutoDriving(context.Context, *proxyV1.DevopsAutoDrivingRequest, ...filterc.Filter) (*proxyV1.DevopsAutoDrivingReply, error)
-	DevopsManualDriving(context.Context, *proxyV1.DevopsManualDrivingRequest, ...filterc.Filter) (*proxyV1.DevopsManualDrivingReply, error)
-	AdminReturnCar(context.Context, *proxyV1.AdminReturnCarRequest, ...filterc.Filter) (*proxyV1.AdminReturnCarReply, error)
-	AdminUpdateMapVersion(context.Context, *proxyV1.AdminUpdateMapVersionRequest, ...filterc.Filter) (*proxyV1.AdminUpdateMapVersionReply, error)
-	AdminUpdateStaticConfigs(context.Context, *proxyV1.AdminUpdateStaticConfigsRequest, ...filterc.Filter) (*proxyV1.AdminUpdateStaticConfigsReply, error)
-	AdminQueryLogBagFiles(context.Context, *proxyV1.AdminQueryLogBagFilesRequest, ...filterc.Filter) (*proxyV1.AdminQueryLogBagFilesReply, error)
-	AdminPackUploadFiles(context.Context, *proxyV1.AdminUploadLogBagFilesRequest, ...filterc.Filter) (*proxyV1.AdminUploadLogBagFilesReply, error)
-	AdminRemoteOperationLogin(context.Context, *proxyV1.AdminRemoteOperationLoginRequest, ...filterc.Filter) (*proxyV1.AdminRemoteOperationLoginReply, error)
-	AdminRemoteOperationLogout(context.Context, *proxyV1.AdminRemoteOperationLogoutRequest, ...filterc.Filter) (*proxyV1.AdminRemoteOperationLogoutReply, error)
-	TaskSystemReturnCar(context.Context, *proxyV1.TaskSystemReturnCarRequest, ...filterc.Filter) (*proxyV1.TaskSystemReturnCarReply, error)
-	DispatchPlanPath(context.Context, *proxyV1.DispatchPlanPathRequest, ...filterc.Filter) (*proxyV1.DispatchPlanPathReply, error)
-	DispatchStart(context.Context, *proxyV1.DispatchStartRequest, ...filterc.Filter) (*proxyV1.DispatchStartReply, error)
-	DispatchRestart(context.Context, *proxyV1.DispatchRestartRequest, ...filterc.Filter) (*proxyV1.DispatchRestartReply, error)
-	DispatchLockCar(context.Context, *proxyV1.DispatchLockCarRequest, ...filterc.Filter) (*proxyV1.DispatchLockCarReply, error)
+	UserSOSLockCar(context.Context, *zzzV1.UserSOSLockCarRequest, ...filterc.Filter) (*zzzV1.UserSOSLockCarReply, error)
+	UserLockCar(context.Context, *zzzV1.UserLockCarRequest, ...filterc.Filter) (*zzzV1.UserLockCarReply, error)
+	UserUnlockCar(context.Context, *zzzV1.UserUnlockCarRequest, ...filterc.Filter) (*zzzV1.UserUnlockCarReply, error)
+	UserReturnCar(context.Context, *zzzV1.UserReturnCarRequest, ...filterc.Filter) (*zzzV1.UserReturnCarReply, error)
+	UserAutoDriving(context.Context, *zzzV1.UserAutoDrivingRequest, ...filterc.Filter) (*zzzV1.UserAutoDrivingReply, error)
+	UserManualDriving(context.Context, *zzzV1.UserManualDrivingRequest, ...filterc.Filter) (*zzzV1.UserManualDrivingReply, error)
+
+	DevopsEnterMaintainMode(context.Context, *zzzV1.DevopsEnterMaintainModeRequest, ...filterc.Filter) (*zzzV1.DevopsEnterMaintainModeReply, error)
+	DevopsExitMaintainMode(context.Context, *zzzV1.DevopsExitMaintainModeRequest, ...filterc.Filter) (*zzzV1.DevopsExitMaintainModeReply, error)
+	DevopsUnlockCar(context.Context, *zzzV1.DevopsUnlockCarRequest, ...filterc.Filter) (*zzzV1.DevopsUnlockCarReply, error)
+	DevopsLockCar(context.Context, *zzzV1.DevopsLockCarRequest, ...filterc.Filter) (*zzzV1.DevopsLockCarReply, error)
+	DevopsReturnCar(context.Context, *zzzV1.DevopsReturnCarRequest, ...filterc.Filter) (*zzzV1.DevopsReturnCarReply, error)
+	DevopsAutoDriving(context.Context, *zzzV1.DevopsAutoDrivingRequest, ...filterc.Filter) (*zzzV1.DevopsAutoDrivingReply, error)
+	DevopsManualDriving(context.Context, *zzzV1.DevopsManualDrivingRequest, ...filterc.Filter) (*zzzV1.DevopsManualDrivingReply, error)
+
+	AdminReturnCar(context.Context, *zzzV1.AdminReturnCarRequest, ...filterc.Filter) (*zzzV1.AdminReturnCarReply, error)
+	AdminUpdateMapVersion(context.Context, *zzzV1.AdminUpdateMapVersionRequest, ...filterc.Filter) (*zzzV1.AdminUpdateMapVersionReply, error)
+	AdminUpdateStaticConfigs(context.Context, *zzzV1.AdminUpdateStaticConfigsRequest, ...filterc.Filter) (*zzzV1.AdminUpdateStaticConfigsReply, error)
+	AdminQueryLogBagFiles(context.Context, *zzzV1.AdminQueryLogBagFilesRequest, ...filterc.Filter) (*zzzV1.AdminQueryLogBagFilesReply, error)
+	AdminPackUploadFiles(context.Context, *zzzV1.AdminUploadLogBagFilesRequest, ...filterc.Filter) (*zzzV1.AdminUploadLogBagFilesReply, error)
+	AdminRemoteOperationLogin(context.Context, *zzzV1.AdminRemoteOperationLoginRequest, ...filterc.Filter) (*zzzV1.AdminRemoteOperationLoginReply, error)
+	AdminRemoteOperationLogout(context.Context, *zzzV1.AdminRemoteOperationLogoutRequest, ...filterc.Filter) (*zzzV1.AdminRemoteOperationLogoutReply, error)
+
+	TaskSystemReturnCar(context.Context, *zzzV1.TaskSystemReturnCarRequest, ...filterc.Filter) (*zzzV1.TaskSystemReturnCarReply, error)
+
+	DispatchPlanPath(context.Context, *zzzV1.DispatchPlanPathRequest, ...filterc.Filter) (*zzzV1.DispatchPlanPathReply, error)
+	DispatchStart(context.Context, *zzzV1.DispatchStartRequest, ...filterc.Filter) (*zzzV1.DispatchStartReply, error)
+	DispatchRestart(context.Context, *zzzV1.DispatchRestartRequest, ...filterc.Filter) (*zzzV1.DispatchRestartReply, error)
+	DispatchLockCar(context.Context, *zzzV1.DispatchLockCarRequest, ...filterc.Filter) (*zzzV1.DispatchLockCarReply, error)
 }
 
 type CarProxyGrpc struct {
@@ -47,7 +51,7 @@ func NewCarProxyGrpc(cli IClient) ICarProxy {
 	}
 }
 
-func (c *CarProxyGrpc) UserSOSLockCar(ctx context.Context, req *proxyV1.UserSOSLockCarRequest, filters ...filterc.Filter) (*proxyV1.UserSOSLockCarReply, error) {
+func (c *CarProxyGrpc) UserSOSLockCar(ctx context.Context, req *zzzV1.UserSOSLockCarRequest, filters ...filterc.Filter) (*zzzV1.UserSOSLockCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -59,7 +63,7 @@ func (c *CarProxyGrpc) UserSOSLockCar(ctx context.Context, req *proxyV1.UserSOSL
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) UserLockCar(ctx context.Context, req *proxyV1.UserLockCarRequest, filters ...filterc.Filter) (*proxyV1.UserLockCarReply, error) {
+func (c *CarProxyGrpc) UserLockCar(ctx context.Context, req *zzzV1.UserLockCarRequest, filters ...filterc.Filter) (*zzzV1.UserLockCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -71,7 +75,7 @@ func (c *CarProxyGrpc) UserLockCar(ctx context.Context, req *proxyV1.UserLockCar
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) UserUnlockCar(ctx context.Context, req *proxyV1.UserUnlockCarRequest, filters ...filterc.Filter) (*proxyV1.UserUnlockCarReply, error) {
+func (c *CarProxyGrpc) UserUnlockCar(ctx context.Context, req *zzzV1.UserUnlockCarRequest, filters ...filterc.Filter) (*zzzV1.UserUnlockCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -83,7 +87,7 @@ func (c *CarProxyGrpc) UserUnlockCar(ctx context.Context, req *proxyV1.UserUnloc
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) UserReturnCar(ctx context.Context, req *proxyV1.UserReturnCarRequest, filters ...filterc.Filter) (*proxyV1.UserReturnCarReply, error) {
+func (c *CarProxyGrpc) UserReturnCar(ctx context.Context, req *zzzV1.UserReturnCarRequest, filters ...filterc.Filter) (*zzzV1.UserReturnCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -95,7 +99,7 @@ func (c *CarProxyGrpc) UserReturnCar(ctx context.Context, req *proxyV1.UserRetur
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) UserAutoDriving(ctx context.Context, req *proxyV1.UserAutoDrivingRequest, filters ...filterc.Filter) (*proxyV1.UserAutoDrivingReply, error) {
+func (c *CarProxyGrpc) UserAutoDriving(ctx context.Context, req *zzzV1.UserAutoDrivingRequest, filters ...filterc.Filter) (*zzzV1.UserAutoDrivingReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -107,7 +111,7 @@ func (c *CarProxyGrpc) UserAutoDriving(ctx context.Context, req *proxyV1.UserAut
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) UserManualDriving(ctx context.Context, req *proxyV1.UserManualDrivingRequest, filters ...filterc.Filter) (*proxyV1.UserManualDrivingReply, error) {
+func (c *CarProxyGrpc) UserManualDriving(ctx context.Context, req *zzzV1.UserManualDrivingRequest, filters ...filterc.Filter) (*zzzV1.UserManualDrivingReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -119,7 +123,7 @@ func (c *CarProxyGrpc) UserManualDriving(ctx context.Context, req *proxyV1.UserM
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsEnterMaintainMode(ctx context.Context, req *proxyV1.DevopsEnterMaintainModeRequest, filters ...filterc.Filter) (*proxyV1.DevopsEnterMaintainModeReply, error) {
+func (c *CarProxyGrpc) DevopsEnterMaintainMode(ctx context.Context, req *zzzV1.DevopsEnterMaintainModeRequest, filters ...filterc.Filter) (*zzzV1.DevopsEnterMaintainModeReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -131,7 +135,7 @@ func (c *CarProxyGrpc) DevopsEnterMaintainMode(ctx context.Context, req *proxyV1
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsExitMaintainMode(ctx context.Context, req *proxyV1.DevopsExitMaintainModeRequest, filters ...filterc.Filter) (*proxyV1.DevopsExitMaintainModeReply, error) {
+func (c *CarProxyGrpc) DevopsExitMaintainMode(ctx context.Context, req *zzzV1.DevopsExitMaintainModeRequest, filters ...filterc.Filter) (*zzzV1.DevopsExitMaintainModeReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -143,7 +147,7 @@ func (c *CarProxyGrpc) DevopsExitMaintainMode(ctx context.Context, req *proxyV1.
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsUnlockCar(ctx context.Context, req *proxyV1.DevopsUnlockCarRequest, filters ...filterc.Filter) (*proxyV1.DevopsUnlockCarReply, error) {
+func (c *CarProxyGrpc) DevopsUnlockCar(ctx context.Context, req *zzzV1.DevopsUnlockCarRequest, filters ...filterc.Filter) (*zzzV1.DevopsUnlockCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -155,7 +159,7 @@ func (c *CarProxyGrpc) DevopsUnlockCar(ctx context.Context, req *proxyV1.DevopsU
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsLockCar(ctx context.Context, req *proxyV1.DevopsLockCarRequest, filters ...filterc.Filter) (*proxyV1.DevopsLockCarReply, error) {
+func (c *CarProxyGrpc) DevopsLockCar(ctx context.Context, req *zzzV1.DevopsLockCarRequest, filters ...filterc.Filter) (*zzzV1.DevopsLockCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -167,7 +171,7 @@ func (c *CarProxyGrpc) DevopsLockCar(ctx context.Context, req *proxyV1.DevopsLoc
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsReturnCar(ctx context.Context, req *proxyV1.DevopsReturnCarRequest, filters ...filterc.Filter) (*proxyV1.DevopsReturnCarReply, error) {
+func (c *CarProxyGrpc) DevopsReturnCar(ctx context.Context, req *zzzV1.DevopsReturnCarRequest, filters ...filterc.Filter) (*zzzV1.DevopsReturnCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -179,7 +183,7 @@ func (c *CarProxyGrpc) DevopsReturnCar(ctx context.Context, req *proxyV1.DevopsR
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsAutoDriving(ctx context.Context, req *proxyV1.DevopsAutoDrivingRequest, filters ...filterc.Filter) (*proxyV1.DevopsAutoDrivingReply, error) {
+func (c *CarProxyGrpc) DevopsAutoDriving(ctx context.Context, req *zzzV1.DevopsAutoDrivingRequest, filters ...filterc.Filter) (*zzzV1.DevopsAutoDrivingReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -191,7 +195,7 @@ func (c *CarProxyGrpc) DevopsAutoDriving(ctx context.Context, req *proxyV1.Devop
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DevopsManualDriving(ctx context.Context, req *proxyV1.DevopsManualDrivingRequest, filters ...filterc.Filter) (*proxyV1.DevopsManualDrivingReply, error) {
+func (c *CarProxyGrpc) DevopsManualDriving(ctx context.Context, req *zzzV1.DevopsManualDrivingRequest, filters ...filterc.Filter) (*zzzV1.DevopsManualDrivingReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -203,7 +207,7 @@ func (c *CarProxyGrpc) DevopsManualDriving(ctx context.Context, req *proxyV1.Dev
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminReturnCar(ctx context.Context, req *proxyV1.AdminReturnCarRequest, filters ...filterc.Filter) (*proxyV1.AdminReturnCarReply, error) {
+func (c *CarProxyGrpc) AdminReturnCar(ctx context.Context, req *zzzV1.AdminReturnCarRequest, filters ...filterc.Filter) (*zzzV1.AdminReturnCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -215,7 +219,7 @@ func (c *CarProxyGrpc) AdminReturnCar(ctx context.Context, req *proxyV1.AdminRet
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminUpdateMapVersion(ctx context.Context, req *proxyV1.AdminUpdateMapVersionRequest, filters ...filterc.Filter) (*proxyV1.AdminUpdateMapVersionReply, error) {
+func (c *CarProxyGrpc) AdminUpdateMapVersion(ctx context.Context, req *zzzV1.AdminUpdateMapVersionRequest, filters ...filterc.Filter) (*zzzV1.AdminUpdateMapVersionReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -227,7 +231,7 @@ func (c *CarProxyGrpc) AdminUpdateMapVersion(ctx context.Context, req *proxyV1.A
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *proxyV1.AdminUpdateStaticConfigsRequest, filters ...filterc.Filter) (*proxyV1.AdminUpdateStaticConfigsReply, error) {
+func (c *CarProxyGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *zzzV1.AdminUpdateStaticConfigsRequest, filters ...filterc.Filter) (*zzzV1.AdminUpdateStaticConfigsReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -239,7 +243,7 @@ func (c *CarProxyGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *proxyV
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminQueryLogBagFiles(ctx context.Context, req *proxyV1.AdminQueryLogBagFilesRequest, filters ...filterc.Filter) (*proxyV1.AdminQueryLogBagFilesReply, error) {
+func (c *CarProxyGrpc) AdminQueryLogBagFiles(ctx context.Context, req *zzzV1.AdminQueryLogBagFilesRequest, filters ...filterc.Filter) (*zzzV1.AdminQueryLogBagFilesReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -251,7 +255,7 @@ func (c *CarProxyGrpc) AdminQueryLogBagFiles(ctx context.Context, req *proxyV1.A
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminPackUploadFiles(ctx context.Context, req *proxyV1.AdminUploadLogBagFilesRequest, filters ...filterc.Filter) (*proxyV1.AdminUploadLogBagFilesReply, error) {
+func (c *CarProxyGrpc) AdminPackUploadFiles(ctx context.Context, req *zzzV1.AdminUploadLogBagFilesRequest, filters ...filterc.Filter) (*zzzV1.AdminUploadLogBagFilesReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -263,7 +267,7 @@ func (c *CarProxyGrpc) AdminPackUploadFiles(ctx context.Context, req *proxyV1.Ad
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminRemoteOperationLogin(ctx context.Context, req *proxyV1.AdminRemoteOperationLoginRequest, filters ...filterc.Filter) (*proxyV1.AdminRemoteOperationLoginReply, error) {
+func (c *CarProxyGrpc) AdminRemoteOperationLogin(ctx context.Context, req *zzzV1.AdminRemoteOperationLoginRequest, filters ...filterc.Filter) (*zzzV1.AdminRemoteOperationLoginReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -275,7 +279,7 @@ func (c *CarProxyGrpc) AdminRemoteOperationLogin(ctx context.Context, req *proxy
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) AdminRemoteOperationLogout(ctx context.Context, req *proxyV1.AdminRemoteOperationLogoutRequest, filters ...filterc.Filter) (*proxyV1.AdminRemoteOperationLogoutReply, error) {
+func (c *CarProxyGrpc) AdminRemoteOperationLogout(ctx context.Context, req *zzzV1.AdminRemoteOperationLogoutRequest, filters ...filterc.Filter) (*zzzV1.AdminRemoteOperationLogoutReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -287,7 +291,7 @@ func (c *CarProxyGrpc) AdminRemoteOperationLogout(ctx context.Context, req *prox
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) TaskSystemReturnCar(ctx context.Context, req *proxyV1.TaskSystemReturnCarRequest, filters ...filterc.Filter) (*proxyV1.TaskSystemReturnCarReply, error) {
+func (c *CarProxyGrpc) TaskSystemReturnCar(ctx context.Context, req *zzzV1.TaskSystemReturnCarRequest, filters ...filterc.Filter) (*zzzV1.TaskSystemReturnCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -299,7 +303,7 @@ func (c *CarProxyGrpc) TaskSystemReturnCar(ctx context.Context, req *proxyV1.Tas
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DispatchPlanPath(ctx context.Context, req *proxyV1.DispatchPlanPathRequest, filters ...filterc.Filter) (*proxyV1.DispatchPlanPathReply, error) {
+func (c *CarProxyGrpc) DispatchPlanPath(ctx context.Context, req *zzzV1.DispatchPlanPathRequest, filters ...filterc.Filter) (*zzzV1.DispatchPlanPathReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -311,7 +315,7 @@ func (c *CarProxyGrpc) DispatchPlanPath(ctx context.Context, req *proxyV1.Dispat
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DispatchStart(ctx context.Context, req *proxyV1.DispatchStartRequest, filters ...filterc.Filter) (*proxyV1.DispatchStartReply, error) {
+func (c *CarProxyGrpc) DispatchStart(ctx context.Context, req *zzzV1.DispatchStartRequest, filters ...filterc.Filter) (*zzzV1.DispatchStartReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -323,7 +327,7 @@ func (c *CarProxyGrpc) DispatchStart(ctx context.Context, req *proxyV1.DispatchS
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DispatchRestart(ctx context.Context, req *proxyV1.DispatchRestartRequest, filters ...filterc.Filter) (*proxyV1.DispatchRestartReply, error) {
+func (c *CarProxyGrpc) DispatchRestart(ctx context.Context, req *zzzV1.DispatchRestartRequest, filters ...filterc.Filter) (*zzzV1.DispatchRestartReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
@@ -335,7 +339,7 @@ func (c *CarProxyGrpc) DispatchRestart(ctx context.Context, req *proxyV1.Dispatc
 	return reply, nil
 }
 
-func (c *CarProxyGrpc) DispatchLockCar(ctx context.Context, req *proxyV1.DispatchLockCarRequest, filters ...filterc.Filter) (*proxyV1.DispatchLockCarReply, error) {
+func (c *CarProxyGrpc) DispatchLockCar(ctx context.Context, req *zzzV1.DispatchLockCarRequest, filters ...filterc.Filter) (*zzzV1.DispatchLockCarReply, error) {
 	cli, err := c.client.CarProxyClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
