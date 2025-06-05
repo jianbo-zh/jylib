@@ -20,7 +20,7 @@ type ICarFlight interface {
 	GotoNextStop(context.Context, *carflightV1.GotoNextStopRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	GetFlight(context.Context, *carflightV1.GetFlightRequest, ...filterc.Filter) (*carflightV1.Flight, error)
 	GetOptionalFlights(context.Context, *carflightV1.GetOptionalFlightsRequest, ...filterc.Filter) (*carflightV1.GetOptionalFlightsReply, error)
-	GetFlightTrace(context.Context, *carflightV1.GetFlightTraceRequest, ...filterc.Filter) (*carflightV1.GetFlightTraceReply, error)
+	GetFlightPath(context.Context, *carflightV1.GetFlightPathRequest, ...filterc.Filter) (*carflightV1.GetFlightPathReply, error)
 	GetRoutePath(context.Context, *carflightV1.GetRoutePathRequest, ...filterc.Filter) (*carflightV1.GetRoutePathReply, error)
 	UpdateFlightBooking(context.Context, *carflightV1.UpdateFlightBookingRequest, ...filterc.Filter) (*emptypb.Empty, error)
 
@@ -146,14 +146,14 @@ func (c *CarFlightGrpc) GetOptionalFlights(ctx context.Context, req *carflightV1
 	return reply, nil
 }
 
-func (c *CarFlightGrpc) GetFlightTrace(ctx context.Context, req *carflightV1.GetFlightTraceRequest, filters ...filterc.Filter) (*carflightV1.GetFlightTraceReply, error) {
+func (c *CarFlightGrpc) GetFlightPath(ctx context.Context, req *carflightV1.GetFlightPathRequest, filters ...filterc.Filter) (*carflightV1.GetFlightPathReply, error) {
 	cli, err := c.client.CarFlightClient(ctx, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
 	}
-	reply, err := cli.GetFlightTrace(ctx, req)
+	reply, err := cli.GetFlightPath(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightTrace error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlightPath error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
