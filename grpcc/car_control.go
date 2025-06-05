@@ -271,6 +271,18 @@ func (c *CarControlGrpc) TaskSystemReturnCar(ctx context.Context, req *zzzV1.Tas
 	return reply, nil
 }
 
+func (c *CarControlGrpc) TaskSystemUpdateFlightSeat(ctx context.Context, req *zzzV1.TaskSystemUpdateFlightSeatRequest, filters ...filterc.Filter) (*zzzV1.TaskSystemUpdateFlightSeatReply, error) {
+	cli, err := c.client.CarControlClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarControlClient error: %w", err)
+	}
+	reply, err := cli.TaskSystemUpdateFlightSeat(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.TaskSystemUpdateFlightSeat error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
 func (c *CarControlGrpc) DispatchPlanPath(ctx context.Context, req *zzzV1.DispatchPlanPathRequest, filters ...filterc.Filter) (*zzzV1.DispatchPlanPathReply, error) {
 	cli, err := c.client.CarControlClient(ctx, filters...)
 	if err != nil {

@@ -34,6 +34,7 @@ type ICarProxy interface {
 	AdminRemoteOperationLogout(context.Context, *zzzV1.AdminRemoteOperationLogoutRequest, ...filterc.Filter) (*zzzV1.AdminRemoteOperationLogoutReply, error)
 
 	TaskSystemReturnCar(context.Context, *zzzV1.TaskSystemReturnCarRequest, ...filterc.Filter) (*zzzV1.TaskSystemReturnCarReply, error)
+	TaskSystemUpdateFlightSeat(context.Context, *zzzV1.TaskSystemUpdateFlightSeatRequest, ...filterc.Filter) (*zzzV1.TaskSystemUpdateFlightSeatReply, error)
 
 	DispatchPlanPath(context.Context, *zzzV1.DispatchPlanPathRequest, ...filterc.Filter) (*zzzV1.DispatchPlanPathReply, error)
 	DispatchStart(context.Context, *zzzV1.DispatchStartRequest, ...filterc.Filter) (*zzzV1.DispatchStartReply, error)
@@ -299,6 +300,18 @@ func (c *CarProxyGrpc) TaskSystemReturnCar(ctx context.Context, req *zzzV1.TaskS
 	reply, err := cli.TaskSystemReturnCar(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.TaskSystemReturnCar error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarProxyGrpc) TaskSystemUpdateFlightSeat(ctx context.Context, req *zzzV1.TaskSystemUpdateFlightSeatRequest, filters ...filterc.Filter) (*zzzV1.TaskSystemUpdateFlightSeatReply, error) {
+	cli, err := c.client.CarProxyClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarProxyClient error: %w", err)
+	}
+	reply, err := cli.TaskSystemUpdateFlightSeat(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.TaskSystemUpdateFlightSeat error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

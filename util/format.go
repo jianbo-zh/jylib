@@ -32,9 +32,9 @@ func FormatTime(ts time.Time, typeValue int) string {
 	}
 	switch typeValue {
 	case 0:
-		return ts.Format("2006/01/02 15:04:05")
+		return ts.Format("2006-01-02 15:04:05")
 	case 1:
-		return ts.Format("2006/01/02")
+		return ts.Format("2006-01-02")
 	case 2:
 		return ts.Format("15:04:05")
 	default:

@@ -26,6 +26,7 @@ import (
 
 	carauthV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
 	carconfigV1 "github.com/jianbo-zh/jypb/api/carconfig/v1"
+	carcontrolV1 "github.com/jianbo-zh/jypb/api/carcontrol/v1"
 	cardispatchV1 "github.com/jianbo-zh/jypb/api/cardispatch/v1"
 	carflightV1 "github.com/jianbo-zh/jypb/api/carflight/v1"
 	carmeasureV1 "github.com/jianbo-zh/jypb/api/carmeasure/v1"
@@ -54,7 +55,7 @@ type IClient interface {
 	CarDispatchClient(context.Context, ...filterc.Filter) (cardispatchV1.DispatchClient, error)
 	CarOrderClient(context.Context, ...filterc.Filter) (carorderV1.CarOrderClient, error)
 	CarProxyClient(context.Context, ...filterc.Filter) (carproxyV1.CarProxyClient, error)
-	CarControlClient(context.Context, ...filterc.Filter) (carproxyV1.CarProxyClient, error)
+	CarControlClient(context.Context, ...filterc.Filter) (carcontrolV1.CarControlClient, error)
 	CarMeasureClient(context.Context, ...filterc.Filter) (carmeasureV1.CarMeasureClient, error)
 	CarFlightClient(context.Context, ...filterc.Filter) (carflightV1.CarFlightClient, error)
 	FileStorageClient(context.Context, ...filterc.Filter) (filestorageV1.FileStorageClient, error)
@@ -193,13 +194,13 @@ func (c *Client) CarProxyClient(ctx context.Context, filters ...filterc.Filter) 
 }
 
 // CarControlClient
-func (c *Client) CarControlClient(ctx context.Context, filters ...filterc.Filter) (carproxyV1.CarProxyClient, error) {
+func (c *Client) CarControlClient(ctx context.Context, filters ...filterc.Filter) (carcontrolV1.CarControlClient, error) {
 	conn, err := c.grpcConn(ctx, typec.Service_MsCarControl, filters...)
 	if err != nil {
 		return nil, fmt.Errorf("grpc.Dial error: %w", err)
 	}
 
-	return carproxyV1.NewCarProxyClient(conn), nil
+	return carcontrolV1.NewCarControlClient(conn), nil
 }
 
 // CarProxyClient

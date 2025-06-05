@@ -11,6 +11,13 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+func ToTime(ts *timestamppb.Timestamp) time.Time {
+	if ts == nil {
+		return time.Time{}
+	}
+	return ts.AsTime()
+}
+
 func ToPbTimestamp0(t time.Time) *timestamppb.Timestamp {
 	return timestamppb.New(t)
 }
