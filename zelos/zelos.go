@@ -38,6 +38,8 @@ type IZelos interface {
 	UpdateStops(ctx context.Context, req *UpdateStopsRequest) error
 	// 删除停车点
 	DeleteStops(ctx context.Context, req *DeleteStopsRequest) error
+	// PreviewNavigation
+	PreviewNavigation(ctx context.Context, req *PreviewNavigationRequest) (*PreviewNavigation, error)
 	// 常用命令（关机/重启/车辆刹车/继续行走/远程上电/车辆到达）
 	CommonCmd(ctx context.Context, req *CommonCmdRequest) error
 }
@@ -60,7 +62,7 @@ func NewZelos(domainAddr, appId, appKey string) IZelos {
 		AppId:      appId,
 		AppKey:     appKey,
 
-		httpCli: &http.Client{Timeout: 5 * time.Second},
+		httpCli: &http.Client{Timeout: 10 * time.Second},
 	}
 }
 
@@ -333,6 +335,30 @@ func (z *Zelos) DeleteStops(ctx context.Context, req *DeleteStopsRequest) error 
 	}
 
 	return nil
+}
+
+// PreviewNavigation 预览车辆规划路径
+func (z *Zelos) PreviewNavigation(ctx context.Context, req *PreviewNavigationRequest) (*PreviewNavigation, error) {
+	bs, err := json.Marshal(req)
+	if err != nil {
+		return nil, fmt.Errorf("json.Marshal error: %w", err)
+	}
+
+	respBs, err := z.post(ctx, "/business-server/open-apis/vehicle/preview_navigation", nil, bs)
+	if err != nil {
+		return nil, fmt.Errorf("z.post error: %w", err)
+	}
+
+	var data PreviewNavigationResp
+	err = json.Unmarshal(respBs, &data)
+	if err != nil {
+		return nil, fmt.Errorf("json.Unmarshal error: %w", err)
+
+	} else if !data.Success {
+		return nil, NewError(data.ErrorCode, data.Message)
+	}
+
+	return data.Data, nil
 }
 
 // CommonCmd 下发常用指令

@@ -23,6 +23,7 @@ type ICarFlight interface {
 	GetFlightPath(context.Context, *carflightV1.GetFlightPathRequest, ...filterc.Filter) (*carflightV1.GetFlightPathReply, error)
 	GetRoutePath(context.Context, *carflightV1.GetRoutePathRequest, ...filterc.Filter) (*carflightV1.GetRoutePathReply, error)
 	UpdateFlightBooking(context.Context, *carflightV1.UpdateFlightBookingRequest, ...filterc.Filter) (*emptypb.Empty, error)
+	UpdateFlightCoord(context.Context, *carflightV1.UpdateFlightCoordRequest, ...filterc.Filter) (*emptypb.Empty, error)
 
 	// 调用zelos查询车辆详情
 	GetYokeeCarDetail(context.Context, *carflightV1.GetYokeeCarDetailRequest, ...filterc.Filter) (*carflightV1.GetYokeeCarDetailReply, error)
@@ -178,6 +179,18 @@ func (c *CarFlightGrpc) UpdateFlightBooking(ctx context.Context, req *carflightV
 	reply, err := cli.UpdateFlightBooking(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.UpdateFlightBooking error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarFlightGrpc) UpdateFlightCoord(ctx context.Context, req *carflightV1.UpdateFlightCoordRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
+	cli, err := c.client.CarFlightClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarFlightClient error: %w", err)
+	}
+	reply, err := cli.UpdateFlightCoord(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.UpdateFlightCoord error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

@@ -294,6 +294,34 @@ type DeleteStopsRequest struct {
 	UserName string `json:"userName,omitempty"`
 }
 
+type PreviewNavigationRequest struct {
+	VehicleName string `json:"vehicleName,omitempty"`
+	FromStopId  int    `json:"fromStopId,omitempty"`
+	ToStopIds   []int  `json:"toStopIds,omitempty"`
+}
+
+type Point struct {
+	Lon      float64 `json:"lon,omitempty"`
+	Lat      float64 `json:"lat,omitempty"`
+	Gcj02Lon float64 `json:"gcj02Lon,omitempty"`
+	Gcj02Lat float64 `json:"gcj02Lat,omitempty"`
+}
+
+type Path struct {
+	Points []Point `json:"points,omitempty"`
+	Length float64 `json:"length,omitempty"`
+}
+
+type PreviewNavigation struct {
+	Paths       []Path  `json:"paths,omitempty"`
+	TotalLength float32 `json:"totalLength,omitempty"`
+}
+
+type PreviewNavigationResp struct {
+	Status
+	Data *PreviewNavigation `json:"data,omitempty"`
+}
+
 type CommonCmdRequest struct {
 	VehicleName string      `json:"vehicleName,omitempty"`
 	CommandType CommandType `json:"commandType,omitempty"`
