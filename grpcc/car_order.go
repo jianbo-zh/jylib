@@ -32,6 +32,7 @@ type ICarOrder interface {
 	CheckOrderSharingResult(context.Context, *orderV1.CheckOrderSharingResultRequest, ...filterc.Filter) (*orderV1.CheckOrderSharingResultReply, error)
 	EmitSOSEvent(context.Context, *orderV1.EmitSOSEventRequest, ...filterc.Filter) (*orderV1.EmitSOSEventReply, error)
 	CancelSOSEvent(context.Context, *orderV1.CancelSOSEventRequest, ...filterc.Filter) (*orderV1.CancelSOSEventReply, error)
+	EstimateFlightOrderAmount(context.Context, *orderV1.EstimateFlightOrderAmountRequest, ...filterc.Filter) (*orderV1.EstimateFlightOrderAmountReply, error)
 	CancelUnuseFlightOrders(context.Context, *orderV1.CancelUnuseFlightOrdersRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	CancelInuseFlightOrders(context.Context, *orderV1.CancelInuseFlightOrdersRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	FinishInuseFlightOrders(context.Context, *orderV1.FinishInuseFlightOrdersRequest, ...filterc.Filter) (*emptypb.Empty, error)
@@ -305,6 +306,18 @@ func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSO
 	reply, err := cli.CancelSOSEvent(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("cli.CancelSOSEvent error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarOrderGrpc) EstimateFlightOrderAmount(ctx context.Context, req *orderV1.EstimateFlightOrderAmountRequest, filters ...filterc.Filter) (*orderV1.EstimateFlightOrderAmountReply, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.EstimateFlightOrderAmount(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.EstimateFlightOrderAmount error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }

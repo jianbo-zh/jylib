@@ -79,7 +79,7 @@ func Prepay(ctx context.Context, payConf *PayConf, req *PrepayRequest) (*jsapi.P
 
 	client, err := core.NewClient(ctx, opts...)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("core.NewClient error: %w", err)
 	}
 
 	svc := jsapi.JsapiApiService{Client: client}
@@ -107,7 +107,7 @@ func Prepay(ctx context.Context, payConf *PayConf, req *PrepayRequest) (*jsapi.P
 		payConf.AppId,
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("svc.PrepayWithRequestPayment error: %w", err)
 	}
 
 	return resp, nil

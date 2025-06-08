@@ -927,8 +927,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/jftuga/geodist v1.0.0 h1:PFPQlZtj10u8ETAYTyxE0DWMl1bwA+Xzrqb4+oLkkC0=
 github.com/jftuga/geodist v1.0.0/go.mod h1:BohEDxpZ8S5ADAxW/9EKPSKWOVl0+3wHENIT40m4UO4=
-github.com/jianbo-zh/jypb v0.1.39 h1:HyX3XOf7zNslY79LiZ4LywCVryBzKrDyvCQFbmd/6/0=
-github.com/jianbo-zh/jypb v0.1.39/go.mod h1:R5C4R2N/R6EpMjEU4iCfAajZ/SAE7Oc159qD+JrIbSM=
+github.com/jianbo-zh/jypb v0.1.40 h1:u5WzLrm7qNIMxV/KzmBHs9xv7VAMToX+pVgebrTzC14=
+github.com/jianbo-zh/jypb v0.1.40/go.mod h1:R5C4R2N/R6EpMjEU4iCfAajZ/SAE7Oc159qD+JrIbSM=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af h1:pmfjZENx5imkbgOkpRUYLnmbU7UEFbjtDA2hxJ1ichM=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/json-iterator/go v1.1.5/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCVDaaPEHmU=
