@@ -37,6 +37,7 @@ type ICarOrder interface {
 	CancelInuseFlightOrders(context.Context, *orderV1.CancelInuseFlightOrdersRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	FinishInuseFlightOrders(context.Context, *orderV1.FinishInuseFlightOrdersRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	GetUserCoupons(context.Context, *orderV1.GetUserCouponsRequest, ...filterc.Filter) (*orderV1.GetUserCouponsReply, error)
+	IssueUserCoupon(context.Context, *orderV1.IssueUserCouponRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	GetFlightOrder(context.Context, *orderV1.GetFlightOrderRequest, ...filterc.Filter) (*orderV1.FlightOrder, error)
 	CreateFlightOrder(context.Context, *orderV1.CreateFlightOrderRequest, ...filterc.Filter) (*orderV1.FlightOrder, error)
 	GetFlightOrderList(context.Context, *orderV1.GetFlightOrderListRequest, ...filterc.Filter) (*orderV1.GetFlightOrderListReply, error)
@@ -46,6 +47,7 @@ type ICarOrder interface {
 	CreateOrderAppeal(context.Context, *orderV1.CreateOrderAppealRequest, ...filterc.Filter) (*orderV1.OrderAppeal, error)
 	CancelOrderAppeal(context.Context, *orderV1.CancelOrderAppealRequest, ...filterc.Filter) (*emptypb.Empty, error)
 	GetOrderAppealList(context.Context, *orderV1.GetOrderAppealListRequest, ...filterc.Filter) (*orderV1.GetOrderAppealListReply, error)
+	ReviewOrderAppeal(context.Context, *orderV1.ReviewOrderAppealRequest, ...filterc.Filter) (*emptypb.Empty, error)
 }
 
 type CarOrderGrpc struct {
@@ -365,7 +367,19 @@ func (c *CarOrderGrpc) GetUserCoupons(ctx context.Context, req *orderV1.GetUserC
 	}
 	reply, err := cli.GetUserCoupons(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetUserCoupons error: %w", err)
+		return nil, fmt.Errorf("cli.GetUserCoupons error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarOrderGrpc) IssueUserCoupon(ctx context.Context, req *orderV1.IssueUserCouponRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.IssueUserCoupon(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.IssueUserCoupon error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -377,7 +391,7 @@ func (c *CarOrderGrpc) GetFlightOrder(ctx context.Context, req *orderV1.GetFligh
 	}
 	reply, err := cli.GetFlightOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightOrder error: %w", err)
+		return nil, fmt.Errorf("cli.GetFlightOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -389,7 +403,7 @@ func (c *CarOrderGrpc) CreateFlightOrder(ctx context.Context, req *orderV1.Creat
 	}
 	reply, err := cli.CreateFlightOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateFlightOrder error: %w", err)
+		return nil, fmt.Errorf("cli.CreateFlightOrder error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -401,7 +415,7 @@ func (c *CarOrderGrpc) GetFlightOrderList(ctx context.Context, req *orderV1.GetF
 	}
 	reply, err := cli.GetFlightOrderList(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightOrderList error: %w", err)
+		return nil, fmt.Errorf("cli.GetFlightOrderList error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -413,7 +427,7 @@ func (c *CarOrderGrpc) GetFlightOrderStops(ctx context.Context, req *orderV1.Get
 	}
 	reply, err := cli.GetFlightOrderStops(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightOrderStops error: %w", err)
+		return nil, fmt.Errorf("cli.GetFlightOrderStops error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -425,7 +439,7 @@ func (c *CarOrderGrpc) GetOrderAppeal(ctx context.Context, req *orderV1.GetOrder
 	}
 	reply, err := cli.GetOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderAppeal error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrderAppeal error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -437,7 +451,7 @@ func (c *CarOrderGrpc) CreateOrderAppeal(ctx context.Context, req *orderV1.Creat
 	}
 	reply, err := cli.CreateOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateOrderAppeal error: %w", err)
+		return nil, fmt.Errorf("cli.CreateOrderAppeal error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -449,7 +463,7 @@ func (c *CarOrderGrpc) CancelOrderAppeal(ctx context.Context, req *orderV1.Cance
 	}
 	reply, err := cli.CancelOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelOrderAppeal error: %w", err)
+		return nil, fmt.Errorf("cli.CancelOrderAppeal error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
@@ -461,7 +475,19 @@ func (c *CarOrderGrpc) GetOrderAppealList(ctx context.Context, req *orderV1.GetO
 	}
 	reply, err := cli.GetOrderAppealList(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderAppealList error: %w", err)
+		return nil, fmt.Errorf("cli.GetOrderAppealList error: %w", errors.FromError(err))
+	}
+	return reply, nil
+}
+
+func (c *CarOrderGrpc) ReviewOrderAppeal(ctx context.Context, req *orderV1.ReviewOrderAppealRequest, filters ...filterc.Filter) (*emptypb.Empty, error) {
+	cli, err := c.client.CarOrderClient(ctx, filters...)
+	if err != nil {
+		return nil, fmt.Errorf("c.CarOrderClient error: %w", err)
+	}
+	reply, err := cli.ReviewOrderAppeal(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("cli.ReviewOrderAppeal error: %w", errors.FromError(err))
 	}
 	return reply, nil
 }
