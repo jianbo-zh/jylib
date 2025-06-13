@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
-	"github.com/jianbo-zh/jypb/api/zzz/v1"
+	zzzV1 "github.com/jianbo-zh/jypb/api/zzz/v1"
 )
 
 type ICarProxy interface {
@@ -59,7 +59,7 @@ func (c *CarProxyGrpc) UserSOSLockCar(ctx context.Context, req *zzzV1.UserSOSLoc
 	}
 	reply, err := cli.UserSOSLockCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UserSOSLockCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UserSOSLockCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -71,7 +71,7 @@ func (c *CarProxyGrpc) UserLockCar(ctx context.Context, req *zzzV1.UserLockCarRe
 	}
 	reply, err := cli.UserLockCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UserLockCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UserLockCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -83,7 +83,7 @@ func (c *CarProxyGrpc) UserUnlockCar(ctx context.Context, req *zzzV1.UserUnlockC
 	}
 	reply, err := cli.UserUnlockCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UserUnlockCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UserUnlockCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -95,7 +95,7 @@ func (c *CarProxyGrpc) UserReturnCar(ctx context.Context, req *zzzV1.UserReturnC
 	}
 	reply, err := cli.UserReturnCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UserReturnCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UserReturnCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -107,7 +107,7 @@ func (c *CarProxyGrpc) UserAutoDriving(ctx context.Context, req *zzzV1.UserAutoD
 	}
 	reply, err := cli.UserAutoDriving(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UserAutoDriving error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UserAutoDriving error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -119,7 +119,7 @@ func (c *CarProxyGrpc) UserManualDriving(ctx context.Context, req *zzzV1.UserMan
 	}
 	reply, err := cli.UserManualDriving(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UserManualDriving error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UserManualDriving error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -131,7 +131,7 @@ func (c *CarProxyGrpc) DevopsEnterMaintainMode(ctx context.Context, req *zzzV1.D
 	}
 	reply, err := cli.DevopsEnterMaintainMode(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsEnterMaintainMode error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsEnterMaintainMode error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -143,7 +143,7 @@ func (c *CarProxyGrpc) DevopsExitMaintainMode(ctx context.Context, req *zzzV1.De
 	}
 	reply, err := cli.DevopsExitMaintainMode(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsExitMaintainMode error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsExitMaintainMode error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -155,7 +155,7 @@ func (c *CarProxyGrpc) DevopsUnlockCar(ctx context.Context, req *zzzV1.DevopsUnl
 	}
 	reply, err := cli.DevopsUnlockCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsUnlockCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsUnlockCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -167,7 +167,7 @@ func (c *CarProxyGrpc) DevopsLockCar(ctx context.Context, req *zzzV1.DevopsLockC
 	}
 	reply, err := cli.DevopsLockCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsLockCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsLockCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -179,7 +179,7 @@ func (c *CarProxyGrpc) DevopsReturnCar(ctx context.Context, req *zzzV1.DevopsRet
 	}
 	reply, err := cli.DevopsReturnCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsReturnCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsReturnCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -191,7 +191,7 @@ func (c *CarProxyGrpc) DevopsAutoDriving(ctx context.Context, req *zzzV1.DevopsA
 	}
 	reply, err := cli.DevopsAutoDriving(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsAutoDriving error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsAutoDriving error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -203,7 +203,7 @@ func (c *CarProxyGrpc) DevopsManualDriving(ctx context.Context, req *zzzV1.Devop
 	}
 	reply, err := cli.DevopsManualDriving(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DevopsManualDriving error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DevopsManualDriving error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -215,7 +215,7 @@ func (c *CarProxyGrpc) AdminReturnCar(ctx context.Context, req *zzzV1.AdminRetur
 	}
 	reply, err := cli.AdminReturnCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminReturnCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminReturnCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -227,7 +227,7 @@ func (c *CarProxyGrpc) AdminUpdateMapVersion(ctx context.Context, req *zzzV1.Adm
 	}
 	reply, err := cli.AdminUpdateMapVersion(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminUpdateMapVersion error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminUpdateMapVersion error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -239,7 +239,7 @@ func (c *CarProxyGrpc) AdminUpdateStaticConfigs(ctx context.Context, req *zzzV1.
 	}
 	reply, err := cli.AdminUpdateStaticConfigs(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminUpdateStaticConfigs error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminUpdateStaticConfigs error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -251,7 +251,7 @@ func (c *CarProxyGrpc) AdminQueryLogBagFiles(ctx context.Context, req *zzzV1.Adm
 	}
 	reply, err := cli.AdminQueryLogBagFiles(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminQueryLogBagFiles error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminQueryLogBagFiles error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -263,7 +263,7 @@ func (c *CarProxyGrpc) AdminPackUploadFiles(ctx context.Context, req *zzzV1.Admi
 	}
 	reply, err := cli.AdminPackUploadFiles(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminPackUploadFiles error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminPackUploadFiles error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -275,7 +275,7 @@ func (c *CarProxyGrpc) AdminRemoteOperationLogin(ctx context.Context, req *zzzV1
 	}
 	reply, err := cli.AdminRemoteOperationLogin(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminRemoteOperationLogin error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminRemoteOperationLogin error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -287,7 +287,7 @@ func (c *CarProxyGrpc) AdminRemoteOperationLogout(ctx context.Context, req *zzzV
 	}
 	reply, err := cli.AdminRemoteOperationLogout(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AdminRemoteOperationLogout error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AdminRemoteOperationLogout error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -299,7 +299,7 @@ func (c *CarProxyGrpc) TaskSystemReturnCar(ctx context.Context, req *zzzV1.TaskS
 	}
 	reply, err := cli.TaskSystemReturnCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.TaskSystemReturnCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.TaskSystemReturnCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -311,7 +311,7 @@ func (c *CarProxyGrpc) TaskSystemUpdateFlightSeat(ctx context.Context, req *zzzV
 	}
 	reply, err := cli.TaskSystemUpdateFlightSeat(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.TaskSystemUpdateFlightSeat error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.TaskSystemUpdateFlightSeat error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -323,7 +323,7 @@ func (c *CarProxyGrpc) DispatchPlanPath(ctx context.Context, req *zzzV1.Dispatch
 	}
 	reply, err := cli.DispatchPlanPath(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DispatchPlanPath error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DispatchPlanPath error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -335,7 +335,7 @@ func (c *CarProxyGrpc) DispatchStart(ctx context.Context, req *zzzV1.DispatchSta
 	}
 	reply, err := cli.DispatchStart(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DispatchStart error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DispatchStart error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -347,7 +347,7 @@ func (c *CarProxyGrpc) DispatchRestart(ctx context.Context, req *zzzV1.DispatchR
 	}
 	reply, err := cli.DispatchRestart(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DispatchRestart error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DispatchRestart error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -359,7 +359,7 @@ func (c *CarProxyGrpc) DispatchLockCar(ctx context.Context, req *zzzV1.DispatchL
 	}
 	reply, err := cli.DispatchLockCar(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.DispatchLockCar error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.DispatchLockCar error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

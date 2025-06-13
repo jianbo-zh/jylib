@@ -15,7 +15,11 @@ func FromGrpcServiceError(err error) *Error {
 		return NewError(CodeUnknowErr, errk.Message)
 
 	} else {
-		return NewError(CodeUnknowErr, err.Error())
+		errk := errors.FromError(err)
+		if value, exists := ErrCode_value[errk.Reason]; exists {
+			return NewError(NewCode(int(value)), errk.Message)
+		}
+		return NewError(CodeUnknowErr, errk.Message)
 	}
 }
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	authV1 "github.com/jianbo-zh/jypb/api/carauth/v1"
 )
@@ -30,7 +30,7 @@ func (c *CarAuthGrpc) CheckAuth(ctx context.Context, req *authV1.CheckAuthReques
 	}
 	reply, err := cli.CheckAuth(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckAuth error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckAuth error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

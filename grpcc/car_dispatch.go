@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	dispatchV1 "github.com/jianbo-zh/jypb/api/cardispatch/v1"
 )
@@ -38,7 +38,7 @@ func (c *CarDispatchGrpc) CheckCarSchedulability(ctx context.Context, req *dispa
 	}
 	reply, err := cli.CheckCarSchedulability(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckCarSchedulability error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckCarSchedulability error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -50,7 +50,7 @@ func (c *CarDispatchGrpc) CheckCarReachability(ctx context.Context, req *dispatc
 	}
 	reply, err := cli.CheckCarReachability(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckCarReachability error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckCarReachability error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -62,7 +62,7 @@ func (c *CarDispatchGrpc) StartScheTask(ctx context.Context, req *dispatchV1.Sta
 	}
 	reply, err := cli.StartScheTask(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.StartScheTask error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.StartScheTask error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -74,7 +74,7 @@ func (c *CarDispatchGrpc) PauseScheTask(ctx context.Context, req *dispatchV1.Pau
 	}
 	reply, err := cli.PauseScheTask(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.PauseScheTask error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.PauseScheTask error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -86,7 +86,7 @@ func (c *CarDispatchGrpc) RestartScheTask(ctx context.Context, req *dispatchV1.R
 	}
 	reply, err := cli.RestartScheTask(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.RestartScheTask error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.RestartScheTask error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -98,7 +98,7 @@ func (c *CarDispatchGrpc) GetScheTask(ctx context.Context, req *dispatchV1.GetSc
 	}
 	reply, err := cli.GetScheTask(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetScheTask error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetScheTask error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -110,7 +110,7 @@ func (c *CarDispatchGrpc) GetScheTaskEvents(ctx context.Context, req *dispatchV1
 	}
 	reply, err := cli.GetScheTaskEvents(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetScheTaskEvents error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetScheTaskEvents error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -122,7 +122,7 @@ func (c *CarDispatchGrpc) CancelScheTask(ctx context.Context, req *dispatchV1.Ca
 	}
 	reply, err := cli.CancelScheTask(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelScheTask error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelScheTask error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -134,7 +134,7 @@ func (c *CarDispatchGrpc) FinishScheTask(ctx context.Context, req *dispatchV1.Fi
 	}
 	reply, err := cli.FinishScheTask(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.FinishScheTask error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.FinishScheTask error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	orderV1 "github.com/jianbo-zh/jypb/api/carorder/v1"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -67,7 +67,7 @@ func (c *CarOrderGrpc) GetOrder(ctx context.Context, req *orderV1.GetOrderReques
 	}
 	reply, err := cli.GetOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -79,7 +79,7 @@ func (c *CarOrderGrpc) GetGoingOrder(ctx context.Context, req *orderV1.GetGoingO
 	}
 	reply, err := cli.GetGoingOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetGoingOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetGoingOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -91,7 +91,7 @@ func (c *CarOrderGrpc) GetOrderList(ctx context.Context, req *orderV1.GetOrderLi
 	}
 	reply, err := cli.GetOrderList(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderList error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOrderList error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -103,7 +103,7 @@ func (c *CarOrderGrpc) CreateOrder(ctx context.Context, req *orderV1.CreateOrder
 	}
 	reply, err := cli.CreateOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CreateOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -115,7 +115,7 @@ func (c *CarOrderGrpc) CancelOrder(ctx context.Context, req *orderV1.CancelOrder
 	}
 	reply, err := cli.CancelOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -127,7 +127,7 @@ func (c *CarOrderGrpc) StartOrder(ctx context.Context, req *orderV1.StartOrderRe
 	}
 	reply, err := cli.StartOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.StartOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.StartOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -139,7 +139,7 @@ func (c *CarOrderGrpc) FinishOrder(ctx context.Context, req *orderV1.FinishOrder
 	}
 	reply, err := cli.FinishOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.FinishOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.FinishOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -151,7 +151,7 @@ func (c *CarOrderGrpc) CommentOrder(ctx context.Context, req *orderV1.CommentOrd
 	}
 	reply, err := cli.CommentOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CommentOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CommentOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -163,7 +163,7 @@ func (c *CarOrderGrpc) CheckOrderTimeoutAbort(ctx context.Context, req *orderV1.
 	}
 	reply, err := cli.CheckOrderTimeoutAbort(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderTimeoutAbort error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckOrderTimeoutAbort error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -175,7 +175,7 @@ func (c *CarOrderGrpc) CheckOrderExpiredClose(ctx context.Context, req *orderV1.
 	}
 	reply, err := cli.CheckOrderExpiredClose(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderExpiredClose error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckOrderExpiredClose error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -187,7 +187,7 @@ func (c *CarOrderGrpc) CheckOrderTimeoutCancel(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.CheckOrderTimeoutCancel(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderTimeoutCancel error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckOrderTimeoutCancel error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -199,7 +199,7 @@ func (c *CarOrderGrpc) PrepayOrder(ctx context.Context, req *orderV1.PrepayOrder
 	}
 	reply, err := cli.PrepayOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.PrepayOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.PrepayOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -211,7 +211,7 @@ func (c *CarOrderGrpc) CancelPayment(ctx context.Context, req *orderV1.CancelPay
 	}
 	reply, err := cli.CancelPayment(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelPayment error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelPayment error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -223,7 +223,7 @@ func (c *CarOrderGrpc) LaunchOrderRefund(ctx context.Context, req *orderV1.Launc
 	}
 	reply, err := cli.LaunchOrderRefund(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.LaunchOrderRefund error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.LaunchOrderRefund error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -235,7 +235,7 @@ func (c *CarOrderGrpc) ExecuteOrderRefund(ctx context.Context, req *orderV1.Exec
 	}
 	reply, err := cli.ExecuteOrderRefund(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.ExecuteOrderRefund error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.ExecuteOrderRefund error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -247,7 +247,7 @@ func (c *CarOrderGrpc) GetOrderRefunds(ctx context.Context, req *orderV1.GetOrde
 	}
 	reply, err := cli.GetOrderRefunds(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderRefunds error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOrderRefunds error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -259,7 +259,7 @@ func (c *CarOrderGrpc) GetOrderBilling(ctx context.Context, req *orderV1.GetOrde
 	}
 	reply, err := cli.GetOrderBilling(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderBilling error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOrderBilling error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -271,7 +271,7 @@ func (c *CarOrderGrpc) ExecuteOrderSharing(ctx context.Context, req *orderV1.Exe
 	}
 	reply, err := cli.ExecuteOrderSharing(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.ExecuteOrderSharing error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.ExecuteOrderSharing error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -283,7 +283,7 @@ func (c *CarOrderGrpc) CheckOrderSharingResult(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.CheckOrderSharingResult(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CheckOrderSharingResult error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CheckOrderSharingResult error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -295,7 +295,7 @@ func (c *CarOrderGrpc) EmitSOSEvent(ctx context.Context, req *orderV1.EmitSOSEve
 	}
 	reply, err := cli.EmitSOSEvent(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EmitSOSEvent error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.EmitSOSEvent error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -307,7 +307,7 @@ func (c *CarOrderGrpc) CancelSOSEvent(ctx context.Context, req *orderV1.CancelSO
 	}
 	reply, err := cli.CancelSOSEvent(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelSOSEvent error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelSOSEvent error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -319,7 +319,7 @@ func (c *CarOrderGrpc) EstimateFlightOrderAmount(ctx context.Context, req *order
 	}
 	reply, err := cli.EstimateFlightOrderAmount(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EstimateFlightOrderAmount error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.EstimateFlightOrderAmount error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -331,7 +331,7 @@ func (c *CarOrderGrpc) CancelUnuseFlightOrders(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.CancelUnuseFlightOrders(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelUnuseFlightOrders error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelUnuseFlightOrders error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -343,7 +343,7 @@ func (c *CarOrderGrpc) CancelInuseFlightOrders(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.CancelInuseFlightOrders(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelInuseFlightOrders error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelInuseFlightOrders error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -355,7 +355,7 @@ func (c *CarOrderGrpc) FinishInuseFlightOrders(ctx context.Context, req *orderV1
 	}
 	reply, err := cli.FinishInuseFlightOrders(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.FinishInuseFlightOrders error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.FinishInuseFlightOrders error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -367,7 +367,7 @@ func (c *CarOrderGrpc) GetUserCoupons(ctx context.Context, req *orderV1.GetUserC
 	}
 	reply, err := cli.GetUserCoupons(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetUserCoupons error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetUserCoupons error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -379,7 +379,7 @@ func (c *CarOrderGrpc) IssueUserCoupon(ctx context.Context, req *orderV1.IssueUs
 	}
 	reply, err := cli.IssueUserCoupon(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.IssueUserCoupon error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.IssueUserCoupon error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -391,7 +391,7 @@ func (c *CarOrderGrpc) GetFlightOrder(ctx context.Context, req *orderV1.GetFligh
 	}
 	reply, err := cli.GetFlightOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlightOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -403,7 +403,7 @@ func (c *CarOrderGrpc) CreateFlightOrder(ctx context.Context, req *orderV1.Creat
 	}
 	reply, err := cli.CreateFlightOrder(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateFlightOrder error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CreateFlightOrder error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -415,7 +415,7 @@ func (c *CarOrderGrpc) GetFlightOrderList(ctx context.Context, req *orderV1.GetF
 	}
 	reply, err := cli.GetFlightOrderList(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightOrderList error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlightOrderList error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -427,7 +427,7 @@ func (c *CarOrderGrpc) GetFlightOrderStops(ctx context.Context, req *orderV1.Get
 	}
 	reply, err := cli.GetFlightOrderStops(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightOrderStops error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlightOrderStops error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -439,7 +439,7 @@ func (c *CarOrderGrpc) GetOrderAppeal(ctx context.Context, req *orderV1.GetOrder
 	}
 	reply, err := cli.GetOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderAppeal error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOrderAppeal error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -451,7 +451,7 @@ func (c *CarOrderGrpc) CreateOrderAppeal(ctx context.Context, req *orderV1.Creat
 	}
 	reply, err := cli.CreateOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateOrderAppeal error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CreateOrderAppeal error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -463,7 +463,7 @@ func (c *CarOrderGrpc) CancelOrderAppeal(ctx context.Context, req *orderV1.Cance
 	}
 	reply, err := cli.CancelOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CancelOrderAppeal error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CancelOrderAppeal error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -475,7 +475,7 @@ func (c *CarOrderGrpc) GetOrderAppealList(ctx context.Context, req *orderV1.GetO
 	}
 	reply, err := cli.GetOrderAppealList(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOrderAppealList error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOrderAppealList error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -487,7 +487,7 @@ func (c *CarOrderGrpc) ReviewOrderAppeal(ctx context.Context, req *orderV1.Revie
 	}
 	reply, err := cli.ReviewOrderAppeal(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.ReviewOrderAppeal error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.ReviewOrderAppeal error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

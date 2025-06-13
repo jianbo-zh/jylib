@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	mapV1 "github.com/jianbo-zh/jypb/api/parkmap/v1"
 )
@@ -34,7 +34,7 @@ func (c *ParkMapGrpc) CreateMapVersion(ctx context.Context, req *mapV1.CreateMap
 	}
 	reply, err := cli.CreateMapVersion(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateMapVersion error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CreateMapVersion error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -46,7 +46,7 @@ func (c *ParkMapGrpc) GetMapVersions(ctx context.Context, req *mapV1.GetMapVersi
 	}
 	reply, err := cli.GetMapVersions(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetMapVersions error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetMapVersions error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -58,7 +58,7 @@ func (c *ParkMapGrpc) GetMapVersion(ctx context.Context, req *mapV1.GetMapVersio
 	}
 	reply, err := cli.GetMapVersion(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetMapVersion error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetMapVersion error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -70,7 +70,7 @@ func (c *ParkMapGrpc) GetVersionMap(ctx context.Context, req *mapV1.GetVersionMa
 	}
 	reply, err := cli.GetVersionMap(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetVersionMap error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetVersionMap error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -82,7 +82,7 @@ func (c *ParkMapGrpc) GetVersionPois(ctx context.Context, req *mapV1.GetVersionP
 	}
 	reply, err := cli.GetVersionPois(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetVersionPois error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetVersionPois error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

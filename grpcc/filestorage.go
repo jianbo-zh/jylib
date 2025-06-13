@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	fsV1 "github.com/jianbo-zh/jypb/api/filestorage/v1"
 )
@@ -33,7 +33,7 @@ func (c *FileStorageGrpc) SaveFile(ctx context.Context, req *fsV1.SaveFileReques
 	}
 	reply, err := cli.SaveFile(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.SaveFile error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.SaveFile error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -45,7 +45,7 @@ func (c *FileStorageGrpc) GetFiles(ctx context.Context, req *fsV1.GetFilesReques
 	}
 	reply, err := cli.GetFiles(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFiles error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFiles error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -57,7 +57,7 @@ func (c *FileStorageGrpc) GetFile(ctx context.Context, req *fsV1.GetFileRequest,
 	}
 	reply, err := cli.GetFile(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFile error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFile error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -69,7 +69,7 @@ func (c *FileStorageGrpc) GetFileData(ctx context.Context, req *fsV1.GetFileData
 	}
 	reply, err := cli.GetFileData(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFileData error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFileData error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

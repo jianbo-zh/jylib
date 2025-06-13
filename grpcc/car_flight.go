@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	carflightV1 "github.com/jianbo-zh/jypb/api/carflight/v1"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -47,7 +47,7 @@ func (c *CarFlightGrpc) CreateFlight(ctx context.Context, req *carflightV1.Creat
 	}
 	reply, err := cli.CreateFlight(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.CreateFlight error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.CreateFlight error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -59,7 +59,7 @@ func (c *CarFlightGrpc) StartFlight(ctx context.Context, req *carflightV1.StartF
 	}
 	reply, err := cli.StartFlight(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.StartFlight error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.StartFlight error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -71,7 +71,7 @@ func (c *CarFlightGrpc) EndFlight(ctx context.Context, req *carflightV1.EndFligh
 	}
 	reply, err := cli.EndFlight(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.EndFlight error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.EndFlight error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -83,7 +83,7 @@ func (c *CarFlightGrpc) TempParking(ctx context.Context, req *carflightV1.TempPa
 	}
 	reply, err := cli.TempParking(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.TempParking error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.TempParking error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -95,7 +95,7 @@ func (c *CarFlightGrpc) KeepDriving(ctx context.Context, req *carflightV1.KeepDr
 	}
 	reply, err := cli.KeepDriving(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.KeepDriving error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.KeepDriving error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -107,7 +107,7 @@ func (c *CarFlightGrpc) ArrivalStop(ctx context.Context, req *carflightV1.Arriva
 	}
 	reply, err := cli.ArrivalStop(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.ArrivalStop error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.ArrivalStop error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -119,7 +119,7 @@ func (c *CarFlightGrpc) GotoNextStop(ctx context.Context, req *carflightV1.GotoN
 	}
 	reply, err := cli.GotoNextStop(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GotoNextStop error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GotoNextStop error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -131,7 +131,7 @@ func (c *CarFlightGrpc) GetFlight(ctx context.Context, req *carflightV1.GetFligh
 	}
 	reply, err := cli.GetFlight(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlight error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlight error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -143,7 +143,7 @@ func (c *CarFlightGrpc) GetFlightEstimate(ctx context.Context, req *carflightV1.
 	}
 	reply, err := cli.GetFlightEstimate(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightEstimate error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlightEstimate error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -155,7 +155,7 @@ func (c *CarFlightGrpc) GetOptionalFlights(ctx context.Context, req *carflightV1
 	}
 	reply, err := cli.GetOptionalFlights(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetOptionalFlights error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetOptionalFlights error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -167,7 +167,7 @@ func (c *CarFlightGrpc) GetFlightPath(ctx context.Context, req *carflightV1.GetF
 	}
 	reply, err := cli.GetFlightPath(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetFlightPath error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetFlightPath error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -179,7 +179,7 @@ func (c *CarFlightGrpc) GetRoutePath(ctx context.Context, req *carflightV1.GetRo
 	}
 	reply, err := cli.GetRoutePath(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetRoutePath error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetRoutePath error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -191,7 +191,7 @@ func (c *CarFlightGrpc) UpdateFlightBooking(ctx context.Context, req *carflightV
 	}
 	reply, err := cli.UpdateFlightBooking(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UpdateFlightBooking error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UpdateFlightBooking error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -203,7 +203,7 @@ func (c *CarFlightGrpc) UpdateFlightCoord(ctx context.Context, req *carflightV1.
 	}
 	reply, err := cli.UpdateFlightCoord(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.UpdateFlightCoord error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.UpdateFlightCoord error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
@@ -215,7 +215,7 @@ func (c *CarFlightGrpc) GetYokeeCarDetail(ctx context.Context, req *carflightV1.
 	}
 	reply, err := cli.GetYokeeCarDetail(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.GetYokeeCarDetail error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.GetYokeeCarDetail error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }

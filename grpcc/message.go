@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/jianbo-zh/jylib/errc"
 	"github.com/jianbo-zh/jylib/grpcc/filterc"
 	msgV1 "github.com/jianbo-zh/jypb/api/message/v1"
 )
@@ -30,7 +30,7 @@ func (c *MessageGrpc) AppPush(ctx context.Context, req *msgV1.AppPushRequest, fi
 	}
 	reply, err := cli.AppPush(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("cli.AppPush error: %w", errors.FromError(err))
+		return nil, fmt.Errorf("cli.AppPush error: %w", errc.FromGrpcServiceError(err))
 	}
 	return reply, nil
 }
